@@ -1,8 +1,6 @@
-import '../design.footer.css'
-
 export default function Footer() {
     return (
-        <section id="footer">
+        <section className='footer'>
             <div className="footer-content">
                 {/* Hírlevél regisztráció */}
                 <div className="newsletter">
