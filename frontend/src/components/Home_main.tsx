@@ -1,10 +1,21 @@
 export function Hero() {  
   return(
-    <section>
+    <section className="hero">
+      <div className="hero-text">
         <h1 className="h1_alter">Kövesd nyomon pénzügyeidet egyszerűen és gyorsan</h1>
-        <p>Ez a mobilbanki alkalmazás lehetővé teszi, hogy könnyedén nyomon kövesd bevételeidet és kiadásaidat. Használatával egyszerűsítheted a pénzügyeid kezelését, és mindig tudni fogod, hol állsz anyagilag.</p>
-        <button className="main_button_altern">Tudj meg többet</button>
-        <button className="secundary_button_alter">Registration</button>
+        <p>
+          Ez a mobilbanki alkalmazás lehetővé teszi, hogy könnyedén nyomon
+          kövesd bevételeidet és kiadásaidat. Használatával egyszerűsítheted a
+          pénzügyeid kezelését, és mindig tudni fogod, hol állsz anyagilag.
+        </p>
+        <div className="hero-buttons">
+          <button className="main_button_altern">Tudj meg többet</button>
+          <button className="secundary_button_alter">Regisztráció</button>
+        </div>
+      </div>
+      <div className="hero-image">
+        <img src="/path/to/hero-image.png" alt="Hero Illustration" />
+      </div>
     </section>
   );
 }
