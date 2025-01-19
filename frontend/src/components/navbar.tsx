@@ -1,3 +1,4 @@
+import LoginDropdown from "./LoginDropdown";
 
 export default function CostumeNavbar() {
     return (
@@ -19,7 +20,7 @@ export default function CostumeNavbar() {
   
         {/* Jobb oldalon a login */}
         <div className="login">
-          <button className="login-button">Bejelentkezés</button>
+          <LoginDropdown/>
         </div>
       </nav>
     );
