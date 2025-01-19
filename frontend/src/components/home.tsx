@@ -1,7 +1,9 @@
-import Hero from "./Hero";
+import Footer from "./Footer";
+import { Hero,Function, Advantages, TryItOut, HowItWork, NewsLetter, Contact } from "./Home_main";
 import CostumeNavbar from "./navbar";
 
-export default function Kezdolap() {
+
+export default function HomePage() {
     return (
         <>
             <header>
