@@ -3,7 +3,7 @@ import { Hero,Function, Advantages, TryItOut, HowItWork, NewsLetter, Contact } f
 import CostumeNavbar from "./navbar";
 
 
-export default function Kezdolap() {
+export default function HomePage() {
     return (
         <>
             <header>
