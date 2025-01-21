@@ -1,0 +1,77 @@
+section.HowItWork {
+    background-color: #FFFFFF;
+    padding: 40px;
+    text-align: center;
+  }
+  
+  .HowItWork-text {
+    margin-bottom: 30px;
+  }
+  
+  .HowItWork-text h3 {
+    font-size: 28px;
+    color: #333333;
+    margin: 0 auto;
+    max-width: 50%;
+    text-align: center;
+  }
+  
+  .HowItWork-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  .HowItWork-card {
+    background-color: #F9F9F9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    max-width: 300px;
+    text-align: center;
+    transition: transform 0.3s ease;
+  }
+  
+  .HowItWork-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .HowItWork-image img {
+    max-width: 100px;
+    margin: 0 auto 10px;
+  }
+  
+  .HowItWork-card-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 10px 0;
+    color: #333333;
+  }
+  
+  .HowItWork_card_text {
+    font-size: 14px;
+    color: #666666;
+    margin-bottom: 20px;
+  }
+  
+  .HowItWork-buttons {
+    margin-top: 15px;
+  }
+  
+  .HowItWork-buttons .secundary_button {
+    background-color: transparent;
+    color: #FF7F50;
+    border: 1px solid #FF7F50;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .HowItWork-buttons .secundary_button:hover {
+    background-color: #FF7F50;
+    color: #FFFFFF;
+  }
+  
