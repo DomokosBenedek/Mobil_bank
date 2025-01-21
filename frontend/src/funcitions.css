@@ -1,0 +1,99 @@
+.funcions {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+  background-color: #f9f9f9;
+}
+
+.funcions-text {
+  text-align: center;
+  max-width: 800px;
+  margin-bottom: 40px;
+}
+
+.funcions h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.funcions p {
+  font-size: 1.2rem;
+  color: #666;
+}
+
+.funcions-cards {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+}
+
+.funcions-card {
+  flex: 1;
+  max-width: 25%;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  text-align: center;
+  padding: 20px;
+}
+
+.funcions-card img {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 15px;
+}
+
+.funcions-card-title {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.funcions_card_text {
+  font-size: 1rem;
+  color: #666;
+}
+
+.funcions-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.main_button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  color: #ff8c00;
+  border: 2px solid #ff8c00;
+  background-color: transparent;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.main_button:hover {
+  background-color: #ff8c00;
+  color: #fff;
+  border: darkblue 2px solid;
+}
+
+.secundary_button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  color: #ff8c00;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.secundary_button:hover {
+  color: darkblue;
+}

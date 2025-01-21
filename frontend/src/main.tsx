@@ -5,6 +5,7 @@ import './footer.css'
 import './navbar.css'
 import './hero.css'
 import './LoginDropdown.css'
+import './funcitions.css'
 import HomePage from './components/home.tsx'
 
 createRoot(document.getElementById('root')!).render(

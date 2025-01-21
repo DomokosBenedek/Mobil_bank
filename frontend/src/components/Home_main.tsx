@@ -19,43 +19,43 @@ export function Hero() {
 }
 
 export function Functions() {  
-    return (
-      <section className="funcions">
+  return (
+    <section className="funcions">
       <div className="funcions-text">
         <h2 className="h2">Fedezd fel a pénzügyeid világát!</h2>
         <p>
         Az alkalmazás lehetővé teszi a bevételeid és kiadásaid egyszerű nyomon követését. Intuitív felülete segít a pénzügyeid kezelésében, hogy mindig tisztában legyél a helyzeteddel.
         </p>
-        <div className="funcions-cards">
-          <div className="funcions-card">
-            <div className="funcions-image">
-              <img src="/path/to/fero-image1.png" alt="Funcions Illustration" />
-            </div>
-            <h4 className="funcions-card-title">Bevételek és kiadások nyomon követése</h4>
-            <p className="funcions_card_text">Könnyedén rögzítheted és ellenőrizheted pénzügyeidet.</p>
+      </div>
+      <div className="funcions-cards">
+        <div className="funcions-card">
+          <div className="funcions-image">
+            <img src="/path/to/fero-image1.png" alt="Funcions Illustration" />
           </div>
-          <div className="funcions-card">
-            <div className="funcions-image">
-              <img src="/path/to/fero-image2.png" alt="Funcions Illustration" />
-            </div>
-            <h4 className="funcions-card-title">Fizetések egyszerű kezelése</h4>
-            <p className="funcions_card_text">Az alkalmazás segítségével gyorsan intézheted a kifizetéseidet.</p>
-          </div>
-          <div className="funcions-card">
-            <div className="funcions-image">
-              <img src="/path/to/fero-image3.png" alt="Funcions Illustration" />
-            </div>
-            <h4 className="funcions-card-title">Felhasználói adatbázis kezelése</h4>
-            <p className="funcions_card_text">Biztonságosan tárolhatod adataidat és tranzakcióidat.</p>
-          </div>
+          <h4 className="funcions-card-title">Bevételek és kiadások nyomon követése</h4>
+          <p className="funcions_card_text">Könnyedén rögzítheted és ellenőrizheted pénzügyeidet.</p>
         </div>
-        <div className="funcions-buttons">
-          <button className="main_button">Tudj meg többet</button>
-          <button className="secundary_button">Regisztráció</button>
+        <div className="funcions-card">
+          <div className="funcions-image">
+            <img src="/path/to/fero-image2.png" alt="Funcions Illustration" />
+          </div>
+          <h4 className="funcions-card-title">Fizetések egyszerű kezelése</h4>
+          <p className="funcions_card_text">Az alkalmazás segítségével gyorsan intézheted a kifizetéseidet.</p>
+        </div>
+        <div className="funcions-card">
+          <div className="funcions-image">
+            <img src="/path/to/fero-image3.png" alt="Funcions Illustration" />
+          </div>
+          <h4 className="funcions-card-title">Felhasználói adatbázis kezelése</h4>
+          <p className="funcions_card_text">Biztonságosan tárolhatod adataidat és tranzakcióidat.</p>
         </div>
       </div>
+      <div className="funcions-buttons">
+        <button className="main_button">Tudj meg többet</button>
+        <button className="secundary_button">Regisztráció</button>
+      </div>
     </section>
-    )
+  )
 }
 export function Advantages() {  
     return (
