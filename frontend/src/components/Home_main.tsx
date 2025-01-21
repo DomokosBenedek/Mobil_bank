@@ -62,10 +62,11 @@ export function NewsLetter() {
           </form>
           <p className="tiny">By clicking Sign Up you're confirming that you agree with our Terms and Conditions.</p>
         </div>
-        
+        {/*
         <div className="NewsLetter-image">
           <img src="/path/to/NewsLetter-image.png" alt="NewsLetter Illustration" />
         </div>
+        /*/}
     </section>
     )
 }
