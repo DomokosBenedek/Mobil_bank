@@ -36,9 +36,21 @@ export function Advantages() {
 }
 export function TryItOut() {  
     return (
-      <>
-        
-      </>
+      <section className="TryItOut">
+      <div className="TryItOut-text">
+        <h2 className="h2_alter">Próbáld ki most az alkalmazást</h2>
+        <p>
+          Kövesd nyomon bevételeidet és kiadásaidat egyszerűen, bárhol és bármikor a mobil applikációnkkal.
+        </p>
+        <div className="TryItOut-buttons">
+          <button className="">Belépés</button>
+          <button className="">Regisztráció</button>
+        </div>
+      </div>
+      <div className="TryItOut-image">
+        <img src="/path/to/TryItOut-image.png" alt="TryItOut Illustration" />
+      </div>
+    </section>
     )
 }
 export function HowItWork() {  
