@@ -1,5 +1,5 @@
 import Footer from "./Footer";
-import { Hero,Function, Advantages, TryItOut, HowItWork, NewsLetter, Contact } from "./Home_main";
+import { Hero,Functions, Advantages, TryItOut, HowItWork, NewsLetter, Contact } from "./Home_main";
 import CostumeNavbar from "./navbar";
 
 
@@ -11,7 +11,7 @@ export default function HomePage() {
             </header>
             <main>
                 <Hero/>
-                <Function/>
+                <Functions/>
                 <Advantages/>
                 <TryItOut/>
                 <HowItWork/>
