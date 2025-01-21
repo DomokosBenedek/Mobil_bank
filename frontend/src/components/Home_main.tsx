@@ -43,9 +43,67 @@ export function TryItOut() {
 }
 export function HowItWork() {  
     return (
-      <>
-        
-      </>
+<section className="HowItWork">
+      {/*Cím*/}
+      <div className="HowItWork-text">
+        <h3>Fedezd fel, hogyan segít a mobilbanki alkalmazás a pénzügyeid kezelésében!</h3>
+      </div>
+
+      {/*Kártyák*/}
+      <div className="HowItWork-cards">
+        {/*1. Kártya*/}
+        <div className="HowItWork-card">
+          {/*Ikon*/}
+          <div className="HowItWork-image">
+            <img src="/path/to/advantage-icon-1.png" alt="Advantage Icon" />
+          </div>
+          {/*Szöveg*/}
+          <div className="HowItWork-card_text">
+            <h5 className="HowItWork-card-title">Könnyedén nyomon követheted bevételeidet és kiadásaidat egy helyen.</h5>
+            <p className="HowItWork_card_text">Az alkalmazás egyszerűen használható, és segít a pénzügyi döntéseidben.</p>
+          </div>
+          {/*Gomb*/}
+          <div className="HowItWork-buttons">
+            <button className="secundary_button">Regisztráció</button>
+          </div>
+        </div>
+
+        {/*2. Kártya*/}
+        <div className="HowItWork-card">
+          {/*Ikon*/}
+          <div className="HowItWork-image">
+            <img src="/path/to/advantage-icon-1.png" alt="Advantage Icon" />
+          </div>
+          {/*Szöveg*/}
+          <div className="HowItWork-card_text">
+            <h5 className="HowItWork-card-title">Indítsd el a pénzügyeid nyomon követését még ma!</h5>
+            <p className="HowItWork_card_text">Csatlakozz hozzánk, és tapasztald meg a pénzügyi kontroll előnyeit.</p>
+          </div>
+          {/*Gomb*/}
+          <div className="HowItWork-buttons">
+            <button className="secundary_button">Regisztráció</button>
+          </div>
+        </div>
+
+          {/*3. Kártya*/}
+        <div className="HowItWork-card">
+          {/*Ikon*/}
+          <div className="HowItWork-image">
+            <img src="/path/to/advantage-icon-1.png" alt="Advantage Icon" />
+          </div>
+          {/*Szöveg*/}
+          <div className="HowItWork-card_text">
+            <h5 className="HowItWork-card-title">Hozd létre a költségvetésed, és tartsd kézben a kiadásaidat!</h5>
+            <p className="HowItWork_card_text">Az alkalmazás lehetővé teszi a kiadások és bevételek egyszerű rögzítését.</p>
+          </div>
+          {/*Gomb*/}
+          <div className="HowItWork-buttons">
+            <button className="secundary_button">Regisztráció</button>
+          </div>
+        </div>
+
+      </div>
+    </section>
     )
 }
 export function NewsLetter() {  
