@@ -37,11 +37,13 @@ export function Advantages() {
 export function TryItOut() {  
     return (
       <section className="TryItOut">
-      <div className="TryItOut-text">
-        <h2 className="h2_alter">Próbáld ki most az alkalmazást</h2>
-        <p>
-          Kövesd nyomon bevételeidet és kiadásaidat egyszerűen, bárhol és bármikor a mobil applikációnkkal.
-        </p>
+      <div className="TryItOut-object">
+        <div className="TryItOut-text">
+          <h2 className="h2_alter">Próbáld ki most az alkalmazást</h2>
+          <p>
+            Kövesd nyomon bevételeidet és kiadásaidat egyszerűen, bárhol és bármikor a mobil applikációnkkal.
+          </p>
+        </div>
         <div className="TryItOut-buttons">
           <button className="">Belépés</button>
           <button className="">Regisztráció</button>

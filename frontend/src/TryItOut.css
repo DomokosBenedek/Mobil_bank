@@ -1,0 +1,80 @@
+.TryItOut {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 40px 20px;
+    background-color: #DDDEE3;
+  }
+  
+  .TryItOut-object {
+    flex: 1;
+    max-width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .TryItOut-text {
+    margin-bottom: 20px;
+  }
+  
+  .TryItOut-text h2 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    color: #333;
+  }
+  
+  .TryItOut-text p {
+    font-size: 1.2rem;
+    color: #666;
+  }
+  
+  .TryItOut-buttons {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+  }
+  
+  .TryItOut-buttons button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    border: 2px solid transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  .TryItOut-buttons button:first-child {
+    background-color: #ff8c00;
+    color: #fff;
+    border: 2px solid #ff8c00;
+  }
+  
+  .TryItOut-buttons button:first-child:hover {
+    background-color: #e67800;
+  }
+  
+  .TryItOut-buttons button:last-child {
+    background-color: transparent;
+    color: #ff8c00;
+    border: 2px solid #ff8c00;
+  }
+  
+  .TryItOut-buttons button:last-child:hover {
+    background-color: #ff8c00;
+    color: #fff;
+  }
+  
+  .TryItOut-image {
+    flex: 1;
+    max-width: 45%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .TryItOut-image img {
+    width: 100%;
+    height: auto;
+  }
+  
