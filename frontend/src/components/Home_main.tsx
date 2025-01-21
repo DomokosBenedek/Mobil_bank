@@ -50,9 +50,23 @@ export function HowItWork() {
 }
 export function NewsLetter() {  
     return (
-      <>
+      <section className="NewsLetter">
+        <div className="NewsLetter-title">
+          <h2>Iratkozzon fel hírlevelünkre!</h2>
+          <p>Legyen mindig naprakész az új funkciókról és frissítésekről szóló értesítéseinkkel!</p>
+        </div>
+        <div className="NewsLetter-form-container">
+          <form className="NewsLetter-form">
+            <input type="email" placeholder="Email cím" />
+            <button className="main_button">Feliratkozás</button>
+          </form>
+          <p className="tiny">By clicking Sign Up you're confirming that you agree with our Terms and Conditions.</p>
+        </div>
         
-      </>
+        <div className="NewsLetter-image">
+          <img src="/path/to/NewsLetter-image.png" alt="NewsLetter Illustration" />
+        </div>
+    </section>
     )
 }
 export function Contact() {  
