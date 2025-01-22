@@ -19,8 +19,7 @@ section.howItWork {
 .howItWork-cards {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
+  justify-content: space-between;
 }
 
 .howItWork-card {

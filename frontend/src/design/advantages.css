@@ -31,8 +31,7 @@
 
 .advantages-cards {
   display: flex;
-  justify-content: flex-start;
-  gap: 20px;
+  justify-content: space-between;
   flex-wrap: wrap;
 }
 
