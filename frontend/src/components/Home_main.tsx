@@ -108,8 +108,8 @@ export function Advantages() {
               
             {/* Advantages buttons */}
             <div className="advantages-buttons">
-              <button className="main_button">Tudj meg többet</button>
-              <button className="secundary_button">Regisztráció</button>
+              <button className="primary_v2">Tudj meg többet</button>
+              <button className="primary_v3">Regisztráció</button>
             </div>
           </div>
           
