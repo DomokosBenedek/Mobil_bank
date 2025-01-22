@@ -12,7 +12,7 @@ export default function LoginDropdown() {
 
       {isHovered && (
         <div className="login-dropdown">
-          <h2>Login</h2>
+          <h2 className="alter">Login</h2>
           <form>
             <input
               type="email"
@@ -29,7 +29,7 @@ export default function LoginDropdown() {
             <div className="forgot-password">
               <a href="#forgot">Elfelejtetted a jelszavad?</a>
             </div>
-            <button type="submit" className="login-submit">
+            <button type="submit" className="login-submit primary_v1">
               Bejelentkezés
             </button>
           </form>
