@@ -133,7 +133,8 @@ button.primary_v2 {
 }
 
 button.primary_v2:hover {
-  background-color: var(--light-grey-url);
+  background-color: var(--orange);
+  color: var(--light-grey);
 }
 
 button.primary_v3 {
@@ -149,6 +150,7 @@ button.primary_v3 {
 
 button.primary_v3:hover {
   text-decoration: underline;
+  color: var(--dark-blue);
 }
 
 button.secondary_v1 {
