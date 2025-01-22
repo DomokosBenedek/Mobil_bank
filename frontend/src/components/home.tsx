@@ -7,6 +7,7 @@ import '../design/hero.css';
 import '../design/footer.css';
 import '../design/functions.css';
 import '../design/advantages.css';
+import '../design/TryItOut.css';
 
 export default function HomePage() {
     return (

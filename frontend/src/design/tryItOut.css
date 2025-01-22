@@ -1,0 +1,51 @@
+/* Updated tryItOut.css aligned with app.css */
+
+.tryItOut {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 40px 20px;
+  background-color: var(--dark-grey);
+}
+
+.tryItOut-object {
+  flex: 1;
+  max-width: 50%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.tryItOut-text {
+  margin-bottom: 20px;
+}
+
+.tryItOut-text h2 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  color: var(--dark-blue);
+}
+
+.tryItOut-text p {
+  font-size: 1.2rem;
+  color: var(--dark-blue);
+}
+
+.tryItOut-buttons {
+  display: flex;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.tryItOut-image {
+  flex: 1;
+  max-width: 45%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tryItOut-image img {
+  width: 100%;
+  height: auto;
+}

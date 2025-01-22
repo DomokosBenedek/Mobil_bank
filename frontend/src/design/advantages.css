@@ -36,27 +36,33 @@
   flex-wrap: wrap;
 }
 
-.advantage-card {
+.advantages-card {
   flex: 1;
   max-width: 150px;
   text-align: left;
 }
 
-.advantage-card img {
+.advantages-card img {
   max-width: 100%;
   height: auto;
   margin-bottom: 10px;
 }
 
-.advantage-card h6 {
+.advantages-card h6 {
   font-size: 1.1rem;
   margin-bottom: 5px;
   color: var(--dark-blue);
 }
 
-.advantage-card p {
+.advantages-card p {
   font-size: 0.9rem;
   color: var(--dark-blue);
+}
+
+.advantages-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
 }
 
 .advantages-image {
