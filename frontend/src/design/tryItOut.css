@@ -1,5 +1,3 @@
-/* Updated tryItOut.css aligned with app.css */
-
 .tryItOut {
   display: flex;
   justify-content: space-between;
@@ -33,7 +31,7 @@
 
 .tryItOut-buttons {
   display: flex;
-  justify-content: center;
+  justify-content: left;
   gap: 15px;
 }
 

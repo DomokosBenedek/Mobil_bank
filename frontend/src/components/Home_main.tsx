@@ -28,7 +28,7 @@ export function Functions() {
   return (
     <section className="functions">
       <div className="functions-text">
-        <h2 className="h2">Fedezd fel a pénzügyeid világát!</h2>
+        <h2>Fedezd fel a pénzügyeid világát!</h2>
         <p>
         Az alkalmazás lehetővé teszi a bevételeid és kiadásaid egyszerű nyomon követését. Intuitív felülete segít a pénzügyeid kezelésében, hogy mindig tisztában legyél a helyzeteddel.
         </p>
@@ -125,7 +125,7 @@ export function TryItOut() {
       <section className="tryItOut">
       <div className="tryItOut-object">
         <div className="tryItOut-text">
-          <h2 className="h2_alter">Próbáld ki most az alkalmazást</h2>
+          <h2>Próbáld ki most az alkalmazást</h2>
           <p>
             Kövesd nyomon bevételeidet és kiadásaidat egyszerűen, bárhol és bármikor a mobil applikációnkkal.
           </p>
@@ -143,9 +143,67 @@ export function TryItOut() {
 }
 export function HowItWork() {  
     return (
-      <>
-        
-      </>
+<section className="howItWork">
+      {/*Cím*/}
+      <div className="howItWork-text">
+        <h3>Fedezd fel, hogyan segít a mobilbanki alkalmazás a pénzügyeid kezelésében!</h3>
+      </div>
+
+      {/*Kártyák*/}
+      <div className="howItWork-cards">
+        {/*1. Kártya*/}
+        <div className="howItWork-card">
+          {/*Ikon*/}
+          <div className="howItWork-image">
+            <img src="/path/to/advantage-icon-1.png" alt="Advantage Icon" />
+          </div>
+          {/*Szöveg*/}
+          <div className="howItWork-card_text">
+            <h5 className="howItWork-card-title">Könnyedén nyomon követheted bevételeidet és kiadásaidat egy helyen.</h5>
+            <p className="howItWork_card_text">Az alkalmazás egyszerűen használható, és segít a pénzügyi döntéseidben.</p>
+          </div>
+          {/*Gomb*/}
+          <div className="howItWork-buttons">
+            <button className="primary_v3">Regisztráció</button>
+          </div>
+        </div>
+
+        {/*2. Kártya*/}
+        <div className="howItWork-card">
+          {/*Ikon*/}
+          <div className="howItWork-image">
+            <img src="/path/to/advantage-icon-1.png" alt="Advantage Icon" />
+          </div>
+          {/*Szöveg*/}
+          <div className="howItWork-card_text">
+            <h5 className="howItWork-card-title">Indítsd el a pénzügyeid nyomon követését még ma!</h5>
+            <p className="howItWork_card_text">Csatlakozz hozzánk, és tapasztald meg a pénzügyi kontroll előnyeit.</p>
+          </div>
+          {/*Gomb*/}
+          <div className="howItWork-buttons">
+            <button className="primary_v3">Regisztráció</button>
+          </div>
+        </div>
+
+          {/*3. Kártya*/}
+        <div className="howItWork-card">
+          {/*Ikon*/}
+          <div className="howItWork-image">
+            <img src="/path/to/advantage-icon-1.png" alt="Advantage Icon" />
+          </div>
+          {/*Szöveg*/}
+          <div className="howItWork-card_text">
+            <h5 className="howItWork-card-title">Hozd létre a költségvetésed, és tartsd kézben a kiadásaidat!</h5>
+            <p className="howItWork_card_text">Az alkalmazás lehetővé teszi a kiadások és bevételek egyszerű rögzítését.</p>
+          </div>
+          {/*Gomb*/}
+          <div className="howItWork-buttons">
+            <button className="primary_v3">Regisztráció</button>
+          </div>
+        </div>
+
+      </div>
+    </section>
     )
 }
 export function NewsLetter() {  
