@@ -1,4 +1,3 @@
-/* Hero szekció */
 .hero {
   background: linear-gradient(to bottom, var(--orange), #4c2510);
   color: var(--white);

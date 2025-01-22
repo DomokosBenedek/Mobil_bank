@@ -1,77 +1,60 @@
-section.HowItWork {
-    background-color: #FFFFFF;
-    padding: 40px;
-    text-align: center;
-  }
-  
-  .HowItWork-text {
-    margin-bottom: 30px;
-  }
-  
-  .HowItWork-text h3 {
-    font-size: 28px;
-    color: #333333;
-    margin: 0 auto;
-    max-width: 50%;
-    text-align: center;
-  }
-  
-  .HowItWork-cards {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-  }
-  
-  .HowItWork-card {
-    background-color: #F9F9F9;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    max-width: 300px;
-    text-align: center;
-    transition: transform 0.3s ease;
-  }
-  
-  .HowItWork-card:hover {
-    transform: translateY(-5px);
-  }
-  
-  .HowItWork-image img {
-    max-width: 100px;
-    margin: 0 auto 10px;
-  }
-  
-  .HowItWork-card-title {
-    font-size: 18px;
-    font-weight: bold;
-    margin: 10px 0;
-    color: #333333;
-  }
-  
-  .HowItWork_card_text {
-    font-size: 14px;
-    color: #666666;
-    margin-bottom: 20px;
-  }
-  
-  .HowItWork-buttons {
-    margin-top: 15px;
-  }
-  
-  .HowItWork-buttons .secundary_button {
-    background-color: transparent;
-    color: #FF7F50;
-    border: 1px solid #FF7F50;
-    border-radius: 5px;
-    padding: 10px 20px;
-    font-size: 14px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-  
-  .HowItWork-buttons .secundary_button:hover {
-    background-color: #FF7F50;
-    color: #FFFFFF;
-  }
-  
+section.howItWork {
+  background-color: var(--white);
+  padding: 40px;
+  text-align: center;
+}
+
+.howItWork-text {
+  margin-bottom: 30px;
+}
+
+.howItWork-text h3 {
+  font-size: var(--fs-heading);
+  color: var(--dark-blue);
+  margin: 0 auto;
+  max-width: 50%;
+  text-align: center;
+}
+
+.howItWork-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.howItWork-card {
+  background-color: var(--light-grey);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  padding: 20px;
+  max-width: 300px;
+  text-align: center;
+  transition: var(--transition-standard);
+}
+
+.howItWork-card:hover {
+  transform: translateY(-5px);
+}
+
+.howItWork-image img {
+  max-width: 100px;
+  margin: 0 auto 10px;
+}
+
+.howItWork-card-title {
+  font-size: var(--fs-medium);
+  font-weight: var(--fw-bold);
+  margin: 10px 0;
+  color: var(--dark-blue);
+}
+
+.howItWork_card_text {
+  font-size: var(--fs-small);
+  color: var(--dark-blue);
+  margin-bottom: 20px;
+}
+
+.howItWork-buttons {
+  margin-top: 15px;
+}

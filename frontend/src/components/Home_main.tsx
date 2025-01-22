@@ -28,7 +28,7 @@ export function Functions() {
   return (
     <section className="functions">
       <div className="functions-text">
-        <h2 className="h2">Fedezd fel a pénzügyeid világát!</h2>
+        <h2>Fedezd fel a pénzügyeid világát!</h2>
         <p>
         Az alkalmazás lehetővé teszi a bevételeid és kiadásaid egyszerű nyomon követését. Intuitív felülete segít a pénzügyeid kezelésében, hogy mindig tisztában legyél a helyzeteddel.
         </p>
@@ -125,7 +125,7 @@ export function TryItOut() {
       <section className="tryItOut">
       <div className="tryItOut-object">
         <div className="tryItOut-text">
-          <h2 className="h2_alter">Próbáld ki most az alkalmazást</h2>
+          <h2>Próbáld ki most az alkalmazást</h2>
           <p>
             Kövesd nyomon bevételeidet és kiadásaidat egyszerűen, bárhol és bármikor a mobil applikációnkkal.
           </p>
@@ -164,7 +164,7 @@ export function HowItWork() {
           </div>
           {/*Gomb*/}
           <div className="howItWork-buttons">
-            <button className="secundary_button">Regisztráció</button>
+            <button className="primary_v3">Regisztráció</button>
           </div>
         </div>
 
@@ -181,7 +181,7 @@ export function HowItWork() {
           </div>
           {/*Gomb*/}
           <div className="howItWork-buttons">
-            <button className="secundary_button">Regisztráció</button>
+            <button className="primary_v3">Regisztráció</button>
           </div>
         </div>
 
@@ -198,7 +198,7 @@ export function HowItWork() {
           </div>
           {/*Gomb*/}
           <div className="howItWork-buttons">
-            <button className="secundary_button">Regisztráció</button>
+            <button className="primary_v3">Regisztráció</button>
           </div>
         </div>
 
