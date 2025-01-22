@@ -80,24 +80,24 @@ export function Advantages() {
 
             {/* Advantages cards */}
             <div className="advantages-cards">
-              <div className="advantage-card">
-                <img src="/path/to/advantage-icon-1.png" alt="Advantage Icon" />
+              <div className="advantages-card">
+                <img src="/path/to/advantages-icon-1.png" alt="Advantages Icon" />
                 <h6>Egyszerű kezelés</h6>
                 <p>
                   A mobilbanki alkalmazásunk használata egyszerű és intuitív, így
                   bárki könnyedén használhatja.
                 </p>
               </div>
-              <div className="advantage-card">
-                <img src="/path/to/advantage-icon-2.png" alt="Advantage Icon" />
+              <div className="advantages-card">
+                <img src="/path/to/advantages-icon-2.png" alt="Advantages Icon" />
                 <h6>Átláthatóság</h6>
                 <p>
                   Mindig tudni fogod, hogy mire költöttél, és mennyi pénzed maradt
                   a hónap végére.
                 </p>
               </div>
-              <div className="advantage-card">
-                <img src="/path/to/advantage-icon-3.png" alt="Advantage Icon" />
+              <div className="advantages-card">
+                <img src="/path/to/advantages-icon-3.png" alt="Advantages Icon" />
                 <h6>Automatizált folyamatok</h6>
                 <p>
                   Állítsd be az alkalmazást, hogy automatikusan számolja ki a
@@ -122,9 +122,23 @@ export function Advantages() {
 }
 export function TryItOut() {  
     return (
-      <>
-        
-      </>
+      <section className="tryItOut">
+      <div className="tryItOut-object">
+        <div className="tryItOut-text">
+          <h2 className="h2_alter">Próbáld ki most az alkalmazást</h2>
+          <p>
+            Kövesd nyomon bevételeidet és kiadásaidat egyszerűen, bárhol és bármikor a mobil applikációnkkal.
+          </p>
+        </div>
+        <div className="tryItOut-buttons">
+          <button className="primary_v1">Belépés</button>
+          <button className="primary_v2">Regisztráció</button>
+        </div>
+      </div>
+      <div className="tryItOut-image">
+        <img src="/path/to/tryItOut-image.png" alt="tryItOut Illustration" />
+      </div>
+    </section>
     )
 }
 export function HowItWork() {  
