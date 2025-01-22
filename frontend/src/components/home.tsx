@@ -6,7 +6,11 @@ import '../design/LoginDropdown.css';
 import '../design/hero.css';
 import '../design/footer.css';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import '../design/functions.css';
+=======
+import '../functions.css';
+>>>>>>> 3698a5e78d7d73f2d042c0446907e5f8c6d4269c
 =======
 import '../functions.css';
 >>>>>>> 3698a5e78d7d73f2d042c0446907e5f8c6d4269c
