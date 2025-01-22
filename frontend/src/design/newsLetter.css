@@ -1,0 +1,74 @@
+/* Updated NewsLetter.css aligned with app.css */
+
+.NewsLetter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px;
+  background-color: var(--light-grey);
+  gap: 30px;
+  text-align: center;
+}
+
+.NewsLetter-title {
+  max-width: 60%;
+  margin-bottom: 20px;
+}
+
+.NewsLetter-title h2 {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--dark-blue);
+  margin-bottom: 10px;
+}
+
+.NewsLetter-title p {
+  font-size: 1rem;
+  color: var(--dark-grey);
+}
+
+.NewsLetter-form-container {
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.NewsLetter-form {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.NewsLetter-form input[type="email"] {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid var(--grey);
+  border-radius: 5px;
+  font-size: 1rem;
+  color: var(--dark-grey);
+  background-color: var(--lightest-grey);
+}
+
+.NewsLetter-form .main_button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: var(--white);
+  background-color: var(--orange);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.NewsLetter-form .main_button:hover {
+  background-color: var(--dark-orange);
+}
+
+.NewsLetter-form-container .tiny {
+  font-size: 0.85rem;
+  color: var(--medium-grey);
+}
