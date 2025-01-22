@@ -62,28 +62,36 @@ export function Contact() {
           <h2>Lépjen kapcsolatba</h2>
           <p>Kérdéseivel keressen minket bizalommal!</p>
         </div>
-        <div className="Contact-List">
-          <div className="Contact-object">
-            <img src="/path/to/Email-icon.png" alt="Email Icon" />
-            <h6>Email</h6>
-            <p>Írjon nekünk bátran!</p>
-            <p><u>hello@relume.io</u></p>
+        <div className="Contact-text">
+          <div className="Contact-List">
+            <div className="Contact-object">
+              <img src="/path/to/Email-icon.png" alt="Email Icon" />
+              <div className="Contact-object-text">
+                <h6>Email</h6>
+                <p>Írjon nekünk bátran!</p>
+                <p><u>hello@relume.io</u></p>
+              </div>
+            </div>
+            <div className="Contact-object">
+              <img src="/path/to/Telefon-icon.png" alt="Telefon Icon" />
+              <div className="Contact-object-text">
+                <h6>Telefon</h6>
+                <p>Hívjon minket!</p>
+                <p><u>+1 (555) 000-0000</u></p>
+              </div>
+            </div>
+            <div className="Contact-object">
+              <img src="/path/to/Iroda-icon.png" alt="Iroda Icon" />
+              <div className="Contact-object-text">
+                <h6>Iroda</h6>
+                <p>Keressen fel személyesen!</p>
+                <p>123 Minta utca, Sydney NSW 2000 AU</p>
+              </div>
+            </div>
+          </div> 
+          <div className="Contact-image">
+            <img src="/path/to/Contact-image.png" alt="Contact Illustration" />
           </div>
-          <div className="Contact-object">
-            <img src="/path/to/Telefon-icon.png" alt="Telefon Icon" />
-            <h6>Telefon</h6>
-            <p>Hívjon minket!</p>
-            <p><u>+1 (555) 000-0000</u></p>
-          </div>
-          <div className="Contact-object">
-            <img src="/path/to/Iroda-icon.png" alt="Iroda Icon" />
-            <h6>Iroda</h6>
-            <p>Keressen fel személyesen!</p>
-            <p>123 Minta utca, Sydney NSW 2000 AU</p>
-          </div>
-        </div> 
-        <div className="Contact-image">
-          <img src="/path/to/Contact-image.png" alt="Contact Illustration" />
         </div>
       </section>
     )
