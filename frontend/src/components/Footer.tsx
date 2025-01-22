@@ -4,16 +4,16 @@ export default function Footer() {
             <div className="footer-content">
                 {/* Hírlevél regisztráció */}
                 <div className="newsletter">
-                <h4>Iratkozz fel hírlevelünkre!</h4>
+                <h4 className="alter">Iratkozz fel hírlevelünkre!</h4>
                 <form>
                     <input type="email" placeholder="Add meg az email címedet" required />
-                    <button type="submit">Feliratkozás</button>
+                    <button className="primary_v1">Feliratkozás</button>
                 </form>
                 </div>
 
                 {/*Linkek */}
                 <div className="footer-links">
-                <div className="links-column">
+                <div className="links-column alter">
                     <a href="#">Link1</a>
                     <a href="#">Link2</a>
                     <a href="#">Link3</a>
