@@ -1,100 +1,92 @@
-.Contact {
+.contact {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     padding: 40px;
+    background-color: var(--wihte);
 }
 
-/* Cím stílus */
-.Contact-title {
+.contact-title {
     text-align: left;
     margin-bottom: 20px;
 }
 
-.Contact-title h2 {
+.contact-title h2 {
     font-size: 28px;
     font-weight: bold;
     margin-bottom: 10px;
+    color: var(--dark-blue);
 }
 
-.Contact-title p {
+.contact-title p {
     font-size: 16px;
+    color: var(--dark-blue);
 }
 
-/* Contact-text wrapper */
-.Contact-text {
+.contact-text {
     display: flex;
     justify-content: space-between;
     gap: 20px;
 }
 
-/* Contact-list rész */
-.Contact-List {
+/* contact-list rész */
+.contact-List {
     flex: 1;
     display: flex;
     flex-direction: column;
     gap: 30px;
 }
 
-/* Az egyes Contact-objectek stílusa */
-.Contact-object {
+/* Az egyes contact-objectek stílusa */
+.contact-object {
     display: flex;
     flex-direction: column;
     padding: 15px;
+    background-color: var(--light-grey);
+    border-radius: 8px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
 }
 
-.Contact-object img {
+.contact-object img {
     max-width: 40px;
     max-height: 40px;
     margin-bottom: 20px;
 }
 
-.Contact-object-text{
+.contact-object-text{
     display: flex;
     flex-direction: column;
 }
 
-.Contact-object h6 {
+.contact-object h6 {
     font-size: 18px;
     font-weight: bold;
     margin-block-start: 0em;
     margin-block-end: 0em;
     margin-inline-start: 0px;
     margin-inline-end: 0px;
-    unicode-bidi: isolate;
+    color: var(--dark-blue);
 }
 
-.Contact-object p {
+.contact-object p {
     font-size: 14px;
-    display: block;
+    color: var(--dark-blue);
     margin-block-start: 0em;
     margin-block-end: 0em;
     margin-inline-start: 0px;
     margin-inline-end: 0px;
-    unicode-bidi: isolate;
 }
 
-/* Contact-image stílusa */
-.Contact-image {
+/* contact-image stílusa */
+.contact-image {
     flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.Contact-image img {
+.contact-image img {
     max-width: 100%;
     height: auto;
     border-radius: 10px;
-}
-
-/* Responsív nézethez */
-@media (max-width: 768px) {
-    .Contact-text {
-        flex-direction: column;
-    }
-
-    .Contact-image {
-        margin-top: 20px;
-    }
 }
