@@ -1,0 +1,67 @@
+/* Updated funcion.css aligned with app.css */
+
+.functions { 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+  background-color: var(--light-grey);
+}
+
+.functions-text {
+  text-align: center;
+  max-width: 800px;
+  margin-bottom: 40px;
+}
+
+.functions h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: var(--dark-blue);
+}
+
+.functions p {
+  font-size: 1.2rem;
+  color: var(--dark-blue);
+}
+
+.functions-cards {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+}
+
+.functions-card {
+  flex: 1;
+  max-width: 25%;
+  border-radius: 8px;
+  overflow: hidden;
+  text-align: center;
+  padding: 20px;
+}
+
+.functions-card img {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 15px;
+}
+
+.functions-card-title {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  color: var(--dark-blue);
+}
+
+.functions_card_text {
+  font-size: 1rem;
+  color: var(--dark-blue);
+}
+
+.functions-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}

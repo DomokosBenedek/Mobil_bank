@@ -1,42 +1,199 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+/* Színek */
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  --white: #ffffff;
+  --orange: #f57933;
+  --orange-rgb: #f57933cc;
+  --light-grey: #fcf9f5;
+  --light-grey-url: #f5f6fc2c;
+  --dark-blue: #25273E;
+  --black: #000000;
+  --dark-grey: #DDDEE3;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+
+/*Dark mode
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+    }
+    }*/
+    
+    /* Alap stílusok */
+body {
+  width: 100%;
+  font-family: 'Arial', sans-serif;
+  color: var(--dark-blue);
+  background-color: var(--light-grey);
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+a {
+  text-decoration: none;
+  color: var(--dark-blue);
+  transition: color 0.3s ease;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+a:hover {
+  color: var(--orange);
 }
 
-.card {
-  padding: 2em;
+button {
+  border-radius: 5px;
+  padding: 1rem 2rem;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  transition: border-color 0.25s;
 }
 
-.read-the-docs {
-  color: #888;
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Globális szekció-stílus */
+.section {
+  place-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 40px;
+  margin: 20px auto;
+  box-sizing: border-box;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Arial', sans-serif;
+  font-weight: bold;
+  color: var(--dark-blue);
+  margin: 20px 0;
+}
+
+p {
+  font-size: 16px;
+  color: var(--dark-blue);
+  margin-bottom: 20px;
+}
+
+.alter{
+  color: var(--light-grey);
+}
+
+img {
+  max-width: 100%;
+  display: block;
+  height: auto;
+}
+
+/* Közös gomb-stílusok */
+
+button.primary_v1 {
+  font-size: 1rem;
+  font-weight: bold;
+  color: var(--light-grey);
+  background: var(--orange);
+  border: none;  
+}
+
+button.primary_v1:hover {
+  background-color: var(--orange-rgb) !important;  
+  color: var(--light-grey);
+}
+
+button.primary_v2 {
+  padding: 15px 30px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: var(--orange);
+  background: transparent;
+  border: 2px solid var(--orange);
+}
+
+button.primary_v2:hover {
+  background-color: var(--orange);
+  color: var(--light-grey);
+}
+
+button.primary_v3 {
+  padding: 15px 30px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: var(--orange);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+button.primary_v3:hover {
+  text-decoration: underline;
+  color: var(--dark-blue);
+}
+
+button.secondary_v1 {
+  font-size: 1rem;
+  font-weight: bold;
+  color: var(--dark-blue);
+  background: var(--light-grey);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+button.secondary_v1:hover {
+  background-color: var(--dark-grey);
+}
+
+button.secondary_v2 {
+  font-size: 1rem;
+  font-weight: bold;
+  color: var(--light-grey);
+  background: transparent;
+  border: 2px solid var(--light-grey);
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+button.secondary_v2:hover {
+  background-color: var(--light-grey-url);
+  color: var(--light-grey);
+}
+
+button.secondary_v3 {
+  font-size: 1rem;
+  font-weight: bold;
+  color: var(--light-grey);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+button.secondary_v3:hover {
+  text-decoration: underline;
 }
