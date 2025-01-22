@@ -1,0 +1,92 @@
+.contact {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 40px;
+    background-color: var(--wihte);
+}
+
+.contact-title {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.contact-title h2 {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: var(--dark-blue);
+}
+
+.contact-title p {
+    font-size: 16px;
+    color: var(--dark-blue);
+}
+
+.contact-text {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+/* contact-list rész */
+.contact-List {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+/* Az egyes contact-objectek stílusa */
+.contact-object {
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    background-color: var(--light-grey);
+    border-radius: 8px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+.contact-object img {
+    max-width: 40px;
+    max-height: 40px;
+    margin-bottom: 20px;
+}
+
+.contact-object-text{
+    display: flex;
+    flex-direction: column;
+}
+
+.contact-object h6 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-block-start: 0em;
+    margin-block-end: 0em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    color: var(--dark-blue);
+}
+
+.contact-object p {
+    font-size: 14px;
+    color: var(--dark-blue);
+    margin-block-start: 0em;
+    margin-block-end: 0em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+
+/* contact-image stílusa */
+.contact-image {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.contact-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+}

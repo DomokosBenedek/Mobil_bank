@@ -11,10 +11,23 @@
   flex-wrap: wrap; 
 }
 
+.footer-content form{
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  width: 100%;
+  max-width: 600px;
+}
+
+.footer-content form button {
+  padding: 10px 20px;
+  font-size: 14px;
+}
+
 .footer-links {
   display: flex;
   gap: 20px;
-  flex-wrap: wrap; /* Kisebb képernyőkhöz */
+  flex-wrap: wrap;
 }
 
 .links-column {

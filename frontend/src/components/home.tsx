@@ -10,6 +10,7 @@ import '../design/advantages.css';
 import '../design/tryItOut.css';
 import '../design/howItWork.css';
 import '../design/newsLetter.css';
+import '../design/contact.css';
 
 export default function HomePage() {
     return (

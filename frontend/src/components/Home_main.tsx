@@ -230,8 +230,42 @@ export function NewsLetter() {
 }
 export function Contact() {  
     return (
-      <>
-        
-      </>
+      <section className="contact">
+        <div className="contact-title">
+          <h2>Lépjen kapcsolatba</h2>
+          <p>Kérdéseivel keressen minket bizalommal!</p>
+        </div>
+        <div className="contact-text">
+          <div className="contact-List">
+            <div className="contact-object">
+              <img src="/path/to/Email-icon.png" alt="Email Icon" />
+              <div className="contact-object-text">
+                <h6>Email</h6>
+                <p>Írjon nekünk bátran!</p>
+                <p><u>hello@relume.io</u></p>
+              </div>
+            </div>
+            <div className="contact-object">
+              <img src="/path/to/Telefon-icon.png" alt="Telefon Icon" />
+              <div className="contact-object-text">
+                <h6>Telefon</h6>
+                <p>Hívjon minket!</p>
+                <p><u>+1 (555) 000-0000</u></p>
+              </div>
+            </div>
+            <div className="contact-object">
+              <img src="/path/to/Iroda-icon.png" alt="Iroda Icon" />
+              <div className="contact-object-text">
+                <h6>Iroda</h6>
+                <p>Keressen fel személyesen!</p>
+                <p>123 Minta utca, Sydney NSW 2000 AU</p>
+              </div>
+            </div>
+          </div> 
+          <div className="contact-image">
+            <img src="/path/to/contact-image.png" alt="Contact Illustration" />
+          </div>
+        </div>
+      </section>
     )
 }
