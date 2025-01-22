@@ -6,14 +6,14 @@ section.howItWork {
 
 .howItWork-text {
   margin-bottom: 30px;
+  text-align: center;
 }
 
 .howItWork-text h3 {
   font-size: var(--fs-heading);
   color: var(--dark-blue);
-  margin: 0 auto;
   max-width: 50%;
-  text-align: center;
+  margin: 0 auto;
 }
 
 .howItWork-cards {
@@ -43,7 +43,6 @@ section.howItWork {
 
 .howItWork-card-title {
   font-size: var(--fs-medium);
-  font-weight: var(--fw-bold);
   margin: 10px 0;
   color: var(--dark-blue);
 }

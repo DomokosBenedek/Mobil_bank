@@ -9,12 +9,8 @@ export function Hero() {
           pénzügyeid kezelését, és mindig tudni fogod, hol állsz anyagilag.
         </p>
         <div className="hero-buttons">
-          <button className="primary_v1">Tudj meg többet</button>
-          <button className="primary_v2">Tudj meg többet</button>
-          <button className="primary_v3">Tudj meg többet</button>
-          <button className="secondary_v1">Regisztráció</button>
+          <button className="secondary_v1">Tudj meg többet</button>
           <button className="secondary_v2">Regisztráció</button>
-          <button className="secondary_v3">Regisztráció</button>
         </div>
       </div>
       <div className="hero-image">
