@@ -9,6 +9,7 @@ import '../design/functions.css';
 import '../design/advantages.css';
 import '../design/tryItOut.css';
 import '../design/howItWork.css';
+import '../design/newsLetter.css';
 
 export default function HomePage() {
     return (

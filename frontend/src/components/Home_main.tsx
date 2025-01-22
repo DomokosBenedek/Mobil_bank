@@ -208,9 +208,24 @@ export function HowItWork() {
 }
 export function NewsLetter() {  
     return (
-      <>
-        
-      </>
+      <section className="newsLetter">
+        <div className="newsLetter-container">
+          <div className="newsLetter-title">
+            <h2>Iratkozzon fel hírlevelünkre!</h2>
+            <p>Legyen mindig naprakész az új funkciókról és frissítésekről szóló értesítéseinkkel!</p>
+          </div>
+          <div className="newsLetter-form-container">
+            <form className="newsLetter-form">
+              <input type="email" placeholder="Email cím" />
+              <button className="primary_v1">Feliratkozás</button>
+            </form>
+            <p className="tiny">By clicking Sign Up you're confirming that you agree with our Terms and Conditions.</p>
+          </div>
+        </div>
+        <div className="newsLetter-image">
+          <img src="/path/to/newsLetter-image.png" alt="newsLetter Illustration" />
+        </div>
+    </section>
     )
 }
 export function Contact() {  
