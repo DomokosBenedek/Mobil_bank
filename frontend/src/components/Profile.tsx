@@ -10,7 +10,7 @@ const Profil: React.FC<{ id: string }> = ({ id }) => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch('../test.json')
+    fetch('../test_profil.json')
       .then((response) => {
         if (!response.ok) {
           throw new Error(`Server responded with status ${response.status}`);
