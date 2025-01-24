@@ -73,9 +73,4 @@ const Profil: React.FC<{ id: string }> = ({ id }) => {
     </>
   );
 };
-
-<<<<<<< HEAD
 export default Profil;
-=======
-export default Profil;
->>>>>>> 1f4a24cb1d226b0766ab314728c2e6cd26f37075
