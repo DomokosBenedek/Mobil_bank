@@ -1,14 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { User } from '../User';
-import { Income } from '../Income';
-import { Expense } from '../Expense';
-import { Account } from '../Account';
+import Footer from './Footer';
+import CostumeNavbar from './navbar';
 
 const Test: React.FC = () => {
-  const [users, setUsers] = useState<User[]>([]);
-  const [incomes, setIncomes] = useState<Income[]>([]);
-  const [expenses, setExpenses] = useState<Expense[]>([]);
-  const [accounts, setAccounts] = useState<Account[]>([]);
+  const [user, setUser] = useState<User>();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -21,10 +17,7 @@ const Test: React.FC = () => {
         return response.json();
       })
       .then((data) => {
-        setUsers(data.users);
-        setIncomes(data.incomes);
-        setExpenses(data.expenses);
-        setAccounts(data.accounts);
+        setUser(data);
         setLoading(false);
       })
       .catch((error) => {
@@ -42,51 +35,41 @@ const Test: React.FC = () => {
   }
 
   return (
-    <div>
-      <h2>Users:</h2>
-      <ul>
-        {users.map((user) => (
-          <li key={String(user.id)}>
-            {user.firstName} {user.lastName} ({user.role})
-          </li>
-        ))}
-      </ul>
 
-      <h2>Incomes:</h2>
-      <ul>
-        {incomes.map((income) => (
-          <li key={income.id}>
-            {income.description}: {income.total} {income.category}
-          </li>
-        ))}
-      </ul>
-
-      <h2>Expenses:</h2>
-      <ul>
-        {expenses.map((expense) => (
-          <li key={expense.id}>
-            {expense.description}: {expense.total} {expense.category}
-          </li>
-        ))}
-      </ul>
-
-      <h2>Accounts:</h2>
-      <ul>
-        {accounts.map((account) => (
-          <li key={account.id}>
-            Account ID: {account.id}, Total: {account.total} {account.currency}
-            <ul>
-              <li>
-                Users:
-                {account.Users.map((user) => (
-                  <span key={String(user.id)}>{user.firstName} </span>
-                ))}
-              </li>
-            </ul>
-          </li>
-        ))}
-      </ul>
+    <>
+        <header>
+            <CostumeNavbar/>
+        </header>
+        <main>
+            <section>
+            <div>
+      <h2>Profile</h2>
+      {user ? (
+        <div>
+          <p><strong>ID:</strong> {user.id}</p>
+          <p><strong>First Name:</strong> {user.firstName}</p>
+          <p><strong>Last Name:</strong> {user.lastName}</p>
+          <p><strong>Role:</strong> {user.role}</p>
+          <p><strong>Email:</strong> {user.email}</p>
+          <p><strong>Created At:</strong> {new Date(user.createdAt).toLocaleString()}</p>
+          <p><strong>Updated At:</strong> {new Date(user.updatedAt).toLocaleString()}</p>
+          <p><strong>Account IDs:</strong></p>
+          <ul>
+            {user.accountId.map((accountId) => (
+              <li key={accountId as React.Key}>{accountId}</li>
+            ))}
+          </ul>
+        </div>
+      ) : (
+        <p>No user data available.</p>
+      )}
     </div>
+            </section>
+        </main>
+        <footer>
+            <Footer/>
+        </footer>
+    </>
   );
 };
 
