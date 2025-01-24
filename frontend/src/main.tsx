@@ -20,13 +20,8 @@ const router = createBrowserRouter([
     element: <Profile_List/>,
   },
   {
-<<<<<<< HEAD
-    path: "/profile/:id",
-    element: <Profile id={''}/>,
-=======
     path: "/profile/:",
     element: <Profile id={'1'}/>,
->>>>>>> 1f4a24cb1d226b0766ab314728c2e6cd26f37075
   },
   {
     path: "/Regist",
