@@ -15,7 +15,7 @@ import { Account } from "../Account.ts";
 import { useEffect, useState } from "react";
 
 export default function HomePage() {
-    
+    /*
     const [accounts, setAccounts] = useState<Account[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -54,7 +54,7 @@ export default function HomePage() {
     if (error) {
       return <p>Error: {error}</p>;
     }
-
+    */
     return (
         <>
             <header>

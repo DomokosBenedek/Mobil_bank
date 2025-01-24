@@ -13,7 +13,7 @@ import Test from './components/test'
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Test/>,
+    element: <HomePage/>,
   },
   {
     path: "/profile",
