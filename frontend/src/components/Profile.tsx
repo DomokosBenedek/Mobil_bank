@@ -8,7 +8,9 @@ export default function Profile() {
                 <CostumeNavbar/>
             </header>
             <main>
-
+                <section>
+                    <h1>Profile</h1>
+                </section>
             </main>
             <footer>
                 <Footer/>

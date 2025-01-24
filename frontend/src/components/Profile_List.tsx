@@ -8,7 +8,9 @@ export default function Profile_List() {
                 <CostumeNavbar/>
             </header>
             <main>
-
+                <section>
+                    <h1>Profile List</h1>
+                </section>
             </main>
             <footer>
                 <Footer/>

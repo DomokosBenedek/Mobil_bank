@@ -1,7 +1,7 @@
 .hero {
   background: linear-gradient(to bottom, var(--orange), #4c2510);
   color: var(--white);
-  height: 100vh; /* Teljes képernyő magasság */
+  height: 100vh;
 }
 
 /* Szöveg stílusai */

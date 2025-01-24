@@ -8,7 +8,9 @@ export default function Register() {
                 <CostumeNavbar/>
             </header>
             <main>
-
+                <section>
+                    <h1>Reguster</h1>
+                </section>
             </main>
             <footer>
                 <Footer/>

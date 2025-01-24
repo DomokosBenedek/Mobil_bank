@@ -41,10 +41,11 @@ body {
   margin: 0;
   padding: 0;
   line-height: 1.6;
-  display: flex;
-  place-items: center;
   min-width: 320px;
-  min-height: 100vh;
+}
+
+main{
+  margin-top: 3rem;
 }
 
 a {
@@ -76,6 +77,7 @@ ul {
 
 /* Globális szekció-stílus */
 .section {
+  width: 100%;
   place-items: center;
   display: flex;
   align-items: center;

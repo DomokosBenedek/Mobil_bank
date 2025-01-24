@@ -4,9 +4,9 @@ import { createRoot } from 'react-dom/client'
 import './App.css'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import HomePage from './components/home'
-import Profile from './components/profile';
-import Register from './components/regist';
 import Profile_List from './components/Profile_List';
+import Profile from './components/Profile'
+import Register from './components/Regist'
 
 const router = createBrowserRouter([
   {
@@ -22,7 +22,7 @@ const router = createBrowserRouter([
     element: <Profile/>,
   },
   {
-    path: "/Register",
+    path: "/Regist",
     element: <Register/>,
   },
 ]);
