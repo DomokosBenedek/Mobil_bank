@@ -1,4 +1,5 @@
 import LoginDropdown from "./LoginDropdown";
+import '../design/navbar.css';
 
 export default function CostumeNavbar() {
     return (

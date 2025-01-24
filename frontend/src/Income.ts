@@ -7,11 +7,9 @@ export interface Income {
     category: Category;
     vendor?: string;
     description: string;
-    User: User;
     userId: string;
     createdAt: Date;
     updatedAt: Date;
-    Account: Account;
     accountId: string;
     repeatAmmount: number;
     repeatMetric:  Metric;
