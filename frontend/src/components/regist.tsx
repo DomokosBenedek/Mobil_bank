@@ -9,7 +9,7 @@ export default function Register() {
             </header>
             <main>
                 <section>
-                    <h1>Reguster</h1>
+                    <h1>Regist</h1>
                 </section>
             </main>
             <footer>
