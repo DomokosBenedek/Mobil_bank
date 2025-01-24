@@ -1,7 +1,7 @@
 import Footer from "./Footer";
 import CostumeNavbar from "./navbar";
 
-export default function Register() {
+export default function Profile() {
     return (
         <>
             <header>
@@ -9,7 +9,7 @@ export default function Register() {
             </header>
             <main>
                 <section>
-                    <h1>Reguster</h1>
+                    <h1>Profile</h1>
                 </section>
             </main>
             <footer>

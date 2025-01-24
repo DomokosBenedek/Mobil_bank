@@ -1,5 +1,5 @@
-import Footer from "./Footer";
-import { Hero,Functions, Advantages, TryItOut, HowItWork, NewsLetter, Contact } from "./Home_main.tsx";
+import Footer from "./Footer.tsx";
+import { Hero,Functions, Advantages, TryItOut, HowItWork, NewsLetter, Contact } from "./home_main.tsx";
 import CostumeNavbar from "./navbar.tsx";
 import '../design/navbar.css';
 import '../design/LoginDropdown.css';
