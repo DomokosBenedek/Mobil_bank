@@ -4,14 +4,16 @@ import { createRoot } from 'react-dom/client'
 import './App.css'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import HomePage from './components/home'
-import Profile_List from './components/Profile_List';
+import Profile_List from './components/Profile_List'
 import Profile from './components/Profile'
-import Register from './components/Regist'
+import Regist from './components/Regist'
+import Test from './components/test'
+
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <HomePage/>,
+    element: <Test/>,
   },
   {
     path: "/profile",
@@ -23,7 +25,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/Regist",
-    element: <Register/>,
+    element: <Regist/>,
   },
 ]);
 

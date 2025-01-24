@@ -10,9 +10,7 @@ export interface User {
     email: String;
     password: String;
     Expenses:  Expense[];
-    expenseId: String[];
     Incomes:   Income[];
-    incomeId:  String[];
     createdAt: Date;
     updatedAt: Date;
     Accounts:     Account[];
