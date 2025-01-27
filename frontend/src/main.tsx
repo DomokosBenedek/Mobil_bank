@@ -6,7 +6,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import HomePage from './components/home'
 import Profile_List from './components/Profile_List'
 import Profile from './components/Profile'
-import Regist from './components/Regist'
+import Regist from './components/regist'
 import Test from './components/test'
 
 
