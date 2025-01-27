@@ -1,6 +1,7 @@
 import React, { useState, FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import "../design/loginDropdown.css";
+import { User } from "../User";
 
 export default function LoginDropdown() {
   const [isHovered, setIsHovered] = useState(false);
@@ -10,6 +11,19 @@ export default function LoginDropdown() {
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
+    fetch("http://localhost:3000/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+    }).then((response) => {
+      if (!response.ok) {
+        throw new Error(`Server responded with status ${response.status}`);
+      }
+      let User= response.json();
+      console.log(User);
+    });
     navigate("/Profile/"+{email}, { state: { email, password } });
   };
 
