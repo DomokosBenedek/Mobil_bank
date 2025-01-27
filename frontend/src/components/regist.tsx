@@ -49,12 +49,34 @@ export default function Register() {
         setError("Minden mező kitöltése kötelező.");
         return;
       }
-  
-      setError(null);
-      console.log("Regisztráció sikeres", formData);
-      navigate("/profile", {
-        state: { email, firstName, lastName },
-      });
+
+        const newUser: User = {
+            firstName: firstName,
+            lastName: lastName,
+            email: email,
+            password: password,
+        };
+        console.log(newUser);
+        fetch("http://localhost:3000/user", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(newUser),
+        }).then((response) => {
+            if (!response.ok) {
+                setError("Hiba a regisztráció során.");
+            }else{
+                return response.json();
+            }
+        });
+    
+        setError(null);
+        console.log("Regisztráció sikeres", formData);
+        navigate("/profile", {
+            state: { email, firstName, lastName },
+        });
+
     };
     return (
         <>

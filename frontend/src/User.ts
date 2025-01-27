@@ -9,12 +9,12 @@ export interface User {
     role?: UserType;
     email: String;
     password: String;
-    Expenses:  Expense[];
-    Incomes:   Income[];
-    createdAt: Date;
-    updatedAt: Date;
-    Accounts:     Account[];
-    accountId:    String[];
+    Expenses?:  Expense[];
+    Incomes?:   Income[];
+    createdAt?: Date;
+    updatedAt?: Date;
+    Accounts?:     Account[];
+    accountId?:    String[];
 }
 enum UserType {
     Admin,

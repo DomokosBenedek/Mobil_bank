@@ -11,20 +11,27 @@ export default function LoginDropdown() {
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
-    fetch("http://localhost:3000/login", {
+    fetch("http://localhost:3000/user/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ email, password }),
-    }).then((response) => {
-      if (!response.ok) {
-        throw new Error(`Server responded with status ${response.status}`);
-      }
-      let User= response.json();
-      console.log(User);
-    });
-    navigate("/Profile/"+{email}, { state: { email, password } });
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`Server responded with status ${response.status}`);
+        }
+        console.log(response);
+        return response.json();
+      })
+      .then((user: User) => {
+        console.log(user);
+        navigate(`/Profile/${user.firstName}-${user.lastName}`, { state: { user } });
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   };
 
   return (
