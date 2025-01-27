@@ -22,7 +22,7 @@ export function Hero() {
 
 export function Functions() {  
   return (
-    <section className="functions">
+    <section id="functions">
       <div className="functions-text">
         <h2>Fedezd fel a pénzügyeid világát!</h2>
         <p>
@@ -61,7 +61,7 @@ export function Functions() {
 }
 export function Advantages() {  
     return (
-      <section className="advantages">
+      <section id="advantages">
 
           <div className="advantages-content">
             {/* Advantages text */}
@@ -118,7 +118,7 @@ export function Advantages() {
 }
 export function TryItOut() {  
     return (
-      <section className="tryItOut">
+      <section id="tryItOut">
       <div className="tryItOut-object">
         <div className="tryItOut-text">
           <h2>Próbáld ki most az alkalmazást</h2>
@@ -139,7 +139,7 @@ export function TryItOut() {
 }
 export function HowItWork() {  
     return (
-<section className="howItWork">
+<section id="howItWork">
       {/*Cím*/}
       <div className="howItWork-text">
         <h3>Fedezd fel, hogyan segít a mobilbanki alkalmazás a pénzügyeid kezelésében!</h3>
@@ -204,7 +204,7 @@ export function HowItWork() {
 }
 export function NewsLetter() {  
     return (
-      <section className="newsLetter">
+      <section id="newsLetter">
         <div className="newsLetter-container">
           <div className="newsLetter-title">
             <h2>Iratkozzon fel hírlevelünkre!</h2>
@@ -226,7 +226,7 @@ export function NewsLetter() {
 }
 export function Contact() {  
     return (
-      <section className="contact">
+      <section id="contact">
         <div className="contact-title">
           <h2>Lépjen kapcsolatba</h2>
           <p>Kérdéseivel keressen minket bizalommal!</p>
