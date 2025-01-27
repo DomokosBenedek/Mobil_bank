@@ -7,7 +7,6 @@ import HomePage from './components/home'
 import Profile_List from './components/Profile_List'
 import Profile from './components/Profile'
 import Regist from './components/regist'
-import Test from './components/test'
 
 
 const router = createBrowserRouter([
