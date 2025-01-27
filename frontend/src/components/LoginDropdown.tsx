@@ -27,7 +27,7 @@ export default function LoginDropdown() {
       })
       .then((user: User) => {
         console.log(user);
-        navigate(`/Profile/${user.firstName}-${user.lastName}`, { state: { user } });
+        navigate(`/Profile/${user.firstName}${user.lastName}`, { state: { user } });
       })
       .catch((error) => {
         console.error("Error:", error);

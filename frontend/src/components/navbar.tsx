@@ -5,7 +5,7 @@ export default function CostumeNavbar() {
     return (
       <nav className="navbar">
         {/* Bal oldalon a logó */}
-        <div className="logo">
+        <div className="logo" onClick={() => window.location.href = "/"}>
           <img src="/path/to/logo.png" alt="Logo" className="logo-image" />
         </div>
   
