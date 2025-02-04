@@ -1,7 +1,7 @@
 import React, { useState, FormEvent, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../design/loginDropdown.css";
-import { User } from "../User";
+import { User } from "../UserProp";
 import { Icon_Profil_circle } from "./img";
 
 export default function LoginDropdown() {

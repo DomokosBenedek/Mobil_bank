@@ -1,6 +1,6 @@
-import { Account } from "./Account";
-import { Expense } from "./Expense";
-import { Income } from "./Income";
+import { Account } from "./AccountProp";
+import { Expense } from "./ExpenseProp";
+import { Income } from "./IncomeProp";
 
 export interface User {
     id?: String;

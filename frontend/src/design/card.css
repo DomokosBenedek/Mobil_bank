@@ -1,0 +1,81 @@
+.card {
+    position: relative;
+    width: 380px;
+    height: 216px;
+    background-image: url('/images/Card_empty_full.png');
+    background-size: cover;
+    background-position: center;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: var(--light-grey);
+    font-family: Arial, sans-serif;
+  }
+  
+  .number {
+    position: absolute;
+    top: 13px;
+    left: 33px;
+    font-size: 35px;
+    font-weight: bold;
+  }
+  
+  .total-container {
+    position: absolute;
+    top: 13px;
+    right: 30px;
+    display: flex;
+    gap: 10px;
+  }
+  
+  .total, .valto {
+    font-size: 35px;
+    font-weight: bold;
+  }
+  
+  .id {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 30px;
+    font-weight: bold;
+    white-space: nowrap;
+  }
+  
+  .bottom-container {
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    bottom: 10px;
+    left: 15px;
+    right: 15px;
+  }
+  
+  .name {
+    font-size: 30px;
+    position: absolute;
+    bottom: 10px;
+    left: 15px;
+  }
+  
+  .datum {
+    font-size: 25px;
+    position: absolute;
+    bottom: 23px;
+    right: 0px;
+  }
+  
+  @media (max-width: 400px) {
+    .card {
+      width: 100%;
+      height: 150px;
+    }
+    .id {
+      font-size: 18px;
+    }
+    .name, .datum {
+      font-size: 12px;
+    }
+  }

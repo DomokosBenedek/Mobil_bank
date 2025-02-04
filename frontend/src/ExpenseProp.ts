@@ -1,7 +1,7 @@
-import { Account } from "./Account";
-import { User } from "./User";
+import { Account } from "./AccountProp";
+import { User } from "./UserProp";
 
-export interface Income {
+export interface Expense {
     id: string;
     total: number;
     category: Category;

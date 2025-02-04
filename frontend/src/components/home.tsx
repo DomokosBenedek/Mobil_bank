@@ -11,7 +11,7 @@ import '../design/tryItOut.css';
 import '../design/howItWork.css';
 import '../design/newsLetter.css';
 import '../design/contact.css';
-import { Account } from "../Account.ts";
+import { Account } from "../AccountProp.ts";
 import { useEffect, useState } from "react";
 
 export default function HomePage() {

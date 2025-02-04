@@ -1,10 +1,10 @@
 .profile-container {
     display: grid ;
     grid-template-columns: 240px 740px 400px;
-    grid-template-rows: 280px 500px;
+    grid-template-rows: auto auto;
     gap: 20px;
-    padding: 20px;
     margin-top: 12vh;
+    background-color: var(--light-grey);
   }
   
   #sidebar {
@@ -13,19 +13,30 @@
   
   .cards-section {
     grid-column: 2 / span 2;
+    background-color: var(--light-grey);
+  }
+
+  .cards-section .cardList{
+
   }
   
   .transactions-section {
     grid-column: 2 / span 1;
     grid-row: 2 / span 1;
+    background-color: var(--light-grey);
   }
   
   .diagram-section {
     grid-column: 3 / span 1;
     grid-row: 2 / span 1;
+    background-color: var(--light-grey);
   }
-  
-  .section {
+
+  .profile-container section{
+    padding: 0px ;
+  }
+
+  .sectionMain {
     background-color: rgba(255, 165, 0, 0.1);
     border-radius: 10px;
     padding: 20px;

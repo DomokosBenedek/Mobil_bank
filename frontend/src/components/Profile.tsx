@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { User } from '../User';
+import { User } from '../UserProp';
 import Footer from './Footer';
 import CostumeNavbar from './navbar';
 import { useLocation } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import "../design/profil.css";
+import Card from './test';
 
 const Profil: React.FC = () => {
   const [user, setUser] = useState<User | null>(null);
@@ -51,7 +52,11 @@ const Profil: React.FC = () => {
             <h3 className="Title">Cards</h3>
             <button className="primary_v3">View more</button>
           </div>
-          <div className="sectionMain"></div>
+          <div className="sectionMain">
+            <div className='cardList'>
+              <Card number={1} total={12000} currency="HUF" id="********************5365" name={`${user?.firstName} ${user?.lastName}`} date="05/21" />
+            </div>
+          </div>
         </section>
         
         {/* Transactions Section */}

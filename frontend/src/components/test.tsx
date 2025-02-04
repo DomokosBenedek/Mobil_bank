@@ -1,76 +1,26 @@
-import React, { useEffect, useState } from 'react';
-import { User } from '../User';
+import React from 'react';
 import Footer from './Footer';
 import CostumeNavbar from './navbar';
+import '../design/card.css';
+import { CardProp } from '../CardProp';
 
-const Test: React.FC = () => {
-  const [user, setUser] = useState<User>();
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    fetch('../test.json')
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`Server responded with status ${response.status}`);
-        }
-        return response.json();
-      })
-      .then((data) => {
-        setUser(data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        setError(error.message);
-        setLoading(false);
-      });
-  }, []);
 
-  if (loading) {
-    return <p>Loading...</p>;
-  }
-
-  if (error) {
-    return <p>Error: {error}</p>;
-  }
-
+const Card: React.FC<CardProp> = ({ number, total, currency, id, name, date }) => {
   return (
-
-    <>
-        <header>
-            <CostumeNavbar/>
-        </header>
-        <main>
-            <section>
-            <div>
-      <h2>Profile</h2>
-      {user ? (
-        <div>
-          <p><strong>ID:</strong> {user.id}</p>
-          <p><strong>First Name:</strong> {user.firstName}</p>
-          <p><strong>Last Name:</strong> {user.lastName}</p>
-          <p><strong>Role:</strong> {user.role}</p>
-          <p><strong>Email:</strong> {user.email}</p>
-          <p><strong>Created At:</strong> {new Date(user.createdAt).toLocaleString()}</p>
-          <p><strong>Updated At:</strong> {new Date(user.updatedAt).toLocaleString()}</p>
-          <p><strong>Account IDs:</strong></p>
-          <ul>
-            {user.accountId.map((accountId) => (
-              <li key={accountId as React.Key}>{accountId}</li>
-            ))}
-          </ul>
-        </div>
-      ) : (
-        <p>No user data available.</p>
-      )}
+    <div className="card">
+      <div className="number">{number}</div>
+      <div className="total-container">
+        <div className="total">{total}</div>
+        <div className="valto">{currency}</div>
+      </div>
+      <div className="id">{id}</div>
+      <div className="bottom-container">
+        <div className="name">{name}</div>
+        <div className="datum">{date}</div>
+      </div>
     </div>
-            </section>
-        </main>
-        <footer>
-            <Footer/>
-        </footer>
-    </>
   );
 };
 
-export default Test;
+export default Card;
