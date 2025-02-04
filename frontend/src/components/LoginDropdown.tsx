@@ -53,7 +53,7 @@ export default function LoginDropdown() {
 
   const handleProfileClick = () => {
     if (user) {
-      navigate(`/Profile/${user.firstName}${user.lastName}`, { state: { user } });
+      navigate(`/profile/${user.firstName}${user.lastName}`, { state: { user } });
       console.log(user.firstName + " " + user.lastName  + " átküldés")
     }
   };
