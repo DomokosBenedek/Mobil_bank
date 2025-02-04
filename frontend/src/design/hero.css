@@ -1,12 +1,14 @@
 .hero {
-  background: linear-gradient(to bottom, var(--orange), #4c2510);
+  background: linear-gradient(to right, var(--orange), #eabca4);
   color: var(--white);
   height: 100vh;
+  padding: 0;
 }
 
 /* Szöveg stílusai */
 .hero-text {
-  max-width: 50%;
+  max-width: 40rem;
+  margin-left: 2rem;
 }
 
 .h1_alter {
@@ -17,16 +19,17 @@
 
 .hero-text p {
   font-size: 1.2rem;
-  margin-bottom: 30px;
+  margin-bottom: 2rem;
   line-height: 1.6;
 }
 
 /* Kép stílusai */
 .hero-image {
-  max-width: 45%;
+  height: 100%;
 }
 
 .hero-image img {
-  width: 100%;
-  object-fit: cover;
+  float: right;
+  height: inherit;
+  width: inherit;
 }

@@ -2,6 +2,7 @@ import React, { useState, FormEvent, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../design/loginDropdown.css";
 import { User } from "../User";
+import { Icon_Profil_circle } from "./img";
 
 export default function LoginDropdown() {
   const [isHovered, setIsHovered] = useState(false);
@@ -67,7 +68,7 @@ export default function LoginDropdown() {
       {isLoggedIn && user ? (
         <>
           <div className="profile-button" onClick={handleProfileClick}>
-            <img src={"/default-avatar.png"} alt="Profil" className="profile-image" />
+            <img src={Icon_Profil_circle} alt="Profil" className="profile-image" />
             <span>{user.firstName} {user.lastName}</span>
           </div>
           {isHovered && (

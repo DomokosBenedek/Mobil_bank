@@ -1,6 +1,7 @@
 import { matchPath, useLocation } from "react-router-dom";
 import LoginDropdown from "./LoginDropdown";
 import '../design/navbar.css';
+import { placeholderIcon_text } from "./img";
 
 export default function CostumeNavbar() {
     const location = useLocation();
@@ -21,7 +22,7 @@ export default function CostumeNavbar() {
       <nav className="navbar">
         {/* Bal oldalon a logó */}
         <div className="logo" onClick={() => window.location.href = "/"}>
-          <img src="/path/to/logo.png" alt="Logo" className="logo-image" />
+          <img src={placeholderIcon_text} alt="Logo" className="logo-image" />
         </div>
 
         {isHomePage ? (
