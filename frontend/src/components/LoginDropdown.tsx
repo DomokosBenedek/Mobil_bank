@@ -104,6 +104,9 @@ export default function LoginDropdown() {
                 <button type="submit" className="login-submit primary_v1">
                   Bejelentkezés
                 </button>
+                <button type="button" className="primary_v3" onClick={() => navigate("/regist")}>
+                  Regisztráció
+                </button>
               </form>
             </div>
           )}
