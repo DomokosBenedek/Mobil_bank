@@ -152,7 +152,7 @@ button.primary_v3 {
 
 button.primary_v3:hover {
   text-decoration: underline;
-  color: var(--dark-blue);
+  /*color: var(--dark-blue);*/
 }
 
 button.secondary_v1 {

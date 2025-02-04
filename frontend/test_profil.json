@@ -1,0 +1,16 @@
+{
+    "id": "6790d2248559d683384f0b5f",
+    "firstName": "asd",
+    "lastName": "asd",
+    "role": "User",
+    "email": "asd",
+    "password": "$2b$10$3IS.tSccrkoM8udn6dLClepY4cFrXiAoG8UFbgyBS1kL5JFQuPvE.",
+    "expenseId": [],
+    "incomeId": [],
+    "createdAt": "2025-01-22T11:10:28.774Z",
+    "updatedAt": "2025-01-22T11:10:28.774Z",
+    "accountId": [
+        "6790f4e1294f884c47ab8fc4",
+        "6790f4e2294f884c47ab8fc5"
+    ]
+}
