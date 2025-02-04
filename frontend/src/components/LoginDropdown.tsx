@@ -54,6 +54,7 @@ export default function LoginDropdown() {
   const handleProfileClick = () => {
     if (user) {
       navigate(`/Profile/${user.firstName}${user.lastName}`, { state: { user } });
+      console.log(user.firstName + " " + user.lastName  + " átküldés")
     }
   };
 
@@ -64,17 +65,18 @@ export default function LoginDropdown() {
       onMouseLeave={() => setIsHovered(false)}
     >
       {isLoggedIn && user ? (
-        <div className="profile-container">
-          <button className="profile-button" onClick={handleProfileClick}>
+        <>
+          <div className="profile-button" onClick={handleProfileClick}>
             <img src={"/default-avatar.png"} alt="Profil" className="profile-image" />
             <span>{user.firstName} {user.lastName}</span>
-          </button>
+          </div>
           {isHovered && (
             <div className="profile-dropdown">
-              <button className="logout-button" onClick={handleLogout}>Kilépés</button>
+              <span>{user.firstName} {user.lastName}</span>
+              <button className="primary_v1" onClick={handleLogout}>Kilépés</button>
             </div>
           )}
-        </div>
+        </>
       ) : (
         <>
           <button className="login-button">Bejelentkezés</button>

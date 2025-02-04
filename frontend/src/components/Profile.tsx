@@ -22,23 +22,7 @@ const Profil: React.FC = () => {
     }
   }, [stateUser]);
 
-  useEffect(() => {
-    fetch('../test_profil.json')
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`Server responded with status ${response.status}`);
-        }
-        return response.json();
-      })
-      .then((data) => {
-        setUser(data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        setError(error.message);
-        setLoading(false);
-      });
-  }, []);
+  console.log(user + " megérkezett")
 
   if (loading) {
     return <p>Loading...</p>;

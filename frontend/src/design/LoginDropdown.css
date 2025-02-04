@@ -38,6 +38,22 @@
   }
 }
 
+.profile-dropdown{
+  position: absolute;
+  top: 100%;
+  right: 0;
+  max-width: 30rem;
+  background: var(--dark-blue);
+  color: var(--white);
+  border: 1px solid var(--dark-grey);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+  color: var(--light-grey);
+}
+
 .login-dropdown h2 {
   text-align: center;
   margin-bottom: 20px;
