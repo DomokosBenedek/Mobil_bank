@@ -1,0 +1,48 @@
+.profile-container {
+    display: grid ;
+    grid-template-columns: 240px 740px 400px;
+    grid-template-rows: 280px 500px;
+    gap: 20px;
+    padding: 20px;
+    margin-top: 12vh;
+  }
+  
+  #sidebar {
+    grid-row: 1 / span 2;
+  }
+  
+  .cards-section {
+    grid-column: 2 / span 2;
+  }
+  
+  .transactions-section {
+    grid-column: 2 / span 1;
+    grid-row: 2 / span 1;
+  }
+  
+  .diagram-section {
+    grid-column: 3 / span 1;
+    grid-row: 2 / span 1;
+  }
+  
+  .section {
+    background-color: rgba(255, 165, 0, 0.1);
+    border-radius: 10px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .Title_row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .Title {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  

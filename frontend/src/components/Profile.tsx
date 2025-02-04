@@ -3,6 +3,8 @@ import { User } from '../User';
 import Footer from './Footer';
 import CostumeNavbar from './navbar';
 import { useLocation } from 'react-router-dom';
+import Sidebar from './Sidebar';
+import "../design/profil.css";
 
 const Profil: React.FC = () => {
   const [user, setUser] = useState<User | null>(null);
@@ -33,15 +35,32 @@ const Profil: React.FC = () => {
   }
 
   return (
-
     <>
-        <header>
-            <CostumeNavbar/>
-        </header>
-        <main>
-            <section>
-            <div>
-      <h2>Profile</h2>
+      <header>
+        <CostumeNavbar />
+      </header>
+      <main className="profile-container">
+        {/* Sidebar */}
+        <div id='sidebar'>
+          <Sidebar/>
+        </div>
+        
+        {/* Cards Section */}
+        <section className="cards-section">
+          <div className="Title_row">
+            <h3 className="Title">Cards</h3>
+            <button className="primary_v3">View more</button>
+          </div>
+          <div className="sectionMain"></div>
+        </section>
+        
+        {/* Transactions Section */}
+        <section className="transactions-section">
+          <div className="Title_row">
+            <h3 className="Title">Transactions</h3>
+            <button className="primary_v3">View more</button>
+          </div>
+          <div className="sectionMain">      <h2>Profile</h2>
       {user ? (
         <div>
           <p><strong>ID:</strong> {user.id}</p>
@@ -60,13 +79,21 @@ const Profil: React.FC = () => {
         </div>
       ) : (
         <p>No user data available.</p>
-      )}
-    </div>
-            </section>
-        </main>
-        <footer>
-            <Footer/>
-        </footer>
+      )}</div>
+        </section>
+        
+        {/* Diagram Section */}
+        <section className="diagram-section">
+          <div className="Title_row">
+            <h3 className="Title">Diagrams</h3>
+            <button className="primary_v3">View more</button>
+          </div>
+          <div className="sectionMain"></div>
+        </section>
+      </main>
+      <footer>
+        <Footer />
+      </footer>
     </>
   );
 };
