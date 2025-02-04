@@ -54,7 +54,16 @@ const Profil: React.FC = () => {
           </div>
           <div className="sectionMain">
             <div className='cardList'>
-              <Card number={1} total={12000} currency="HUF" id="********************5365" name={`${user?.firstName} ${user?.lastName}`} date="05/21" />
+            {user?.Accounts?.map((account, index) => (
+              <Card 
+                id={account.id || "N/A"} 
+                number={index + 1}  
+                total={account.total || 0} 
+                currency={account.currency || "N/A"} 
+                name={`${user.firstName} ${user.lastName}`} 
+                date={account.createdAt ? new Date(account.createdAt).toLocaleString() : 'N/A'} 
+              />
+            ))}
             </div>
           </div>
         </section>
