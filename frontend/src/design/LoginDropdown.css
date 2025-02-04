@@ -74,7 +74,7 @@
 }
 
 .login input{
-  inline-box-align: center;
+  vertical-align: middle;
 }
 
 .login-input:focus {
