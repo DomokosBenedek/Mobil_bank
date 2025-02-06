@@ -1,6 +1,6 @@
 import { Account } from "./AccountProp";
 import { Expense } from "./ExpenseProp";
-import { Income } from "./IncomeProp";
+import { Income } from "../IncomeProp";
 
 export interface User {
     id?: String;
@@ -15,6 +15,7 @@ export interface User {
     updatedAt?: Date;
     Accounts?:     Account[];
     accountId?:    String[];
+    access_token?: String;
 }
 enum UserType {
     Admin,
