@@ -16,7 +16,9 @@
   }
 
   .cards-section .cardList{
-
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
   }
   
   .transactions-section {
