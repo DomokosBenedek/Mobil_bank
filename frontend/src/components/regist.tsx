@@ -117,7 +117,8 @@ export default function Register() {
                         <div className="form-group">
                             <label htmlFor="email">Email cím</label>
                             <input
-                                type="email"
+                                type="text"
+                                //type="email"
                                 id="email"
                                 name="email"
                                 placeholder="Email cím"

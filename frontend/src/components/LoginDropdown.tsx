@@ -94,7 +94,8 @@ export default function LoginDropdown() {
               <h2 className="alter">Login</h2>
               <form onSubmit={handleSubmit}>
                 <input
-                  type="email"
+                  type="text"
+                  //type="email"
                   placeholder="Email cím"
                   className="login-input"
                   value={email}
