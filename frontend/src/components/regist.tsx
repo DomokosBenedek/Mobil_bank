@@ -2,7 +2,7 @@ import { FormEvent, useState } from "react";
 import Footer from "./Footer";
 import CostumeNavbar from "./navbar";
 import { useNavigate } from "react-router-dom";
-import { User } from "../UserProp.ts";
+import { User } from "../Props/UserProp.ts";
 
 export default function Register() {
 

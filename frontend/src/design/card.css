@@ -2,7 +2,6 @@
   position: relative;
   width: 380px;
   height: 216px;
-  background-image: url('/images/Card_empty_full.png');
   background-size: cover;
   background-position: center;
   border-radius: 10px;
@@ -11,10 +10,6 @@
   justify-content: space-between;
   color: var(--light-grey);
   font-family: Arial, sans-serif;
-}
-
-.card.inactive {
-  background-image: url('/images/Card_EmptyInactive.png');
 }
 
 .number {

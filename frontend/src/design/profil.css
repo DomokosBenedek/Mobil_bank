@@ -20,13 +20,27 @@
     flex-direction: row;
     flex-wrap: wrap;
   }
+
+  .card {
+    background-image: url('/images/Card_EmptyInactive.png');
+    color: var(--light-grey);
+    padding: 10px;
+    margin: 10px;
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+  }
   
+  .card.active {
+    background-image: url('/images/Card_empty_full.png');
+    color: var(--light-grey);
+  }
+
   .transactions-section {
     grid-column: 2 / span 1;
     grid-row: 2 / span 1;
     background-color: var(--light-grey);
   }
-  
+
   .diagram-section {
     grid-column: 3 / span 1;
     grid-row: 2 / span 1;

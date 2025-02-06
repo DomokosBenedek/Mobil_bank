@@ -7,3 +7,5 @@ export const Icon_Profil_circle = '../images/Profil_circle.png';
 export const placeholderImage = '../images/Placeholder_Image.png';
 export const placeholderCard = '../images/Placeholder_Card.png';
 export const placeholderHero_image = '../images/Placeholder_Hero_Image.png';
+export const Card_newCard = '../images/Card_newCard.png';
+export const Card_Inactive = '../images/Card_EmptyInactive.png';

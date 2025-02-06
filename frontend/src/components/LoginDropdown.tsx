@@ -1,7 +1,7 @@
 import React, { useState, FormEvent, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../design/loginDropdown.css";
-import { User } from "../UserProp";
+import { User } from "../Props/UserProp";
 import { Icon_Profil_circle } from "./img";
 
 export default function LoginDropdown() {
@@ -39,6 +39,14 @@ export default function LoginDropdown() {
         setUser(userData);
         setIsLoggedIn(true);
         localStorage.setItem("loggedInUser", JSON.stringify(userData));
+        console.log(userData);
+        console.log(userData.access_token);
+        if (userData.access_token) {
+          localStorage.setItem("Token", userData.access_token as string);
+        }
+        if (userData.id) {
+          localStorage.setItem("UserId", userData.id as string);
+        }
       })
       .catch((error) => {
         console.error("Error:", error);
