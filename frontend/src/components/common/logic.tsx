@@ -16,6 +16,36 @@ export const logicks = () => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const navigate = useNavigate();
 
+  const fetchAccounts = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:3000/accounts/all/${userID}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + userToken,
+          },
+        }
+      );
+      if (!response.ok) throw new Error("Failed to fetch accounts");
+      const data = await response.json();
+      setUser((prevUser) => (prevUser ? { ...prevUser, Accounts: data } : null));
+
+      const storedActiveAccountId = localStorage.getItem("activeAccountId");
+      if (data.length > 0) {
+        const selectedAccount =
+          data.find((acc: Account) => acc.id === storedActiveAccountId) || data[0];
+        setActiveAccount(selectedAccount);
+        localStorage.setItem("activeAccountId", selectedAccount.id);
+      }
+    } catch (error) {
+      setError((error as Error).message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     const storedUser = localStorage.getItem("loggedInUser");
     if (storedUser) {
@@ -23,38 +53,17 @@ export const logicks = () => {
       setIsLoggedIn(true);
     }
 
-    // Fetch accounts
-    const fetchAccounts = async () => {
-      try {
-        const response = await fetch(
-          `http://localhost:3000/accounts/all/${userID}`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              "authorization": "Bearer " + userToken,
-            },
-          }
-        );
-        if (!response.ok) throw new Error("Failed to fetch accounts");
-        const data = await response.json();
-        setUser((prevUser) => (prevUser ? { ...prevUser, Accounts: data } : null));
+    if (userID && userToken) {
+      fetchAccounts();
+    }
 
-        const storedActiveAccountId = localStorage.getItem("activeAccountId");
-        if (data.length > 0) {
-          const selectedAccount =
-            data.find((acc: Account) => acc.id === storedActiveAccountId) || data[0];
-          setActiveAccount(selectedAccount);
-          localStorage.setItem("activeAccountId", selectedAccount.id);
-        }
-      } catch (error) {
-        setError((error as Error).message);
-      } finally {
-        setLoading(false);
+    const interval = setInterval(() => {
+      if (userID && userToken) {
+        fetchAccounts();
       }
-    };
+    }, 60000); // Fetch accounts every 60 seconds
 
-    fetchAccounts();
+    return () => clearInterval(interval);
   }, [userID, userToken]);
 
   const SetActiveAcountClick = (account: Account) => {
@@ -175,6 +184,7 @@ export const logicks = () => {
     loading,
     error,
     activeAccount,
+    fetchAccounts,
     SetActiveAcountClick,
     addNewAccount,
     deleteAccount,

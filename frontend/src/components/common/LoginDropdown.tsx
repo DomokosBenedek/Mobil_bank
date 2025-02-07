@@ -15,12 +15,14 @@ export default function LoginDropdown() {
     isLoggedIn,
     handleSubmit,
     logout,
+    fetchAccounts, // Add fetchAccounts to the destructured logicks
   } = logicks();
   
   const navigate = useNavigate();
 
   const handleProfileClick = () => {
     if (user) {
+      fetchAccounts();
       navigate(`/profile/${user.firstName}${user.lastName}`, { state: { user } });
     }
   };
