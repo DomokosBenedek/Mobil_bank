@@ -15,6 +15,7 @@ const Dashboard_Page: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [activeAccount, setActiveAccount] = useState<Account | null>(null);
+
   
   useEffect(() => {
     const storedUser = localStorage.getItem('loggedInUser');
@@ -47,9 +48,36 @@ const Dashboard_Page: React.FC = () => {
         setLoading(false);
       }
     };
-
     fetchAccounts();
   }, [userID, userToken]);
+
+  const addNewAccount = async () => {
+    console.log(userToken);
+    console.log(userID);
+    console.log(user);
+    try {
+      const response = await fetch(`http://localhost:3000/accounts`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "authorization": "Bearer " + userToken,
+        },
+        body: JSON.stringify({
+          userId: userID,
+          total: 0,
+          currency: "HUF",
+          ownerName: user?.firstName + " " + user?.lastName,
+        }),
+      });
+      if (!response.ok) throw new Error("Failed to create account");
+      const newAccount = await response.json();
+      setUser((prevUser) =>
+        prevUser ? { ...prevUser, Accounts: [...(prevUser.Accounts || []), newAccount] } : null
+      );
+    } catch (error) {
+      setError((error as Error).message);
+    }
+  };
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
@@ -88,7 +116,7 @@ const Dashboard_Page: React.FC = () => {
                   </div>
                 );
               })}
-              <img src={Card_newCard} alt="NewCard" />
+            <img src={Card_newCard} alt="NewCard"/>
             </div>
           </div>
         </section>

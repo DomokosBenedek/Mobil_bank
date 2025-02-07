@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Account } from "../../Props/AccountProp";
 import { User } from "../../Props/UserProp";
+import { useNavigate } from "react-router-dom";
 
 export const logicks = () => {
   const [user, setUser] = useState<User | null>(null);
@@ -13,6 +14,7 @@ export const logicks = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const storedUser = localStorage.getItem("loggedInUser");
@@ -98,6 +100,7 @@ export const logicks = () => {
     setUser(null);
     setActiveAccount(null);
     setIsLoggedIn(false);
+    navigate(`/`);
   };
 
   {/*Login*/}
@@ -131,39 +134,6 @@ export const logicks = () => {
         console.error("Error:", error);
       });
   };
-
-  {/*Context menu*/}
-  interface ContextMenuState {
-    visible: boolean;
-    x: number;
-    y: number;
-    selectedCardId: string | null;
-  }
-  
-  const [contextMenu, setContextMenu] = useState<ContextMenuState>({
-    visible: false,
-    x: 0,
-    y: 0,
-    selectedCardId: null,
-  });
-
-  const handleContextMenu = (event: React.MouseEvent, cardId: string) => {
-    event.preventDefault(); // Ne jelenjen meg a default jobbklikkes menü
-    setContextMenu({
-      visible: true,
-      x: event.clientX,
-      y: event.clientY,
-      selectedCardId: cardId,
-    });
-  };
-  const handleClickOutside = () => {
-  setContextMenu((prev) => ({ ...prev, visible: false }));
-};
-
-useEffect(() => {
-  document.addEventListener("click", handleClickOutside);
-  return () => document.removeEventListener("click", handleClickOutside);
-}, []);
 
   return (
     {
