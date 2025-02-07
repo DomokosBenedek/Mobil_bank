@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import "../design/sidebar.css";
 import placeholderImage from "../assets/sidebar-image.png";
-import { placeholderCard, placeholderIcon } from "./img";
+import { placeholderCard, placeholderIcon } from "../../components/common/img";
 
 export default function Sidebar() {
   return (

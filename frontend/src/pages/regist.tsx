@@ -1,6 +1,6 @@
 import { FormEvent, useState } from "react";
-import Footer from "./Footer";
-import CostumeNavbar from "./navbar";
+import Footer from "../components/common/Footer.tsx";
+import CostumeNavbar from "../components/common/navbar.tsx";
 import { useNavigate } from "react-router-dom";
 import { User } from "../Props/UserProp.ts";
 

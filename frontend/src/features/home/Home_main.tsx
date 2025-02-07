@@ -1,4 +1,4 @@
-import { placeholderHero_image, placeholderIcon, placeholderImage } from "./img";
+import { placeholderHero_image, placeholderIcon, placeholderImage } from "../../components/common/img";
 
 export function Hero() {  
   return(

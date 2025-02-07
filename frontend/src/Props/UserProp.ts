@@ -1,6 +1,6 @@
 import { Account } from "./AccountProp";
 import { Expense } from "./ExpenseProp";
-import { Income } from "../IncomeProp";
+import { Income } from "./IncomeProp";
 
 export interface User {
     id?: String;

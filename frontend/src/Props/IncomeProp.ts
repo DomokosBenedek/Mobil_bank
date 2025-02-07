@@ -1,5 +1,5 @@
 import { Account } from "./AccountProp";
-import { User } from "./Props/UserProp";
+import { User } from "./UserProp";
 
 export interface Income {
     id: string;

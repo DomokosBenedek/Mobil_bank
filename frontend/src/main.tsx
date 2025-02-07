@@ -3,10 +3,10 @@ import { createRoot } from 'react-dom/client'
 
 import './App.css'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import HomePage from './components/home'
-import Profile_List from './components/Profile_List'
-import Profile from './components/Profile'
-import Regist from './components/regist'
+import HomePage from './pages/home'
+import Profile_List from './pages/Profile_List'
+import Profile from './pages/Profile'
+import Regist from './pages/regist'
 import Test from './components/test'
 
 

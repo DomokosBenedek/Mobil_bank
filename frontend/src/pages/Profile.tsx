@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { User } from '../Props/UserProp';
 import { Account } from '../Props/AccountProp';
-import Footer from './Footer';
-import CostumeNavbar from './navbar';
-import Sidebar from './Sidebar';
-import Card from './Card';
-import { Card_newCard } from './img';
+import Footer from '../components/common/Footer';
+import CostumeNavbar from '../components/common/navbar';
+import Sidebar from '../features/profil/Sidebar';
+import Card from '../components/common/Card';
+import { Card_newCard } from '../components/common/img';
 import "../design/profil.css";
 
 const Profil: React.FC = () => {
@@ -15,7 +15,7 @@ const Profil: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [activeAccount, setActiveAccount] = useState<Account | null>(null);
-
+  
   useEffect(() => {
     const storedUser = localStorage.getItem('loggedInUser');
     if (storedUser) {
@@ -31,16 +31,13 @@ const Profil: React.FC = () => {
             "Authorization": "Bearer " + userToken,
           }
         });
-
         if (!response.ok) throw new Error('Failed to fetch accounts');
-        const data: Account[] = await response.json();
+        const data = await response.json();
         setUser(prevUser => prevUser ? { ...prevUser, Accounts: data } : null);
-
-        let selectedAccount: Account | undefined;
+        
         const storedActiveAccountId = localStorage.getItem('activeAccountId');
-
         if (data.length > 0) {
-          selectedAccount = data.find(acc => acc.id === storedActiveAccountId) || data[0];
+          const selectedAccount = data.find((acc: Account) => acc.id === storedActiveAccountId) || data[0];
           setActiveAccount(selectedAccount);
           localStorage.setItem('activeAccountId', selectedAccount.id);
         }
