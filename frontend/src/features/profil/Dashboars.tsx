@@ -1,90 +1,39 @@
+import React, { useState } from 'react';
 import CostumeNavbar from "../../components/common/navbar";
-import { Account } from "../../Props/AccountProp";
-import { User } from "../../Props/UserProp";
-import { useEffect, useState } from "react";
 import Sidebar from "./Sidebar";
 import Card from "../../components/common/Card";
 import { Card_newCard } from "../../components/common/img";
 import Footer from "../../components/common/Footer";
 import "../../design/profil_page_element/dashboard.css";
+import { logicks } from "../../components/common/logic";
+import CardContextMenu from '../../components/common/ContextMenu';
 
 const Dashboard_Page: React.FC = () => {
-  const [user, setUser] = useState<User | null>(null);
-  const [userID] = useState<string | null>(localStorage.getItem('UserId'));
-  const [userToken] = useState<string | null>(localStorage.getItem('Token'));
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [activeAccount, setActiveAccount] = useState<Account | null>(null);
+  const {
+    user,
+    loading,
+    error,
+    activeAccount,
+    SetActiveAcountClick,
+    addNewAccount,
+    deleteAccount,
+    addIncome,
+    addExpense,
+    addUserToAccount,
+  } = logicks();
 
-  
-  useEffect(() => {
-    const storedUser = localStorage.getItem('loggedInUser');
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
-
-    const fetchAccounts = async () => {
-      try {
-        const response = await fetch(`http://localhost:3000/accounts/all/${userID}`, {
-          method: 'GET',
-          headers: {
-            "Content-Type": 'application/json',
-            "Authorization": "Bearer " + userToken,
-          }
-        });
-        if (!response.ok) throw new Error('Failed to fetch accounts');
-        const data = await response.json();
-        setUser(prevUser => prevUser ? { ...prevUser, Accounts: data } : null);
-        
-        const storedActiveAccountId = localStorage.getItem('activeAccountId');
-        if (data.length > 0) {
-          const selectedAccount = data.find((acc: Account) => acc.id === storedActiveAccountId) || data[0];
-          setActiveAccount(selectedAccount);
-          localStorage.setItem('activeAccountId', selectedAccount.id);
-        }
-      } catch (error) {
-        setError((error as Error).message);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchAccounts();
-  }, [userID, userToken]);
-
-  const addNewAccount = async () => {
-    console.log(userToken);
-    console.log(userID);
-    console.log(user);
-    try {
-      const response = await fetch(`http://localhost:3000/accounts`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "authorization": "Bearer " + userToken,
-        },
-        body: JSON.stringify({
-          userId: userID,
-          total: 0,
-          currency: "HUF",
-          ownerName: user?.firstName + " " + user?.lastName,
-        }),
-      });
-      if (!response.ok) throw new Error("Failed to create account");
-      const newAccount = await response.json();
-      setUser((prevUser) =>
-        prevUser ? { ...prevUser, Accounts: [...(prevUser.Accounts || []), newAccount] } : null
-      );
-    } catch (error) {
-      setError((error as Error).message);
-    }
-  };
+  const [contextMenu, setContextMenu] = useState<{ x: number; y: number; accountId: string } | null>(null);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
 
-  const handleCardClick = (account: Account) => {
-    setActiveAccount(account);
-    localStorage.setItem('activeAccountId', account.id);
+  const handleRightClick = (event: React.MouseEvent, accountId: string) => {
+    event.preventDefault();
+    setContextMenu({ x: event.clientX, y: event.clientY, accountId });
+  };
+
+  const handleCloseContextMenu = () => {
+    setContextMenu(null);
   };
 
   return (
@@ -101,10 +50,10 @@ const Dashboard_Page: React.FC = () => {
           </div>
           <div className="sectionMain">
             <div className='cardList'>
-              {user?.Accounts?.map((account: Account, index) => {
+              {user?.Accounts?.map((account, index) => {
                 const isActive = activeAccount?.id === account.id;
                 return (
-                  <div key={account.id} className={`card ${isActive ? 'active' : ''}`} onClick={() => handleCardClick(account)}>
+                  <div key={account.id} className={`card ${isActive ? 'active' : ''}`} onClick={() => SetActiveAcountClick(account)} onContextMenu={(e) => handleRightClick(e, account.id)}>
                     <Card
                       id={'*'.repeat(account.id.length - 4) + account.id.slice(-4)}
                       number={index + 1}
@@ -116,10 +65,11 @@ const Dashboard_Page: React.FC = () => {
                   </div>
                 );
               })}
-            <img src={Card_newCard} alt="NewCard"/>
             </div>
-          </div>
+            <img src={Card_newCard} alt="NewCard" onClick={addNewAccount} />
+            </div>
         </section>
+
         {/* Transactions Section */}
         <section className="transactions-section">
           <div className="Title_row">
@@ -157,6 +107,17 @@ const Dashboard_Page: React.FC = () => {
     </section>
       </main>
       <footer><Footer /></footer>
+      {contextMenu && (
+        <CardContextMenu
+          x={contextMenu.x}
+          y={contextMenu.y}
+          onClose={handleCloseContextMenu}
+          onDelete={() => deleteAccount(contextMenu.accountId)}
+          onAddIncome={() => addIncome(contextMenu.accountId, 0)} // Replace 0 with actual amount
+          onAddExpense={() => addExpense(contextMenu.accountId, 0)} // Replace 0 with actual amount
+          onAddUser={() => addUserToAccount(contextMenu.accountId, '')} // Replace '' with actual userId
+        />
+      )}
     </>
   );
 };

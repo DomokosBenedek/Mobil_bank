@@ -1,48 +1,27 @@
-import { ContextMenuProps } from "../../Props/ContextMenuProp";
+import React from 'react';
+import '../../design/common/CardContextMenu.css';
 
-const ContextMenu: React.FC<ContextMenuProps> = ({
-    contextMenu,
-    onDelete,
-    onAddPayment,
-    onAddUser,
-}) => {
-  if (!contextMenu.visible) return null;
+interface CardContextMenuProps {
+  x: number;
+  y: number;
+  onClose: () => void;
+  onDelete: () => void;
+  onAddIncome: () => void;
+  onAddExpense: () => void;
+  onAddUser: () => void;
+}
 
+const CardContextMenu: React.FC<CardContextMenuProps> = ({ x, y, onClose, onDelete, onAddIncome, onAddExpense, onAddUser }) => {
   return (
-    <ul
-      style={{
-        position: "absolute",
-        top: contextMenu.y,
-        left: contextMenu.x,
-        backgroundColor: "white",
-        border: "1px solid black",
-        listStyle: "none",
-        padding: "5px",
-        boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
-        borderRadius: "4px",
-        zIndex: 1000,
-      }}
-    >
-      <li 
-        style={{ padding: "5px", cursor: "pointer" }}
-        onClick={() => onAddPayment(contextMenu.selectedCardId)}
-      >
-        Add Payment
-      </li>
-      <li 
-        style={{ padding: "5px", cursor: "pointer" }}
-        onClick={() => onAddUser(contextMenu.selectedCardId)}
-      >
-        Add User
-      </li>
-      <li 
-        style={{ padding: "5px", cursor: "pointer", color: "red" }}
-        onClick={() => onDelete(contextMenu.selectedCardId)}
-      >
-        Delete Card
-      </li>
-    </ul>
+    <div className="context-menu" style={{ top: y, left: x }} onMouseLeave={onClose}>
+      <ul>
+        <li onClick={onDelete}>Delete Card</li>
+        <li onClick={onAddIncome}>Add Income</li>
+        <li onClick={onAddExpense}>Add Expense</li>
+        <li onClick={onAddUser}>Add User</li>
+      </ul>
+    </div>
   );
 };
 
-export default ContextMenu;
+export default CardContextMenu;

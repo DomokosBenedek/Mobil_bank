@@ -23,7 +23,7 @@ export const logicks = () => {
       setIsLoggedIn(true);
     }
 
-    {/*Kártyák kilistázása*/}
+    // Fetch accounts
     const fetchAccounts = async () => {
       try {
         const response = await fetch(
@@ -32,7 +32,7 @@ export const logicks = () => {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
-              Authorization: "Bearer " + userToken,
+              "authorization": "Bearer " + userToken,
             },
           }
         );
@@ -57,16 +57,13 @@ export const logicks = () => {
     fetchAccounts();
   }, [userID, userToken]);
 
-  
   const SetActiveAcountClick = (account: Account) => {
     setActiveAccount(account);
     localStorage.setItem("activeAccountId", account.id);
   };
 
-  {/*Új kártya létrehozása*/}
+  // Add new account
   const addNewAccount = async () => {
-    console.log(userToken);
-    console.log(userID);
     try {
       const response = await fetch(`http://localhost:3000/accounts`, {
         method: "POST",
@@ -86,12 +83,14 @@ export const logicks = () => {
       setUser((prevUser) =>
         prevUser ? { ...prevUser, Accounts: [...(prevUser.Accounts || []), newAccount] } : null
       );
+      setActiveAccount(newAccount);
+      localStorage.setItem("activeAccountId", newAccount.id);
     } catch (error) {
       setError((error as Error).message);
     }
   };
 
-  {/*Logout*/}
+  // Logout
   const logout = () => {
     localStorage.removeItem("loggedInUser");
     localStorage.removeItem("UserId");
@@ -103,7 +102,7 @@ export const logicks = () => {
     navigate(`/`);
   };
 
-  {/*Login*/}
+  // Login
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     fetch("http://localhost:3000/user/login", {
@@ -135,23 +134,61 @@ export const logicks = () => {
       });
   };
 
-  return (
-    {
-      user,
-      loading,
-      error,
-      activeAccount,
-      SetActiveAcountClick,
-      addNewAccount,
-      logout,
-      isHovered,
-      setIsHovered,
-      email,
-      setEmail,
-      password,
-      setPassword,
-      isLoggedIn,
-      handleSubmit
+  // Delete account
+  const deleteAccount = async (accountId: string) => {
+    try {
+      const response = await fetch(`http://localhost:3000/accounts/${accountId}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          "authorization": "Bearer " + userToken,
+        },
+      });
+      if (!response.ok) throw new Error("Failed to delete account");
+      setUser((prevUser) =>
+        prevUser ? { ...prevUser, Accounts: prevUser.Accounts?.filter(account => account.id !== accountId) } : null
+      );
+      setActiveAccount(null);
+      localStorage.removeItem("activeAccountId");
+    } catch (error) {
+      setError((error as Error).message);
     }
-  );
+  };
+
+  // Add income
+  const addIncome = async (accountId: string, amount: number) => {
+    // Implement the logic to add income
+  };
+
+  // Add expense
+  const addExpense = async (accountId: string, amount: number) => {
+    // Implement the logic to add expense
+  };
+
+  // Add user to account
+  const addUserToAccount = async (accountId: string, userId: string) => {
+    // Implement the logic to add user to account
+  };
+
+  return {
+    user,
+    loading,
+    error,
+    activeAccount,
+    SetActiveAcountClick,
+    addNewAccount,
+    deleteAccount,
+    addIncome,
+    addExpense,
+    addUserToAccount,
+    logout,
+    isHovered,
+    setIsHovered,
+    email,
+    setEmail,
+    password,
+    setPassword,
+    isLoggedIn,
+    handleSubmit,
+  };
 };
