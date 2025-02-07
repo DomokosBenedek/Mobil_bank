@@ -1,6 +1,3 @@
-import { Account } from "./AccountProp";
-import { User } from "./UserProp";
-
 export interface Expense {
     id: string;
     total: number;

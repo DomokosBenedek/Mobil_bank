@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import Footer from "../components/common/Footer";
-import CostumeNavbar from "../components/common/navbar";
 import { User } from "../Props/UserProp";
+import CostumeNavbar from "../components/common/navbar";
+import Footer from "../components/common/Footer";
 
 const Profile_List: React.FC = () => {
     const [users, setUsers] = useState<User[]>([]);

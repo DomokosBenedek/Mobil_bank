@@ -7,7 +7,7 @@ import Card from "../../components/common/Card";
 import { Card_newCard } from "../../components/common/img";
 import Footer from "../../components/common/Footer";
 
-const Charts_Page: React.FC = () => {
+const Card_Page: React.FC = () => {
   const [user, setUser] = useState<User | null>(null);
   const [userID] = useState<string | null>(localStorage.getItem('UserId'));
   const [userToken] = useState<string | null>(localStorage.getItem('Token'));
@@ -95,4 +95,4 @@ const Charts_Page: React.FC = () => {
   );
 };
 
-export default Charts_Page;
+export default Card_Page;

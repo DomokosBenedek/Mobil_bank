@@ -1,8 +1,8 @@
-import React, { useState, FormEvent, useEffect } from "react";
+import { useState, FormEvent, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import "../design/loginDropdown.css";
 import { User } from "../../Props/UserProp";
 import { Icon_Profil_circle } from "./img";
+import "../../design/common/LoginDropdown.css";
 
 export default function LoginDropdown() {
   const [isHovered, setIsHovered] = useState(false);

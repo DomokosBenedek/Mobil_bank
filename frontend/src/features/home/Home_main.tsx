@@ -1,4 +1,11 @@
 import { placeholderHero_image, placeholderIcon, placeholderImage } from "../../components/common/img";
+import "../../design/home_page_elements/advantages.css";
+import "../../design/home_page_elements/contact.css";
+import "../../design/home_page_elements/functions.css";
+import "../../design/home_page_elements/hero.css";
+import "../../design/home_page_elements/howItWork.css";
+import "../../design/home_page_elements/newsLetter.css";
+import "../../design/home_page_elements/tryItOut.css";
 
 export function Hero() {  
   return(

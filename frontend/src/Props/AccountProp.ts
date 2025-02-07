@@ -2,6 +2,7 @@ import { Expense } from "./ExpenseProp";
 import { Income } from "./IncomeProp";
 import { User } from "./UserProp";
 
+
 export interface Account {
     id: string; 
     Users: User[];

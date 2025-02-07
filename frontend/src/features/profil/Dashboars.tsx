@@ -6,8 +6,9 @@ import Sidebar from "./Sidebar";
 import Card from "../../components/common/Card";
 import { Card_newCard } from "../../components/common/img";
 import Footer from "../../components/common/Footer";
+import "../../design/profil_page_element/dashboard.css";
 
-const Charts_Page: React.FC = () => {
+const Dashboard_Page: React.FC = () => {
   const [user, setUser] = useState<User | null>(null);
   const [userID] = useState<string | null>(localStorage.getItem('UserId'));
   const [userToken] = useState<string | null>(localStorage.getItem('Token'));
@@ -62,7 +63,9 @@ const Charts_Page: React.FC = () => {
     <>
       <header><CostumeNavbar /></header>
       <main className="profile-container">
-        <div id='sidebar'><Sidebar/></div>
+        <div id='sidebar'>
+            <Sidebar/>
+        </div>
         <section className="cards-section">
           <div className="Title_row">
             <h3 className="Title">Cards</h3>
@@ -95,4 +98,4 @@ const Charts_Page: React.FC = () => {
   );
 };
 
-export default Charts_Page;
+export default Dashboard_Page;

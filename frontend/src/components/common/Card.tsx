@@ -1,6 +1,5 @@
-import React from 'react';
-import '../design/card.css';
-import { CardProp } from '../../Props/CardProp';
+import { CardProp } from "../../Props/CardProp";
+import "../../design/common/card.css";
 
 const Card: React.FC<CardProp> = ({ number, total, currency, id, name, date }) => {
   return (

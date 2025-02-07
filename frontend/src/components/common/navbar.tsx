@@ -1,6 +1,6 @@
 import { matchPath, useLocation } from "react-router-dom";
 import LoginDropdown from "./LoginDropdown";
-import '../design/navbar.css';
+import "../../design/common/navbar.css";
 import { placeholderIcon_text } from "./img";
 
 export default function CostumeNavbar() {
