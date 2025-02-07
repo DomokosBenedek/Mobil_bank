@@ -1,69 +1,27 @@
-import { useState, FormEvent, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { User } from "../../Props/UserProp";
 import { Icon_Profil_circle } from "./img";
 import "../../design/common/LoginDropdown.css";
+import { logicks } from "./logic";
 
 export default function LoginDropdown() {
-  const [isHovered, setIsHovered] = useState(false);
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
-  const [user, setUser] = useState<User | null>(null);
+  const {
+    user,
+    isHovered,
+    setIsHovered,
+    email,
+    setEmail,
+    password,
+    setPassword,
+    isLoggedIn,
+    handleSubmit,
+    logout,
+  } = logicks();
+  
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const storedUser = localStorage.getItem("loggedInUser");
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-      setIsLoggedIn(true);
-    }
-  }, []);
-
-  const handleSubmit = (event: FormEvent) => {
-    event.preventDefault();
-    fetch("http://localhost:3000/user/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, password }),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`Server responded with status ${response.status}`);
-        }
-        return response.json();
-      })
-      .then((userData: User) => {
-        setUser(userData);
-        setIsLoggedIn(true);
-        localStorage.setItem("loggedInUser", JSON.stringify(userData));
-        console.log(userData);
-        console.log(userData.access_token);
-        if (userData.access_token) {
-          localStorage.setItem("Token", userData.access_token as string);
-        }
-        if (userData.id) {
-          localStorage.setItem("UserId", userData.id as string);
-        }
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-  };
-
-  const handleLogout = () => {
-    setUser(null);
-    setIsLoggedIn(false);
-    navigate(`/`, { state: { user } });
-    localStorage.removeItem("loggedInUser");
-  };
 
   const handleProfileClick = () => {
     if (user) {
       navigate(`/profile/${user.firstName}${user.lastName}`, { state: { user } });
-      console.log(user.firstName + " " + user.lastName  + " átküldés")
     }
   };
 
@@ -82,7 +40,7 @@ export default function LoginDropdown() {
           {isHovered && (
             <div className="profile-dropdown">
               <span>{user.firstName} {user.lastName}</span>
-              <button className="primary_v1" onClick={handleLogout}>Kilépés</button>
+              <button className="primary_v1" onClick={logout}>Kilépés</button>
             </div>
           )}
         </>
@@ -95,7 +53,6 @@ export default function LoginDropdown() {
               <form onSubmit={handleSubmit}>
                 <input
                   type="text"
-                  //type="email"
                   placeholder="Email cím"
                   className="login-input"
                   value={email}
