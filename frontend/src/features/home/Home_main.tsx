@@ -7,6 +7,7 @@ import "../../design/home_page_elements/newsLetter.css";
 import "../../design/home_page_elements/tryItOut.css";
 import "../../design/home_page_elements/hero.css";
 
+
 export function Hero() {  
   return(
     <section className="hero">
