@@ -7,6 +7,7 @@ import Footer from "../../components/common/Footer";
 import "../../design/profil_page_element/dashboard.css";
 import { logicks } from "../../components/common/logic";
 import CardContextMenu from '../../components/common/ContextMenu';
+import PieChart from '../../components/common/charts/pieChart';
 
 const Dashboard_Page: React.FC = () => {
   const {
@@ -23,6 +24,10 @@ const Dashboard_Page: React.FC = () => {
   } = logicks();
 
   const [contextMenu, setContextMenu] = useState<{ x: number; y: number; accountId: string } | null>(null);
+
+  console.log('userId: ' + user?.id);
+  console.log('activeAccountId: : ' + activeAccount?.id);
+  console.log('token: ' + user?.access_token);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
@@ -85,7 +90,7 @@ const Dashboard_Page: React.FC = () => {
           <p><strong>Role:</strong> {user.role}</p>
           <p><strong>Email:</strong> {user.email}</p>
           <p><strong>Created At:</strong> {user.createdAt ? new Date(user.createdAt).toLocaleString() : 'N/A'}</p>
-          <p><strong>Updated At:</strong> {user.updatedAt ? new Date(user.updatedAt).toLocaleString() : 'N/A'}</p>
+          <p><strong>Updated At:</strong> {user.updatedAt ? new Date(user.updatedAt).toLocaleDateString() : 'N/A'}</p>
           <p><strong>Account IDs:</strong></p>
           <ul>
             {user.accountId?.map((accountId) => ( 
@@ -103,7 +108,9 @@ const Dashboard_Page: React.FC = () => {
             <h3 className="Title">Diagrams</h3>
             <button className="primary_v3">View more</button>
         </div>
-        <div className="sectionMain"></div>   
+        <div className="sectionMain">
+          <PieChart key={activeAccount?.id} />
+        </div>   
     </section>
       </main>
       <footer><Footer /></footer>

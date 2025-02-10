@@ -15,9 +15,10 @@ export interface Expense {
 }
 
 enum Category {
-    Food,
+    Shopping,
     Rent,
     Transport,
+    Transaction,
     Other
 }
 

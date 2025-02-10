@@ -15,9 +15,8 @@ export interface Income {
 }
 
 enum Category {
-    Food,
-    Rent,
-    Transport,
+    Salary,
+    Transaction,
     Other
 }
 

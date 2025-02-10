@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { Account } from "../../Props/AccountProp";
 import { User } from "../../Props/UserProp";
 import { useNavigate } from "react-router-dom";
+import { Income } from "../../Props/IncomeProp";
+import { Expense } from "../../Props/ExpenseProp";
 
 export const logicks = () => {
   const [user, setUser] = useState<User | null>(null);
@@ -14,9 +16,12 @@ export const logicks = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const [incomes, setIncomes] = useState<Income[]>();
+  const [expenses, setExpenses] = useState<Expense[]>();
   const navigate = useNavigate();
 
   const fetchAccounts = async () => {
+    console.log(userID)
     try {
       const response = await fetch(
         `http://localhost:3000/accounts/all/${userID}`,
@@ -24,7 +29,7 @@ export const logicks = () => {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-            "Authorization": "Bearer " + userToken,
+            "authorization": "Bearer " + userToken,
           },
         }
       );
@@ -46,31 +51,55 @@ export const logicks = () => {
     }
   };
 
-  useEffect(() => {
-    const storedUser = localStorage.getItem("loggedInUser");
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-      setIsLoggedIn(true);
-    }
-
-    if (userID && userToken) {
-      fetchAccounts();
-    }
-
-    const interval = setInterval(() => {
-      if (userID && userToken) {
-        fetchAccounts();
+  const fetchExpenses = async (accountId: string) => {
+    try {
+      const response = await fetch(`http://localhost:3000/accounts/allex/${accountId}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "authorization": "Bearer " + userToken,
+        },
+      });
+      if (!response.ok) throw new Error("Failed to fetch incomes");
+      const text = await response.text();
+      if (!text) {
+        setIncomes([]);
+      } else {
+        const data = JSON.parse(text);
+        setIncomes(data);
       }
-    }, 60000); // Fetch accounts every 60 seconds
-
-    return () => clearInterval(interval);
-  }, [userID, userToken]);
-
+    } catch (error) {
+      setError((error as Error).message);
+    }
+  };
+  
+  const fetchIncomes = async (accountId: string) => {
+    try {
+      const response = await fetch(`http://localhost:3000/accounts/allin/${accountId}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "authorization": "Bearer " + userToken,
+        },
+      });
+      if (!response.ok) throw new Error("Failed to fetch incomes");
+      const text = await response.text();
+      if (!text) {
+        setIncomes([]);
+      } else {
+        const data = JSON.parse(text);
+        setIncomes(data);
+      }
+    } catch (error) {
+      setError((error as Error).message);
+    }
+  };
+  
   const SetActiveAcountClick = (account: Account) => {
     setActiveAccount(account);
     localStorage.setItem("activeAccountId", account.id);
   };
-
+  
   // Add new account
   const addNewAccount = async () => {
     try {
@@ -91,17 +120,17 @@ export const logicks = () => {
       const newAccount = await response.json();
       setUser((prevUser) =>
         prevUser ? { ...prevUser, Accounts: [...(prevUser.Accounts || []), newAccount] } : null
-      );
-      setActiveAccount(newAccount);
-      localStorage.setItem("activeAccountId", newAccount.id);
-    } catch (error) {
-      setError((error as Error).message);
-    }
-  };
+    );
+    setActiveAccount(newAccount);
+    localStorage.setItem("activeAccountId", newAccount.id);
+  } catch (error) {
+    setError((error as Error).message);
+  }
+};
 
-  // Logout
-  const logout = () => {
-    localStorage.removeItem("loggedInUser");
+// Logout
+const logout = () => {
+  localStorage.removeItem("loggedInUser");
     localStorage.removeItem("UserId");
     localStorage.removeItem("Token");
     localStorage.removeItem("activeAccountId");
@@ -110,7 +139,7 @@ export const logicks = () => {
     setIsLoggedIn(false);
     navigate(`/`);
   };
-
+  
   // Login
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
@@ -121,28 +150,28 @@ export const logicks = () => {
       },
       body: JSON.stringify({ email, password }),
     })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`Server responded with status ${response.status}`);
-        }
-        return response.json();
-      })
-      .then((userData: User) => {
-        setUser(userData);
-        setIsLoggedIn(true);
-        localStorage.setItem("loggedInUser", JSON.stringify(userData));
-        if (userData.access_token) {
-          localStorage.setItem("Token", userData.access_token as string);
-        }
-        if (userData.id) {
-          localStorage.setItem("UserId", userData.id as string);
-        }
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`Server responded with status ${response.status}`);
+      }
+      return response.json();
+    })
+    .then((userData: User) => {
+      setUser(userData);
+      setIsLoggedIn(true);
+      localStorage.setItem("loggedInUser", JSON.stringify(userData));
+      if (userData.access_token) {
+        localStorage.setItem("Token", userData.access_token as string);
+      }
+      if (userData.id) {
+        localStorage.setItem("UserId", userData.id as string);
+      }
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
   };
-
+  
   // Delete account
   const deleteAccount = async (accountId: string) => {
     try {
@@ -156,34 +185,70 @@ export const logicks = () => {
       if (!response.ok) throw new Error("Failed to delete account");
       setUser((prevUser) =>
         prevUser ? { ...prevUser, Accounts: prevUser.Accounts?.filter(account => account.id !== accountId) } : null
-      );
-      setActiveAccount(null);
-      localStorage.removeItem("activeAccountId");
-    } catch (error) {
+    );
+    setActiveAccount(null);
+    localStorage.removeItem("activeAccountId");
+  } catch (error) {
       setError((error as Error).message);
     }
   };
-
+  
   // Add income
   const addIncome = async (accountId: string, amount: number) => {
     // Implement the logic to add income
   };
-
+  
   // Add expense
   const addExpense = async (accountId: string, amount: number) => {
     // Implement the logic to add expense
   };
-
+  
   // Add user to account
   const addUserToAccount = async (accountId: string, userId: string) => {
     // Implement the logic to add user to account
   };
+
+  useEffect(() => {
+    if (activeAccount) {
+      console.log('Active account check: '+ activeAccount)
+      fetchIncomes(activeAccount.id);
+      fetchExpenses(activeAccount.id);
+    }
+  }, [activeAccount])
+  
+  useEffect(() => {
+    const storedUser = localStorage.getItem("loggedInUser");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+      setIsLoggedIn(true);
+    }
+  
+    if (userID && userToken) {
+      fetchAccounts();
+    }
+  
+    const interval = setInterval(() => {
+      if (userID && userToken) {
+        fetchAccounts();
+        if (activeAccount) {
+          fetchIncomes(activeAccount.id);
+          fetchExpenses(activeAccount.id);
+        }
+      }
+    }, 60000);
+
+    return () => clearInterval(interval);
+
+  }, [userID, userToken]);
+
 
   return {
     user,
     loading,
     error,
     activeAccount,
+    incomes,
+    expenses,
     fetchAccounts,
     SetActiveAcountClick,
     addNewAccount,

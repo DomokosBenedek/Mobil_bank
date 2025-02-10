@@ -1,7 +1,7 @@
 import {Route, Routes} from 'react-router-dom'
 import Card_Page from '../features/profil/Card';
 import Charts_Page from '../features/profil/stats';
-import Dashboard_Page from '../features/profil/dashboars';
+import Dashboard_Page from '../features/profil/Dashboars';
 
 const Profile: React.FC = () => {
   return (
