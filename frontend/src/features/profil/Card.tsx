@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import CostumeNavbar from "../../components/common/navbar";
 import { Account } from "../../Props/AccountProp";
-import { User } from "../../Props/UserProp";
 import Sidebar from "./Sidebar";
 import Card from "../../components/common/Card";
 import { Card_newCard } from "../../components/common/img";
 import Footer from "../../components/common/Footer";
 import { logicks } from "../../components/common/logic";
 import PieChart from '../../components/common/charts/pieChart';
+import BarChart from '../../components/common/charts/barChart';
 
 const Card_Page: React.FC = () => {
   const {
@@ -53,12 +53,23 @@ const Card_Page: React.FC = () => {
             </div>
           </div>
         </section>
+        {/* Transactions Section */}
+        <section className="transactions-section">
+          <div className="Title_row">
+            <h3 className="Title">Diagrams</h3>
+            <button className="primary_v3">View more</button>
+          </div>
+          <div className="sectionMain">
+            <BarChart key={activeAccount?.id} />
+          </div>
+        </section>
         <section className="diagram-section">
           <div className="Title_row">
             <h3 className="Title">Diagrams</h3>
             <button className="primary_v3">View more</button>
           </div>
           <div className="sectionMain">
+            <PieChart key={activeAccount?.id} />
           </div>   
         </section>
       </main>

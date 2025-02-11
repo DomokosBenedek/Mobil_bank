@@ -8,6 +8,7 @@ import "../../design/profil_page_element/dashboard.css";
 import { logicks } from "../../components/common/logic";
 import CardContextMenu from '../../components/common/ContextMenu';
 import PieChart from '../../components/common/charts/pieChart';
+import BarChart from '../../components/common/charts/barChart';
 
 const Dashboard_Page: React.FC = () => {
   const {
@@ -109,6 +110,7 @@ const Dashboard_Page: React.FC = () => {
             <button className="primary_v3">View more</button>
         </div>
         <div className="sectionMain">
+        <BarChart key={activeAccount?.id} />
           <PieChart key={activeAccount?.id} />
         </div>   
     </section>
