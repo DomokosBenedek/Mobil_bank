@@ -1,77 +1,40 @@
 import React from 'react';
 import CostumeNavbar from "../../components/common/navbar";
-import { Account } from "../../Props/AccountProp";
 import Sidebar from "./Sidebar";
-import Card from "../../components/common/Card";
-import { Card_newCard } from "../../components/common/img";
 import Footer from "../../components/common/Footer";
 import { logicks } from "../../components/common/logic";
 import PieChart from '../../components/common/charts/pieChart';
 import BarChart from '../../components/common/charts/barChart';
 
 const Card_Page: React.FC = () => {
-  const {
-    user,
-    loading,
-    error,
-    activeAccount,
-    SetActiveAcountClick,
-    addNewAccount,
-  } = logicks();
+  const { user, loading, error, activeAccount } = logicks();
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
+
+  const userName: string = `${user?.firstName ?? ''}${user?.lastName ?? ''}`.trim();
 
   return (
     <>
       <header><CostumeNavbar /></header>
       <main className="profile-container">
-        <div id='sidebar'><Sidebar/></div>
-        <section className="cards-section">
-          <div className="Title_row">
-            <h3 className="Title">Cards</h3>
-            <button className="primary_v3">View more</button>
-          </div>
-          <div className="sectionMain">
-            <div className='cardList'>
-              {user?.Accounts?.map((account: Account, index) => {
-                const isActive = activeAccount?.id === account.id;
-                return (
-                  <div key={account.id} className={`card ${isActive ? 'active' : ''}`} onClick={() => SetActiveAcountClick(account)}>
-                    <Card
-                      id={'*'.repeat(account.id.length - 4) + account.id.slice(-4)}
-                      number={index + 1}
-                      total={account.total || 0}
-                      currency={account.currency || "N/A"}
-                      name={`${user.firstName} ${user.lastName}`}
-                      date={new Date(account.createdAt).toLocaleDateString('hu-HU', { year: '2-digit', month: '2-digit' })}
-                    />
-                  </div>
-                );
-              })}
-              <img src={Card_newCard} alt="NewCard" onClick={addNewAccount} />
+        <Sidebar userName={userName} />
+        <div className="card-container">
+          <h2>Active Card</h2>
+          {activeAccount ? (
+            <div>
+              <p><strong>ID:</strong> {activeAccount.id}</p>
+              <p><strong>Total:</strong> {activeAccount.total}</p>
+              <p><strong>Currency:</strong> {activeAccount.currency}</p>
+              <p><strong>Created At:</strong> {new Date(activeAccount.createdAt).toLocaleDateString()}</p>
+              <p><strong>Updated At:</strong> {new Date(activeAccount.updatedAt).toLocaleDateString()}</p>
+              <PieChart key={activeAccount.id} />
+              <BarChart key={activeAccount.id} />
             </div>
-          </div>
-        </section>
-        {/* Transactions Section */}
-        <section className="transactions-section">
-          <div className="Title_row">
-            <h3 className="Title">Diagrams</h3>
-            <button className="primary_v3">View more</button>
-          </div>
-          <div className="sectionMain">
-            <BarChart key={activeAccount?.id} />
-          </div>
-        </section>
-        <section className="diagram-section">
-          <div className="Title_row">
-            <h3 className="Title">Diagrams</h3>
-            <button className="primary_v3">View more</button>
-          </div>
-          <div className="sectionMain">
-            <PieChart key={activeAccount?.id} />
-          </div>   
-        </section>
+          ) : (
+            <p>No active account selected.</p>
+          )}
+        </div>
       </main>
       <footer><Footer /></footer>
     </>

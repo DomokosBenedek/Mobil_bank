@@ -208,6 +208,10 @@ const logout = () => {
     // Implement the logic to add user to account
   };
 
+  const updateUser = async ( firstName: String, lastName: String, email: String, password: String) => {
+    // Implement the logic to add user to account
+  };
+
   useEffect(() => {
     if (activeAccount) {
       console.log('Active account check: '+ activeAccount)
@@ -226,18 +230,6 @@ const logout = () => {
     if (userID && userToken) {
       fetchAccounts();
     }
-  
-    const interval = setInterval(() => {
-      if (userID && userToken) {
-        fetchAccounts();
-        if (activeAccount) {
-          fetchIncomes(activeAccount.id);
-          fetchExpenses(activeAccount.id);
-        }
-      }
-    }, 60000);
-
-    return () => clearInterval(interval);
 
   }, [userID, userToken]);
 
@@ -249,6 +241,7 @@ const logout = () => {
     activeAccount,
     incomes,
     expenses,
+    updateUser,
     fetchAccounts,
     SetActiveAcountClick,
     addNewAccount,

@@ -8,7 +8,7 @@ import "../../design/profil_page_element/dashboard.css";
 import { logicks } from "../../components/common/logic";
 import CardContextMenu from '../../components/common/ContextMenu';
 import PieChart from '../../components/common/charts/pieChart';
-import BarChart from '../../components/common/charts/barChart';
+
 
 const Dashboard_Page: React.FC = () => {
   const {
@@ -42,13 +42,13 @@ const Dashboard_Page: React.FC = () => {
     setContextMenu(null);
   };
 
+  const userName: string = `${user?.firstName ?? ''}${user?.lastName ?? ''}`.trim();
+
   return (
     <>
       <header><CostumeNavbar /></header>
       <main className="profile-container">
-        <div id='sidebar'>
-            <Sidebar/>
-        </div>
+        <Sidebar userName={userName} />
         <section className="cards-section">
           <div className="Title_row">
             <h3 className="Title">Cards</h3>
@@ -73,7 +73,7 @@ const Dashboard_Page: React.FC = () => {
               })}
             </div>
             <img src={Card_newCard} alt="NewCard" onClick={addNewAccount} />
-            </div>
+          </div>
         </section>
 
         {/* Transactions Section */}
@@ -82,38 +82,41 @@ const Dashboard_Page: React.FC = () => {
             <h3 className="Title">Transactions</h3>
             <button className="primary_v3">View more</button>
           </div>
-          <div className="sectionMain">      <h2>Profile</h2>
-      {user ? (
-        <div>
-          <p><strong>ID:</strong> {user.id}</p>
-          <p><strong>First Name:</strong> {user.firstName}</p>
-          <p><strong>Last Name:</strong> {user.lastName}</p>
-          <p><strong>Role:</strong> {user.role}</p>
-          <p><strong>Email:</strong> {user.email}</p>
-          <p><strong>Created At:</strong> {user.createdAt ? new Date(user.createdAt).toLocaleString() : 'N/A'}</p>
-          <p><strong>Updated At:</strong> {user.updatedAt ? new Date(user.updatedAt).toLocaleDateString() : 'N/A'}</p>
-          <p><strong>Account IDs:</strong></p>
-          <ul>
-            {user.accountId?.map((accountId) => ( 
-                <li key={accountId as React.Key}>{accountId}</li>
-            ))}
-            </ul>
-        </div>
-        ) : (
-        <p>No user data available.</p>
-        )}</div>
-    </section>
-    {/* Diagram Section */}
-    <section className="diagram-section">
-        <div className="Title_row">
+          <div className="sectionMain">
+            <h2>Profile</h2>
+            {user ? (
+              <div>
+                <p><strong>ID:</strong> {user.id}</p>
+                <p><strong>First Name:</strong> {user.firstName}</p>
+                <p><strong>Last Name:</strong> {user.lastName}</p>
+                <p><strong>Role:</strong> {user.role}</p>
+                <p><strong>Email:</strong> {user.email}</p>
+                <p><strong>Created At:</strong> {user.createdAt ? new Date(user.createdAt).toLocaleString() : 'N/A'}</p>
+                <p><strong>Updated At:</strong> {user.updatedAt ? new Date(user.updatedAt).toLocaleDateString() : 'N/A'}</p>
+                <p><strong>Account IDs:</strong></p>
+                <ul>
+                  {user.accountId?.map((accountId) => (
+                    <li key={accountId as React.Key}>{accountId}</li>
+                  ))}
+                </ul>
+              </div>
+            ) : (
+              <p>No user data available.</p>
+            )}
+          </div>
+        </section>
+            
+        {/*Charts Section */}
+        <section className="diagram-section">
+          <div className="Title_row">
             <h3 className="Title">Diagrams</h3>
             <button className="primary_v3">View more</button>
-        </div>
-        <div className="sectionMain">
-        <BarChart key={activeAccount?.id} />
-          <PieChart key={activeAccount?.id} />
-        </div>   
-    </section>
+          </div>
+          <div className="sectionMain">
+            <PieChart key={activeAccount?.id} />
+          </div>   
+        </section>
+
       </main>
       <footer><Footer /></footer>
       {contextMenu && (

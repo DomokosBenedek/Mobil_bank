@@ -6,6 +6,8 @@ import Sidebar from "./Sidebar";
 import Card from "../../components/common/Card";
 import { Card_newCard } from "../../components/common/img";
 import Footer from "../../components/common/Footer";
+import PieChart from '../../components/common/charts/pieChart';
+import BarChart from '../../components/common/charts/barChart';
 
 const Charts_Page: React.FC = () => {
   const [user, setUser] = useState<User | null>(null);
@@ -58,11 +60,13 @@ const Charts_Page: React.FC = () => {
     localStorage.setItem('activeAccountId', account.id);
   };
 
+  const userName: string = `${user?.firstName ?? ''}${user?.lastName ?? ''}`.trim();
+
   return (
     <>
       <header><CostumeNavbar /></header>
       <main className="profile-container">
-        <div id='sidebar'><Sidebar/></div>
+        <Sidebar userName={userName} />
         <section className="cards-section">
           <div className="Title_row">
             <h3 className="Title">Cards</h3>
@@ -88,6 +92,24 @@ const Charts_Page: React.FC = () => {
               <img src={Card_newCard} alt="NewCard" />
             </div>
           </div>
+        </section>
+        <section className="transactions-section">
+          <div className="Title_row">
+            <h3 className="Title">Diagrams</h3>
+            <button className="primary_v3">View more</button>
+          </div>
+          <div className="sectionMain">
+            <BarChart key={activeAccount?.id} />
+          </div>
+        </section>
+        <section className="diagram-section">
+          <div className="Title_row">
+            <h3 className="Title">Diagrams</h3>
+            <button className="primary_v3">View more</button>
+          </div>
+          <div className="sectionMain">
+            <PieChart key={activeAccount?.id} />
+          </div>   
         </section>
       </main>
       <footer><Footer /></footer>
