@@ -47,9 +47,6 @@ const Dashboard_Page: React.FC = () => {
 
   return (
     <>
-      <header><CostumeNavbar/></header>
-      <main className="profile-container">
-        <Sidebar/>
         <section className="cards-section">
           <div className="Title_row">
             <h3 className="Title">Cards</h3>
@@ -98,9 +95,6 @@ const Dashboard_Page: React.FC = () => {
             <PieChart key={activeAccount?.id} />
           </div>   
         </section>
-
-      </main>
-      <footer><Footer /></footer>
       {contextMenu && (
         <CardContextMenu
           x={contextMenu.x}

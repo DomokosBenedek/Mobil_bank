@@ -12,7 +12,7 @@ const Sidebar: React.FC = () => {
     <nav className="sidebar">
       <ul className="nav-links">
         <li>
-          <NavLink to={`/profile/${user?.firstName}${user?.lastName}`} className={({ isActive }) => (isActive ? "active" : "")}>
+          <NavLink to={`/profile/${user?.firstName}${user?.lastName}/dashboard`} className={({ isActive }) => (isActive ? "active" : "")}>
             <img src={placeholderIcon} alt="icon"/> Dashboard
           </NavLink>
         </li>

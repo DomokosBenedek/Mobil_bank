@@ -15,9 +15,6 @@ const Profil_Page: React.FC = () => {
 
   return (
     <>
-      <header><CostumeNavbar /></header>
-      <main className="profile-container">
-        <Sidebar/>
         <div className="profil-container">
           <h2>Profil</h2>
           <div className="profil-form">
@@ -60,8 +57,6 @@ const Profil_Page: React.FC = () => {
             <button className="primary_v3">Update</button>
           </div>
         </div>
-      </main>
-      <footer><Footer /></footer>
     </>
   );
 };

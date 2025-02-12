@@ -10,14 +10,9 @@ const Changes_Page: React.FC = () => {
 
   return (
     <>
-      <header><CostumeNavbar /></header>
-      <main className="profile-container">
-        <Sidebar/>
         <div className="changes-container">
           <h2>Changes</h2>
         </div>
-      </main>
-      <footer><Footer /></footer>
     </>
   );
 };

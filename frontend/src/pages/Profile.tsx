@@ -5,6 +5,9 @@ import Dashboard_Page from '../features/profil/Dashboars';
 import Profil_Page from '../features/profil/Profil';
 import { logicks } from '../components/common/logic';
 import Changes_Page from '../features/profil/Changes';
+import CostumeNavbar from '../components/common/navbar';
+import Footer from '../components/common/Footer';
+import Sidebar from '../features/profil/Sidebar';
 
 const Profile: React.FC = () => {
   const { user } = logicks();
@@ -14,9 +17,13 @@ const Profile: React.FC = () => {
 
   return (
     <>
+      <header>
+        <CostumeNavbar />
+      </header>
+      <main>
+        <Sidebar />
         <div className="profile-layout">
           <Routes>
-            <Route path="/" element={<Dashboard_Page/>} />
             <Route path={`/dashboard`} element={<Dashboard_Page />} />
             <Route path={`/card`} element={<Card_Page />} />
             <Route path={`/charts`} element={<Charts_Page />} />
@@ -24,6 +31,10 @@ const Profile: React.FC = () => {
             <Route path={`/changes`} element={<Changes_Page />} />
           </Routes>
         </div>
+      </main>
+      <footer>
+        <Footer />
+      </footer>
     </>
   );
 };
