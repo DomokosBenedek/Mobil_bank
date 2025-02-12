@@ -212,6 +212,10 @@ const logout = () => {
     // Implement the logic to add user to account
   };
 
+  const getAllPayments = () => {
+    return [...(incomes || []), ...(expenses || [])];
+  };
+
   useEffect(() => {
     if (activeAccount) {
       console.log('Active account check: '+ activeAccount)
@@ -258,5 +262,6 @@ const logout = () => {
     setPassword,
     isLoggedIn,
     handleSubmit,
+    getAllPayments,
   };
 };

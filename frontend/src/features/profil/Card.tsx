@@ -18,7 +18,7 @@ const Card_Page: React.FC = () => {
     <>
       <header><CostumeNavbar /></header>
       <main className="profile-container">
-        <Sidebar userName={userName} />
+        <Sidebar/>
         <div className="card-container">
           <h2>Active Card</h2>
           {activeAccount ? (

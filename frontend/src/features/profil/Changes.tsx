@@ -12,7 +12,7 @@ const Changes_Page: React.FC = () => {
     <>
       <header><CostumeNavbar /></header>
       <main className="profile-container">
-        <Sidebar userName={userName} />
+        <Sidebar/>
         <div className="changes-container">
           <h2>Changes</h2>
         </div>

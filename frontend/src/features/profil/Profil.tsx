@@ -17,7 +17,7 @@ const Profil_Page: React.FC = () => {
     <>
       <header><CostumeNavbar /></header>
       <main className="profile-container">
-        <Sidebar userName={userName} />
+        <Sidebar/>
         <div className="profil-container">
           <h2>Profil</h2>
           <div className="profil-form">

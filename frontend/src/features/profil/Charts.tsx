@@ -55,18 +55,11 @@ const Charts_Page: React.FC = () => {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
 
-  const handleCardClick = (account: Account) => {
-    setActiveAccount(account);
-    localStorage.setItem('activeAccountId', account.id);
-  };
-
-  const userName: string = `${user?.firstName ?? ''}${user?.lastName ?? ''}`.trim();
-
   return (
     <>
       <header><CostumeNavbar /></header>
       <main className="profile-container">
-        <Sidebar userName={userName} />
+        <Sidebar/>
         <section className="cards-section">
           <div className="Title_row">
             <h3 className="Title">Cards</h3>
@@ -74,12 +67,12 @@ const Charts_Page: React.FC = () => {
           </div>
           <div className="sectionMain">
             <div className='cardList'>
-              {user?.Accounts?.map((account: Account, index) => {
+              {user?.Accounts?.map((account, index) => {
                 const isActive = activeAccount?.id === account.id;
                 return (
-                  <div key={account.id} className={`card ${isActive ? 'active' : ''}`} onClick={() => handleCardClick(account)}>
+                  <div key={account.id} className={`card ${isActive ? 'active' : ''}`} onClick={() => setActiveAccount(account)}>
                     <Card
-                      id={'*'.repeat(account.id.length - 4) + account.id.slice(-4)}
+                      id={account.id}
                       number={index + 1}
                       total={account.total || 0}
                       currency={account.currency || "N/A"}

@@ -2,9 +2,11 @@ import { matchPath, useLocation } from "react-router-dom";
 import LoginDropdown from "./LoginDropdown";
 import "../../design/common/navbar.css";
 import { placeholderIcon_text } from "./img";
+import { logicks } from "./logic";
 
 export default function CostumeNavbar() {
     const location = useLocation();
+    const { user } = logicks();
     const isHomePage = location.pathname === "/";
 
     const pageTitles: Record<string, string> = {
@@ -14,8 +16,20 @@ export default function CostumeNavbar() {
   // Ellenőrizzük, hogy az útvonal egy dinamikus profil oldal-e
   let currentPageTitle = pageTitles[location.pathname] || "";
 
-  if (matchPath("/profile/:username", location.pathname)) {
-      currentPageTitle = "Profil";
+  if (matchPath(`/profile/${user?.firstName}${user?.lastName}`, location.pathname)) {
+      currentPageTitle = "Dashboard";
+  }
+  if (matchPath(`/profile/${user?.firstName}${user?.lastName}/Card`, location.pathname)) {
+    currentPageTitle = "Card";
+  }
+  if (matchPath(`/profile/${user?.firstName}${user?.lastName}/Charts`, location.pathname)) {
+    currentPageTitle = "Charts";
+  }
+  if (matchPath(`/profile/${user?.firstName}${user?.lastName}/Profil`, location.pathname)) {
+    currentPageTitle = "Profil";
+  }
+  if (matchPath(`/profile/${user?.firstName}${user?.lastName}/Changes`, location.pathname)) {
+    currentPageTitle = "Changes";
   }
 
     return (

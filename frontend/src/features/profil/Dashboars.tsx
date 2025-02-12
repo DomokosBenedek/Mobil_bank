@@ -8,10 +8,11 @@ import "../../design/profil_page_element/dashboard.css";
 import { logicks } from "../../components/common/logic";
 import CardContextMenu from '../../components/common/ContextMenu';
 import PieChart from '../../components/common/charts/pieChart';
+import Table from '../../components/common/Table';
 
 
 const Dashboard_Page: React.FC = () => {
-  const {
+  const { 
     user,
     loading,
     error,
@@ -46,9 +47,9 @@ const Dashboard_Page: React.FC = () => {
 
   return (
     <>
-      <header><CostumeNavbar /></header>
+      <header><CostumeNavbar/></header>
       <main className="profile-container">
-        <Sidebar userName={userName} />
+        <Sidebar/>
         <section className="cards-section">
           <div className="Title_row">
             <h3 className="Title">Cards</h3>
@@ -83,26 +84,7 @@ const Dashboard_Page: React.FC = () => {
             <button className="primary_v3">View more</button>
           </div>
           <div className="sectionMain">
-            <h2>Profile</h2>
-            {user ? (
-              <div>
-                <p><strong>ID:</strong> {user.id}</p>
-                <p><strong>First Name:</strong> {user.firstName}</p>
-                <p><strong>Last Name:</strong> {user.lastName}</p>
-                <p><strong>Role:</strong> {user.role}</p>
-                <p><strong>Email:</strong> {user.email}</p>
-                <p><strong>Created At:</strong> {user.createdAt ? new Date(user.createdAt).toLocaleString() : 'N/A'}</p>
-                <p><strong>Updated At:</strong> {user.updatedAt ? new Date(user.updatedAt).toLocaleDateString() : 'N/A'}</p>
-                <p><strong>Account IDs:</strong></p>
-                <ul>
-                  {user.accountId?.map((accountId) => (
-                    <li key={accountId as React.Key}>{accountId}</li>
-                  ))}
-                </ul>
-              </div>
-            ) : (
-              <p>No user data available.</p>
-            )}
+            <Table/>
           </div>
         </section>
             
