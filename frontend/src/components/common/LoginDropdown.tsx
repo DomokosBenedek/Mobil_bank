@@ -23,7 +23,7 @@ export default function LoginDropdown() {
   const handleProfileClick = () => {
     if (user) {
       fetchAccounts();
-      navigate(`/profile/${user.firstName}${user.lastName}`, { state: { user } });
+      navigate(`/profile/${user.firstName}${user.lastName}/dashboard`, { state: { user } });
     }
   };
 

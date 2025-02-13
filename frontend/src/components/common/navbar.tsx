@@ -16,7 +16,7 @@ export default function CostumeNavbar() {
   // Ellenőrizzük, hogy az útvonal egy dinamikus profil oldal-e
   let currentPageTitle = pageTitles[location.pathname] || "";
 
-  if (matchPath(`/profile/${user?.firstName}${user?.lastName}`, location.pathname)) {
+  if (matchPath(`/profile/${user?.firstName}${user?.lastName}/dashboard`, location.pathname)) {
       currentPageTitle = "Dashboard";
   }
   if (matchPath(`/profile/${user?.firstName}${user?.lastName}/Card`, location.pathname)) {
