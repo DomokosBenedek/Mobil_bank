@@ -24,7 +24,7 @@ const Profile: React.FC = () => {
         <Sidebar />
         <div className="profile-layout">
           <Routes>
-            <Route path={`/dashboard`} element={<Dashboard_Page />} />
+            <Route path={`/`} element={<Dashboard_Page />} />
             <Route path={`/card`} element={<Card_Page />} />
             <Route path={`/charts`} element={<Charts_Page />} />
             <Route path={`/profil`} element={<Profil_Page />} />
