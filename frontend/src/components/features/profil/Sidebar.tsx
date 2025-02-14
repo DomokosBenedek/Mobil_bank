@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
-import { placeholderCard, placeholderIcon } from "../../components/common/img";
-import "../../design/profil_page_element/Sidebar.css";
-import { logicks } from "../../components/common/logic";
+import { placeholderCard, placeholderIcon } from "../../common/img";
+import "../../../design/profil_page_element/sidebar.css";
+import { logicks } from "../../common/logic";
 
 const Sidebar: React.FC = () => {
     const { user, activeAccount } = logicks();

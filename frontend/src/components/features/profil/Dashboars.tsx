@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
-import CostumeNavbar from "../../components/common/navbar";
+import CostumeNavbar from "../../common/navbar";
 import Sidebar from "./Sidebar";
-import Card from "../../components/common/Card";
-import { Card_newCard } from "../../components/common/img";
-import Footer from "../../components/common/Footer";
-import "../../design/profil_page_element/dashboard.css";
-import { logicks } from "../../components/common/logic";
-import CardContextMenu from '../../components/common/ContextMenu';
-import PieChart from '../../components/common/charts/pieChart';
-import Table from '../../components/common/Table';
+import Card from "../../common/Card";
+import { Card_newCard } from "../../common/img";
+import Footer from "../../common/Footer";
+import { logicks } from "../../common/logic";
+import CardContextMenu from '../../common/ContextMenu';
+import PieChart from '../../common/charts/pieChart';
+import Table from '../../common/Table';
+import "../../../design/profil_page_element/dashboard.css";
+import BarChart from '../../common/charts/barChart';
 
 
 const Dashboard_Page: React.FC = () => {
@@ -27,10 +28,6 @@ const Dashboard_Page: React.FC = () => {
 
   const [contextMenu, setContextMenu] = useState<{ x: number; y: number; accountId: string } | null>(null);
 
-  console.log('userId: ' + user?.id);
-  console.log('activeAccountId: : ' + activeAccount?.id);
-  console.log('token: ' + user?.access_token);
-
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
 
@@ -42,8 +39,6 @@ const Dashboard_Page: React.FC = () => {
   const handleCloseContextMenu = () => {
     setContextMenu(null);
   };
-
-  const userName: string = `${user?.firstName ?? ''}${user?.lastName ?? ''}`.trim();
 
   return (
     <>
@@ -63,14 +58,14 @@ const Dashboard_Page: React.FC = () => {
                       number={index + 1}
                       total={account.total || 0}
                       currency={account.currency || "N/A"}
-                      name={`${user.firstName} ${user.lastName}`}
+                      name={`${account.ownerName}`}
                       date={new Date(account.createdAt).toLocaleDateString('hu-HU', { year: '2-digit', month: '2-digit' })}
                     />
                   </div>
                 );
               })}
-            </div>
             <img src={Card_newCard} alt="NewCard" onClick={addNewAccount} />
+            </div>
           </div>
         </section>
 
@@ -92,7 +87,7 @@ const Dashboard_Page: React.FC = () => {
             <button className="primary_v3">View more</button>
           </div>
           <div className="sectionMain">
-            <PieChart key={activeAccount?.id} />
+            <BarChart key={activeAccount?.id} />
           </div>   
         </section>
       {contextMenu && (

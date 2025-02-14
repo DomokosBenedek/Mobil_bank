@@ -1,39 +1,58 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { logicks } from './logic';
 import { placeholderIcon } from './img';
 
-
 const Table: React.FC = () => {
-    const { getAllPayments } = logicks();
-    
-    const transactions = getAllPayments();
-    return (
-      <table className="transaction-table">
-        <thead>
-          <tr>
-            <th>Name of Transaction</th>
-            <th>Date</th>
-            <th>Amount</th>
-            <th>Category</th>
-          </tr>
-        </thead>
-        <tbody>
-          {transactions.map((transaction: any, index: number) => (
+  const { getAllPayments, incomes, expenses, activeAccount } = logicks();
+  const [transactions, setTransactions] = useState<any[]>([]);
+
+  useEffect(() => {
+    if (activeAccount) {
+     setTransactions(getAllPayments);
+    }
+  }, [activeAccount, incomes, expenses]);
+
+  if (!incomes?.length && !expenses?.length) {
+    return <p>No data available</p>;
+  }
+
+  return (
+    <table className="transaction-table">
+      <thead>
+        <tr>
+          <th>Name of Transaction</th>
+          <th>Date</th>
+          <th>Amount</th>
+          <th>Category</th>
+        </tr>
+      </thead>
+      <tbody>
+        {transactions.length > 0 ? (
+          transactions.map((transaction: any, index: number) => (
             <tr key={index}>
               <td>
                 <img src={placeholderIcon} alt="icon" className="transaction-icon" />
-                {transaction.name}
+                <p>{transaction.id} ({transaction.category})</p>
               </td>
-              <td>{new Date(transaction.date).toLocaleDateString('hu-HU')}</td>
-              <td className={transaction.amount > 0 ? 'income' : 'expense'}>
-                {transaction.amount > 0 ? '+' : '-'}{transaction.amount} {transaction.currency}
+              <td>{new Date(transaction.createdAt).toLocaleDateString('hu-HU')}</td>
+              <td className={transaction.PaymentType === "Expense" ? 'expense' : 'income'}>
+                {transaction.PaymentType === "Expense" ? (
+                  <p>-{transaction.total} {transaction.currency}</p>
+                ) : (
+                  <p>+{transaction.total} {transaction.currency}</p>
+                )}
               </td>
               <td>{transaction.category}</td>
             </tr>
-          ))}
-        </tbody>
-      </table>
-    );
+          ))
+        ) : (
+          <tr>
+            <td colSpan={4}>No transactions found</td>
+          </tr>
+        )}
+      </tbody>
+    </table>
+  );
 };
 
 export default Table;

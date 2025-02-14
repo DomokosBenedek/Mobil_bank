@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { Account } from "../../Props/AccountProp";
-import { User } from "../../Props/UserProp";
+import { Account } from "../Props/AccountProp";
+import { User } from "../Props/UserProp";
 import { useNavigate } from "react-router-dom";
-import { Income } from "../../Props/IncomeProp";
-import { Expense } from "../../Props/ExpenseProp";
+import { Income } from "../Props/IncomeProp";
+import { Expense } from "../Props/ExpenseProp";
+import { PaymentType, Transaction } from "../Props/TransactionProp";
 
 export const logicks = () => {
   const [user, setUser] = useState<User | null>(null);
@@ -16,33 +17,28 @@ export const logicks = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
-  const [incomes, setIncomes] = useState<Income[]>();
-  const [expenses, setExpenses] = useState<Expense[]>();
+  const [incomes, setIncomes] = useState<Income[]>([]);
+  const [expenses, setExpenses] = useState<Expense[]>([]);
   const navigate = useNavigate();
 
   const fetchAccounts = async () => {
-    console.log(userID)
     try {
-      const response = await fetch(
-        `http://localhost:3000/accounts/all/${userID}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            "authorization": "Bearer " + userToken,
-          },
+      const response = await fetch(`http://localhost:3000/accounts/all/${userID}`, {
+        method: 'GET',
+        headers: {
+          "Content-Type": 'application/json',
+          "Authorization": "Bearer " + userToken,
         }
-      );
-      if (!response.ok) throw new Error("Failed to fetch accounts");
+      });
+      if (!response.ok) throw new Error('Failed to fetch accounts');
       const data = await response.json();
-      setUser((prevUser) => (prevUser ? { ...prevUser, Accounts: data } : null));
-
-      const storedActiveAccountId = localStorage.getItem("activeAccountId");
+      setUser(prevUser => prevUser ? { ...prevUser, Accounts: data } : null);
+      
+      const storedActiveAccountId = localStorage.getItem('activeAccountId');
       if (data.length > 0) {
-        const selectedAccount =
-          data.find((acc: Account) => acc.id === storedActiveAccountId) || data[0];
+        const selectedAccount = data.find((acc: Account) => acc.id === storedActiveAccountId) || data[0];
         setActiveAccount(selectedAccount);
-        localStorage.setItem("activeAccountId", selectedAccount.id);
+        localStorage.setItem('activeAccountId', selectedAccount.id);
       }
     } catch (error) {
       setError((error as Error).message);
@@ -60,13 +56,15 @@ export const logicks = () => {
           "authorization": "Bearer " + userToken,
         },
       });
-      if (!response.ok) throw new Error("Failed to fetch incomes");
+      if (!response.ok){
+        setExpenses([]);
+      };;
       const text = await response.text();
       if (!text) {
-        setIncomes([]);
+        setExpenses([]);
       } else {
         const data = JSON.parse(text);
-        setIncomes(data);
+        setExpenses(data);
       }
     } catch (error) {
       setError((error as Error).message);
@@ -75,6 +73,7 @@ export const logicks = () => {
   
   const fetchIncomes = async (accountId: string) => {
     try {
+      console.log("fetchIncomes Token: " + userToken);
       const response = await fetch(`http://localhost:3000/accounts/allin/${accountId}`, {
         method: "GET",
         headers: {
@@ -82,7 +81,9 @@ export const logicks = () => {
           "authorization": "Bearer " + userToken,
         },
       });
-      if (!response.ok) throw new Error("Failed to fetch incomes");
+      if (!response.ok){
+        setIncomes([]);
+      };
       const text = await response.text();
       if (!text) {
         setIncomes([]);
@@ -175,7 +176,7 @@ const logout = () => {
   // Delete account
   const deleteAccount = async (accountId: string) => {
     try {
-      const response = await fetch(`http://localhost:3000/accounts/${accountId}`, {
+      const response = await fetch(`http://localhost:3000/accounts/user/${accountId}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -213,14 +214,26 @@ const logout = () => {
   };
 
   const getAllPayments = () => {
-    return [...(incomes || []), ...(expenses || [])];
+    let x: any[] = [];
+    if(expenses.length > 0){
+      expenses.forEach((ex) => {
+        x.push({ ...ex, PaymentType: "Expense" });
+      });
+    }
+    if(incomes.length > 0){
+      incomes.forEach((incom) => {
+        x.push({ ...incom, PaymentType: "Income" });
+      });
+    }
+    return x;
   };
 
   useEffect(() => {
     if (activeAccount) {
-      console.log('Active account check: '+ activeAccount)
-      fetchIncomes(activeAccount.id);
-      fetchExpenses(activeAccount.id);
+      console.log("user token: " +userToken);
+      fetchIncomes(activeAccount.id).then(() => fetchExpenses(activeAccount.id).then(() => getAllPayments()));
+      //fetchExpenses(activeAccount.id);
+      //getAllPayments(); 
     }
   }, [activeAccount])
   

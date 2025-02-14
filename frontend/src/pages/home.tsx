@@ -1,5 +1,5 @@
 import Footer from "../components/common/Footer.tsx";
-import { Hero,Functions, Advantages, TryItOut, HowItWork, NewsLetter, Contact } from "../features/home/Home_main.tsx";
+import { Hero,Functions, Advantages, TryItOut, HowItWork, NewsLetter, Contact } from "../components/features/home/Home_main.tsx";
 import CostumeNavbar from "../components/common/navbar.tsx";
 
 export default function HomePage() {

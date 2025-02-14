@@ -11,15 +11,19 @@ const BarChart: React.FC = () => {
   useEffect(() => {
     const monthlyData = Array.from({ length: 12 }, () => ({ incomes: 0, expenses: 0 }));
 
-    incomes?.forEach(income => {
-      const month = new Date(income.createdAt).getMonth();
-      monthlyData[month].incomes += income.total;
-    });
+    if(incomes.length>0){
+      incomes?.forEach(income => {
+        const month = new Date(income.createdAt).getMonth();
+        monthlyData[month].incomes += income.total;
+      });
+    }
+    if(expenses.length>0){
+      expenses?.forEach(expense => {
+        const month = new Date(expense.createdAt).getMonth();
+        monthlyData[month].expenses += expense.total;
+      });
+    }
 
-    expenses?.forEach(expense => {
-      const month = new Date(expense.createdAt).getMonth();
-      monthlyData[month].expenses += expense.total;
-    });
 
     const labels = [
       'January', 'February', 'March', 'April', 'May', 'June',

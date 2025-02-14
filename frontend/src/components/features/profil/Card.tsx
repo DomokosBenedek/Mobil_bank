@@ -1,9 +1,9 @@
 import React from 'react';
-import CostumeNavbar from "../../components/common/navbar";
+import CostumeNavbar from "../../common/navbar";
 import Sidebar from "./Sidebar";
-import Footer from "../../components/common/Footer";
-import { logicks } from "../../components/common/logic";
-import { placeholderCard, placeholderIcon } from "C:/Users/bened/Git/Mobil_bank/frontend/src/components/common/img.tsx";
+import Footer from "../../common/Footer";
+import { placeholderCard, placeholderIcon } from "../../common/img";
+import { logicks } from "../../common/logic";
 
 
 const Card_Page: React.FC = () => {

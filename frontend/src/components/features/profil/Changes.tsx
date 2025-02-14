@@ -1,8 +1,8 @@
 import React from 'react';
-import CostumeNavbar from "../../components/common/navbar";
+import CostumeNavbar from "../../common/navbar";
 import Sidebar from "./Sidebar";
-import Footer from "../../components/common/Footer";
-import { logicks } from "../../components/common/logic";
+import Footer from "../../common/Footer";
+import { logicks } from "../../common/logic";
 
 const Changes_Page: React.FC = () => {
   const { user } = logicks();
