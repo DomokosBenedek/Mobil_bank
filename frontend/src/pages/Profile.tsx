@@ -8,6 +8,7 @@ import Changes_Page from '../components/features/profil/Changes';
 import CostumeNavbar from '../components/common/navbar';
 import Footer from '../components/common/Footer';
 import Sidebar from '../components/features/profil/Sidebar';
+import '../design/profil_page_element/profil_page.css';
 
 const Profile: React.FC = () => {
   const { user } = logicks();
@@ -18,9 +19,9 @@ const Profile: React.FC = () => {
       <header>
         <CostumeNavbar />
       </header>
-      <main>
+      <main className="profile-main">
         <Sidebar />
-        <div className="profile-layout">
+        <div className="profile-content">
           <Routes>
             <Route path={`/dashboard`} element={<Dashboard_Page />} />
             <Route path={`/card`} element={<Card_Page />} />
