@@ -3,7 +3,7 @@ import { Account } from "../../Props/AccountProp";
 import { User } from "../../Props/UserProp";
 import { useEffect, useState } from "react";
 import Sidebar from "./Sidebar";
-import Card from "../../common/Card";
+import Card from "../../common/CardElement";
 import { Card_newCard } from "../../common/img";
 import Footer from "../../common/Footer";
 import PieChart from '../../common/charts/pieChart';

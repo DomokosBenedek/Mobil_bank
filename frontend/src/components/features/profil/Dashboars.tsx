@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import CostumeNavbar from "../../common/navbar";
 import Sidebar from "./Sidebar";
-import Card from "../../common/Card";
+import Card from "../../common/CardElement";
 import { Card_newCard } from "../../common/img";
 import Footer from "../../common/Footer";
 import { logicks } from "../../common/logic";
