@@ -114,7 +114,7 @@ const Dashboard_Page: React.FC = () => {
           x={contextMenu.x}
           y={contextMenu.y}
           onClose={handleCloseContextMenu}
-          onDelete={() => deleteAccount(contextMenu.accountId)}
+          onDelete={() => setShowDeleteAccountPopup(true)}
           onAddPayment={() => setShowNewPaymentPopup(true)}
           onAddUser={() => setShowNewUserPopup(true)}
         />
