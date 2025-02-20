@@ -7,9 +7,9 @@ interface ContextMenuState {
   
   interface ContextMenuProps {
     contextMenu: ContextMenuState;
-    onDelete: (cardId: string | null) => void;
     onAddPayment: (cardId: string | null) => void;
     onAddUser: (cardId: string | null) => void;
+    onDelete: (cardId: string | null) => void;
   }
   
   export type { ContextMenuState, ContextMenuProps };
