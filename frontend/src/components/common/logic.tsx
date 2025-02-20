@@ -21,6 +21,7 @@ export const logicks = () => {
   const [expenses, setExpenses] = useState<Expense[]>([]);
   const navigate = useNavigate();
   const [activeUserAccounts, SetActiveUserAcounts] = useState<Account[] | null>(null);
+  const [payments, setPayments] = useState<any[]>([]);
 
   const fetchAccounts = async () => {
     try {
@@ -124,6 +125,28 @@ export const logicks = () => {
     setActiveAccount(account);
     localStorage.setItem("activeAccountId", account.id);
   };
+
+  //Allpayment
+  const allpayment = async () => {
+        console.log('activeAccountId (kezdet): ' + activeAccount?.id);
+        if (activeAccount) {
+          let x: any[] = [];
+          const expenses = await fetchExpenses(activeAccount.id);
+          if (expenses.length > 0) {
+            expenses.forEach((ex: any) => {
+              x.push({ ...ex, PaymentType: "Expense" });
+            });
+          }
+          const incomes = await fetchIncomes(activeAccount.id);
+          if (incomes.length > 0) {
+            incomes.forEach((incom: any) => {
+              x.push({ ...incom, PaymentType: "Income" });
+            });
+          }
+          setPayments(x);
+          return x;
+        }
+      };
   
   // Add new account
   const addNewAccount = async () => {
@@ -329,5 +352,6 @@ const logout = () => {
     setPassword,
     isLoggedIn,
     handleSubmit,
+    allpayment
   };
 };

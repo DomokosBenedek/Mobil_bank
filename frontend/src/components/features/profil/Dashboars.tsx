@@ -26,6 +26,7 @@ const Dashboard_Page: React.FC = () => {
     addUserToAccount,
     fetchIncomes,
     fetchExpenses,
+    allpayment,
   } = logicks();
 
   const [contextMenu, setContextMenu] = useState<{ x: number; y: number; accountId: string } | null>(null);
@@ -35,27 +36,12 @@ const Dashboard_Page: React.FC = () => {
   const [payments, setPayments] = useState<any[]>([]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      console.log('activeAccountId (kezdet): ' + activeAccount?.id);
-      if (activeAccount) {
-        let x: any[] = [];
-        const expenses = await fetchExpenses(activeAccount.id);
-        if (expenses.length > 0) {
-          expenses.forEach((ex: any) => {
-            x.push({ ...ex, PaymentType: "Expense" });
-          });
-        }
-        const incomes = await fetchIncomes(activeAccount.id);
-        if (incomes.length > 0) {
-          incomes.forEach((incom: any) => {
-            x.push({ ...incom, PaymentType: "Income" });
-          });
-        }
-        setPayments(x);
-      }
-    };
-    fetchData();
-  }, [activeAccount]);
+      const fetchPayments = async () => {
+        const paymentsData = await allpayment();
+        setPayments(paymentsData || []);
+      };
+      fetchPayments();
+    }, [activeAccount]);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
