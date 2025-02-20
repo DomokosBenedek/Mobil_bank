@@ -18,15 +18,6 @@ const Card_Page: React.FC = () => {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
 
-  const handleNewPaymentSave = (payment: any) => {
-    if (payment.type === 'Income') {
-      addIncome(activeAccount?.id || '', payment.amount);
-    } else {
-      addExpense(activeAccount?.id || '', payment.amount);
-    }
-    setShowNewPaymentPopup(false);
-  };
-
   const handleNewUserSave = (email: string) => {
     addUserToAccount(activeAccount?.id || '', email);
     setShowNewUserPopup(false);
@@ -35,6 +26,10 @@ const Card_Page: React.FC = () => {
   const handleDeleteAccount = () => {
     deleteAccount(activeAccount?.id || '');
     setShowDeleteAccountPopup(false);
+  };
+
+  const handleNewPaymentSave = () => {
+    setShowNewPaymentPopup(false);
   };
 
   return (
@@ -91,11 +86,6 @@ const Card_Page: React.FC = () => {
           </section>
         </div>
       </main>
-      {showNewPaymentPopup && (
-        <div className="popup-overlay">
-          <NewPaymentPopup onClose={() => setShowNewPaymentPopup(false)} onSave={handleNewPaymentSave} />
-        </div>
-      )}
       {showNewUserPopup && (
         <div className="popup-overlay">
           <NewUserPopup onClose={() => setShowNewUserPopup(false)} onSave={handleNewUserSave} />
@@ -105,6 +95,9 @@ const Card_Page: React.FC = () => {
         <div className="popup-overlay">
           <DeleteAccountPopup onClose={() => setShowDeleteAccountPopup(false)} onDelete={handleDeleteAccount} />
         </div>
+      )}
+      {showNewPaymentPopup && (
+        <NewPaymentPopup onClose={() => setShowNewPaymentPopup(false)} onSave={handleNewPaymentSave} />
       )}
     </>
   );

@@ -2,15 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { logicks } from './logic';
 import { placeholderIcon } from './img';
 
-const Table: React.FC = () => {
-  const { getAllPayments, incomes, expenses, activeAccount } = logicks();
+const Table: React.FC<any> = ({payment}) => {
+  const {  activeAccount, incomes, expenses, getAllPayments } = logicks();
   const [transactions, setTransactions] = useState<any[]>([]);
 
   useEffect(() => {
     if (activeAccount) {
      setTransactions(getAllPayments);
     }
-  }, [activeAccount, incomes, expenses]);
+  }, [activeAccount,incomes,expenses]);
 
   if (!incomes?.length && !expenses?.length) {
     return <p>No data available</p>;
@@ -27,7 +27,7 @@ const Table: React.FC = () => {
         </tr>
       </thead>
       <tbody>
-        {transactions.length > 0 ? (
+        {transactions != null ? (
           transactions.map((transaction: any, index: number) => (
             <tr key={index}>
               <td>

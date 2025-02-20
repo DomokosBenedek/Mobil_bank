@@ -4,7 +4,7 @@ import { User } from "../Props/UserProp";
 import { useNavigate } from "react-router-dom";
 import { Income } from "../Props/IncomeProp";
 import { Expense } from "../Props/ExpenseProp";
-import { PaymentType, Transaction } from "../Props/TransactionProp";
+import { Category, Metric, PaymentType, Transaction } from "../Props/TransactionProp";
 
 export const logicks = () => {
   const [user, setUser] = useState<User | null>(null);
@@ -20,6 +20,7 @@ export const logicks = () => {
   const [incomes, setIncomes] = useState<Income[]>([]);
   const [expenses, setExpenses] = useState<Expense[]>([]);
   const navigate = useNavigate();
+  const [activeUserAccounts, SetActiveUserAcounts] = useState<Account[] | null>(null);
 
   const fetchAccounts = async () => {
     try {
@@ -32,8 +33,8 @@ export const logicks = () => {
       });
       if (!response.ok) throw new Error('Failed to fetch accounts');
       const data = await response.json();
+      SetActiveUserAcounts(data);
       setUser(prevUser => prevUser ? { ...prevUser, Accounts: data } : null);
-      
       const storedActiveAccountId = localStorage.getItem('activeAccountId');
       if (data.length > 0) {
         const selectedAccount = data.find((acc: Account) => acc.id === storedActiveAccountId) || data[0];
@@ -95,7 +96,23 @@ export const logicks = () => {
       setError((error as Error).message);
     }
   };
-  
+
+  const findone = async (accountId: string) => {
+    try {
+      const response = await fetch(`localhost:3000/accounts/${accountId}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "authorization": "Bearer " + userToken,
+        },
+      });
+      const data = await response.json();
+      setActiveAccount(data);
+    } catch (error) {
+      setError((error as Error).message);
+    }
+  };
+
   const SetActiveAcountClick = (account: Account) => {
     setActiveAccount(account);
     localStorage.setItem("activeAccountId", account.id);
@@ -131,10 +148,12 @@ export const logicks = () => {
 
 // Logout
 const logout = () => {
+  /*
   localStorage.removeItem("loggedInUser");
     localStorage.removeItem("UserId");
     localStorage.removeItem("Token");
     localStorage.removeItem("activeAccountId");
+    */
     setUser(null);
     setActiveAccount(null);
     setIsLoggedIn(false);
@@ -176,7 +195,7 @@ const logout = () => {
   // Delete account
   const deleteAccount = async (accountId: string) => {
     try {
-      const response = await fetch(`http://localhost:3000/accounts/user/${accountId}`, {
+      const response = await fetch(`http://localhost:3000/accounts/${accountId}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -187,7 +206,7 @@ const logout = () => {
       setUser((prevUser) =>
         prevUser ? { ...prevUser, Accounts: prevUser.Accounts?.filter(account => account.id !== accountId) } : null
     );
-    setActiveAccount(null);
+    setActiveAccount(user?.Accounts?.[0] || null);
     localStorage.removeItem("activeAccountId");
   } catch (error) {
       setError((error as Error).message);
@@ -195,13 +214,63 @@ const logout = () => {
   };
   
   // Add income
-  const addIncome = async (accountId: string, amount: number) => {
-    // Implement the logic to add income
+  const addIncome = async (accountId: string, amount: number, category: String, description: String,  repeatAmount: number, repeatMetric: String) => {
+    try {
+      const response = await fetch(`http://localhost:3000/income`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "authorization": "Bearer " + userToken,
+        },
+        body: JSON.stringify({
+          total: amount,
+          category,
+          userId: userID,
+          bankAccountId: accountId,
+          description,
+          repeatAmount,
+          repeatMetric,
+          repeatStart: new Date(),
+          repeatEnd: new Date(),
+        }),
+      });
+      if (!response.ok) throw new Error("Failed to add income");
+      const newIncome = await response.json();
+      setIncomes((prevIncomes) => [...prevIncomes, newIncome]);
+      fetchAccounts();
+    } catch (error) {
+      setError((error as Error).message);
+    }
   };
   
   // Add expense
-  const addExpense = async (accountId: string, amount: number) => {
-    // Implement the logic to add expense
+  const addExpense = async (accountId: string, amount: number, category: String, description: String,  repeatAmount: number, repeatMetric: String) => {
+    try {
+      const response = await fetch(`http://localhost:3000/expense`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "authorization": "Bearer " + userToken,
+        },
+        body: JSON.stringify({
+          total: amount,
+          category,
+          userId: userID,
+          bankAccountId: accountId,
+          description,
+          repeatAmount,
+          repeatMetric,
+          repeatStart: new Date(),
+          repeatEnd: new Date(),
+        }),
+      });
+      if (!response.ok) throw new Error("Failed to add expense");
+      const newExpense = await response.json();
+      setExpenses((prevExpenses) => [...prevExpenses, newExpense]);
+      fetchAccounts();
+    } catch (error) {
+      setError((error as Error).message);
+    }
   };
   
   // Add user to account
@@ -230,10 +299,13 @@ const logout = () => {
 
   useEffect(() => {
     if (activeAccount) {
-      console.log("user token: " +userToken);
+      console.log("asdasfafasfa Belép a fechbe");
       fetchIncomes(activeAccount.id).then(() => fetchExpenses(activeAccount.id).then(() => getAllPayments()));
-      //fetchExpenses(activeAccount.id);
-      //getAllPayments(); 
+      /*
+      console.log("UserId: " + userID);
+      console.log("Account: " + activeAccount.id);
+      console.log("Token: " + userToken);
+      */
     }
   }, [activeAccount])
   
@@ -252,6 +324,9 @@ const logout = () => {
 
 
   return {
+    fetchExpenses,
+    fetchIncomes,
+    findone,
     user,
     loading,
     error,

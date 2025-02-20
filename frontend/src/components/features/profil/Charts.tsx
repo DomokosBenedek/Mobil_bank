@@ -1,7 +1,7 @@
+import React, { useState } from 'react';
 import CostumeNavbar from "../../common/navbar";
 import { Account } from "../../Props/AccountProp";
 import { User } from "../../Props/UserProp";
-import { useEffect, useState } from "react";
 import Sidebar from "./Sidebar";
 import Card from "../../common/CardElement";
 import { Card_newCard } from "../../common/img";
@@ -11,6 +11,7 @@ import BarChart from '../../common/charts/barChart';
 import { logicks } from "../../common/logic";
 import CardContextMenu from "../../common/ContextMenu";
 import Table from "../../common/Table";
+import NewPaymentPopup from '../../common/popups/NewPaymentPopup';
 
 const Charts_Page: React.FC = () => {
   const { 
@@ -27,6 +28,9 @@ const Charts_Page: React.FC = () => {
   } = logicks();
 
   const [contextMenu, setContextMenu] = useState<{ x: number; y: number; accountId: string } | null>(null);
+  const [showNewPaymentPopup, setShowNewPaymentPopup] = useState(false);
+  const [showNewUserPopup, setShowNewUserPopup] = useState(false);
+  const [showDeleteAccountPopup, setShowDeleteAccountPopup] = useState(false);
 
   console.log('userId: ' + user?.id);
   console.log('activeAccountId: : ' + activeAccount?.id);
@@ -42,6 +46,10 @@ const Charts_Page: React.FC = () => {
 
   const handleCloseContextMenu = () => {
     setContextMenu(null);
+  };
+
+  const handleNewPaymentSave = () => {
+    setShowNewPaymentPopup(false);
   };
 
   return (
@@ -100,10 +108,12 @@ const Charts_Page: React.FC = () => {
           y={contextMenu.y}
           onClose={handleCloseContextMenu}
           onDelete={() => deleteAccount(contextMenu.accountId)}
-          onAddIncome={() => addIncome(contextMenu.accountId, 0)} // Replace 0 with actual amount
-          onAddExpense={() => addExpense(contextMenu.accountId, 0)} // Replace 0 with actual amount
+          onAddPayment={() => setShowNewPaymentPopup(true)}
           onAddUser={() => addUserToAccount(contextMenu.accountId, '')} // Replace '' with actual userId
         />
+      )}
+      {showNewPaymentPopup && (
+        <NewPaymentPopup onClose={() => setShowNewPaymentPopup(false)} onSave={handleNewPaymentSave} />
       )}
     </>
   );
