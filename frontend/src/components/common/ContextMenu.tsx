@@ -6,19 +6,17 @@ interface CardContextMenuProps {
   y: number;
   onClose: () => void;
   onDelete: () => void;
-  onAddIncome: () => void;
-  onAddExpense: () => void;
+  onAddPayment: () => void;
   onAddUser: () => void;
 }
 
-const CardContextMenu: React.FC<CardContextMenuProps> = ({ x, y, onClose, onDelete, onAddIncome, onAddExpense, onAddUser }) => {
+const CardContextMenu: React.FC<CardContextMenuProps> = ({ x, y, onClose, onDelete, onAddPayment, onAddUser }) => {
   return (
     <div className="context-menu" style={{ top: y, left: x }} onMouseLeave={onClose}>
       <ul>
-        <li onClick={onDelete}>Delete Card</li>
-        <li onClick={onAddIncome}>Add Income</li>
-        <li onClick={onAddExpense}>Add Expense</li>
+        <li onClick={onAddPayment}>Add Payment</li>
         <li onClick={onAddUser}>Add User</li>
+        <li onClick={onDelete}>Delete Card</li>
       </ul>
     </div>
   );

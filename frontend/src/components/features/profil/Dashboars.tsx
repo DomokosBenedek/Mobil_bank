@@ -10,7 +10,9 @@ import PieChart from '../../common/charts/pieChart';
 import Table from '../../common/Table';
 import "../../../design/profil_page_element/dashboard.css";
 import BarChart from '../../common/charts/barChart';
-
+import NewPaymentPopup from '../../common/popups/NewPaymentPopup';
+import DeleteAccountPopup from '../../common/popups/DeleteAccountPopu';
+import NewUserPopup from '../../common/popups/NewUserPopup';
 
 const Dashboard_Page: React.FC = () => {
   const { 
@@ -27,6 +29,9 @@ const Dashboard_Page: React.FC = () => {
   } = logicks();
 
   const [contextMenu, setContextMenu] = useState<{ x: number; y: number; accountId: string } | null>(null);
+  const [showNewPaymentPopup, setShowNewPaymentPopup] = useState(false);
+    const [showNewUserPopup, setShowNewUserPopup] = useState(false);
+    const [showDeleteAccountPopup, setShowDeleteAccountPopup] = useState(false);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
@@ -38,6 +43,20 @@ const Dashboard_Page: React.FC = () => {
 
   const handleCloseContextMenu = () => {
     setContextMenu(null);
+  };
+
+  const handleNewUserSave = (email: string) => {
+    addUserToAccount(activeAccount?.id || '', email);
+    setShowNewUserPopup(false);
+  };
+
+  const handleDeleteAccount = () => {
+    deleteAccount(activeAccount?.id || '');
+    setShowDeleteAccountPopup(false);
+  };
+
+  const handleNewPaymentSave = () => {
+    setShowNewPaymentPopup(false);
   };
 
   return (
@@ -96,10 +115,22 @@ const Dashboard_Page: React.FC = () => {
           y={contextMenu.y}
           onClose={handleCloseContextMenu}
           onDelete={() => deleteAccount(contextMenu.accountId)}
-          onAddIncome={() => addIncome(contextMenu.accountId, 0)} // Replace 0 with actual amount
-          onAddExpense={() => addExpense(contextMenu.accountId, 0)} // Replace 0 with actual amount
-          onAddUser={() => addUserToAccount(contextMenu.accountId, '')} // Replace '' with actual userId
+          onAddPayment={() => setShowNewPaymentPopup(true)}
+          onAddUser={() => setShowNewUserPopup(true)}
         />
+      )}
+      {showNewUserPopup && (
+        <div className="popup-overlay">
+          <NewUserPopup onClose={() => setShowNewUserPopup(false)} onSave={handleNewUserSave} />
+        </div>
+      )}
+      {showDeleteAccountPopup && (
+        <div className="popup-overlay">
+          <DeleteAccountPopup onClose={() => setShowDeleteAccountPopup(false)} onDelete={handleDeleteAccount} />
+        </div>
+      )}
+      {showNewPaymentPopup && (
+        <NewPaymentPopup onClose={() => setShowNewPaymentPopup(false)} onSave={handleNewPaymentSave} />
       )}
     </>
   );

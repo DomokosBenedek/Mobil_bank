@@ -1,29 +1,59 @@
 import React, { useState } from 'react';
-import { Category, Currency, Metric } from '../../Props/TransactionProp';
+import { Currency, Metric } from '../../Props/TransactionProp';
+import { logicks } from '../logic';
+import { Expense } from '../../Props/ExpenseProp';
 
 interface NewPaymentPopupProps {
   onClose: () => void;
-  onSave: (payment: any) => void;
+  onSave: () => void;
 }
 
 const NewPaymentPopup: React.FC<NewPaymentPopupProps> = ({ onClose, onSave }) => {
+  const { addIncome, addExpense, activeAccount, fetchAccounts, expenses, fetchExpenses, fetchIncomes, findone } = logicks();
   const [type, setType] = useState<'Income' | 'Expense'>('Income');
-  const [category, setCategory] = useState<Category>(Category.Salary);
+  const [category, setCategory] = useState<string>('');
   const [amount, setAmount] = useState<number>(0);
   const [currency, setCurrency] = useState<Currency>(Currency.HUF);
   const [repeat, setRepeat] = useState<boolean>(false);
   const [repeatMetric, setRepeatMetric] = useState<Metric>(Metric.Month);
   const [repeatAmount, setRepeatAmount] = useState<number>(1);
+  const [description, setDescription] = useState<string>('');
+  
+  const incomeCategories: String[] = ['Salary', 'Transfer', 'Transaction', 'Other'];
+  const expenseCategories: String[] = ['Shopping', 'Rent', 'Transport', 'Transfer', 'Transaction', 'Other'];
 
-  const handleSave = () => {
+  const handleSave = async () => {
     const payment = {
       type,
       category,
       amount,
       currency,
       repeat: repeat ? { metric: repeatMetric, amount: repeatAmount } : null,
+      description,
     };
-    onSave(payment);
+    console.log('new payment: ', payment);
+
+    
+    if (type === 'Income') {
+      if (repeat) {
+        await addIncome(activeAccount?.id || '', amount, category, description, repeatAmount, repeatMetric.toString());
+      } else {
+        await addIncome(activeAccount?.id || '', amount, category, description, 1, "Day");
+      }
+    } else {
+      if (repeat) {
+        await addExpense(activeAccount?.id || '', amount, category, description, repeatAmount, repeatMetric.toString());
+      } else {
+        await addExpense(activeAccount?.id || '', amount, category, description, 1, "Day");
+      }
+    }
+    fetchAccounts();
+    console.log('new payment saved');
+    console.log('Account expenses: '+ expenses);
+    fetchExpenses(activeAccount?.id || '');
+    fetchIncomes(activeAccount?.id || '');
+    findone(activeAccount?.id || '');
+    onSave();
   };
 
   return (
@@ -39,10 +69,10 @@ const NewPaymentPopup: React.FC<NewPaymentPopupProps> = ({ onClose, onSave }) =>
         </label>
         <label>
           Category:
-          <select value={category} onChange={(e) => setCategory(e.target.value as unknown as Category)}>
-            {Object.keys(Category).map((key) => (
-              <option key={key} value={Category[key as keyof typeof Category]}>
-                {key}
+          <select value={category} onChange={(e) => setCategory(e.target.value)}>
+            {(type === 'Income' ? incomeCategories : expenseCategories).map((cat, index) => (
+              <option key={index} value={cat.toString()}>
+                {cat}
               </option>
             ))}
           </select>
@@ -79,6 +109,10 @@ const NewPaymentPopup: React.FC<NewPaymentPopupProps> = ({ onClose, onSave }) =>
             </label>
           </>
         )}
+        <label>
+          Description:
+          <input type="text" value={description} onChange={(e) => setDescription(e.target.value)} />
+        </label>
         <button onClick={handleSave}>Save</button>
         <button onClick={onClose}>Cancel</button>
       </div>
