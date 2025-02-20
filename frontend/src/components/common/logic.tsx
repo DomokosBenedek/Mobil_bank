@@ -57,24 +57,27 @@ export const logicks = () => {
           "authorization": "Bearer " + userToken,
         },
       });
-      if (!response.ok){
+      if (!response.ok) {
         setExpenses([]);
-      };;
+        return [];
+      }
       const text = await response.text();
       if (!text) {
         setExpenses([]);
+        return [];
       } else {
         const data = JSON.parse(text);
         setExpenses(data);
+        return data;
       }
     } catch (error) {
       setError((error as Error).message);
+      return [];
     }
   };
   
   const fetchIncomes = async (accountId: string) => {
     try {
-      console.log("fetchIncomes Token: " + userToken);
       const response = await fetch(`http://localhost:3000/accounts/allin/${accountId}`, {
         method: "GET",
         headers: {
@@ -82,18 +85,22 @@ export const logicks = () => {
           "authorization": "Bearer " + userToken,
         },
       });
-      if (!response.ok){
+      if (!response.ok) {
         setIncomes([]);
-      };
+        return [];
+      }
       const text = await response.text();
       if (!text) {
         setIncomes([]);
+        return [];
       } else {
         const data = JSON.parse(text);
         setIncomes(data);
+        return data;
       }
     } catch (error) {
       setError((error as Error).message);
+      return [];
     }
   };
 
@@ -237,7 +244,7 @@ const logout = () => {
       if (!response.ok) throw new Error("Failed to add income");
       const newIncome = await response.json();
       setIncomes((prevIncomes) => [...prevIncomes, newIncome]);
-      fetchAccounts();
+      return incomes;
     } catch (error) {
       setError((error as Error).message);
     }
@@ -267,7 +274,6 @@ const logout = () => {
       if (!response.ok) throw new Error("Failed to add expense");
       const newExpense = await response.json();
       setExpenses((prevExpenses) => [...prevExpenses, newExpense]);
-      fetchAccounts();
     } catch (error) {
       setError((error as Error).message);
     }
@@ -281,33 +287,6 @@ const logout = () => {
   const updateUser = async ( firstName: String, lastName: String, email: String, password: String) => {
     // Implement the logic to add user to account
   };
-
-  const getAllPayments = () => {
-    let x: any[] = [];
-    if(expenses.length > 0){
-      expenses.forEach((ex) => {
-        x.push({ ...ex, PaymentType: "Expense" });
-      });
-    }
-    if(incomes.length > 0){
-      incomes.forEach((incom) => {
-        x.push({ ...incom, PaymentType: "Income" });
-      });
-    }
-    return x;
-  };
-
-  useEffect(() => {
-    if (activeAccount) {
-      console.log("asdasfafasfa Belép a fechbe");
-      fetchIncomes(activeAccount.id).then(() => fetchExpenses(activeAccount.id).then(() => getAllPayments()));
-      /*
-      console.log("UserId: " + userID);
-      console.log("Account: " + activeAccount.id);
-      console.log("Token: " + userToken);
-      */
-    }
-  }, [activeAccount])
   
   useEffect(() => {
     const storedUser = localStorage.getItem("loggedInUser");
@@ -350,6 +329,5 @@ const logout = () => {
     setPassword,
     isLoggedIn,
     handleSubmit,
-    getAllPayments,
   };
 };

@@ -1,18 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { logicks } from './logic';
+import React from 'react';
 import { placeholderIcon } from './img';
 
-const Table: React.FC<any> = ({payment}) => {
-  const {  activeAccount, incomes, expenses, getAllPayments } = logicks();
-  const [transactions, setTransactions] = useState<any[]>([]);
-
-  useEffect(() => {
-    if (activeAccount) {
-     setTransactions(getAllPayments);
-    }
-  }, [activeAccount,incomes,expenses]);
-
-  if (!incomes?.length && !expenses?.length) {
+const Table: React.FC<any> = ({ payments }) => {
+  if (!payments?.length) {
     return <p>No data available</p>;
   }
 
@@ -27,29 +17,23 @@ const Table: React.FC<any> = ({payment}) => {
         </tr>
       </thead>
       <tbody>
-        {transactions != null ? (
-          transactions.map((transaction: any, index: number) => (
-            <tr key={index}>
-              <td>
-                <img src={placeholderIcon} alt="icon" className="transaction-icon" />
-                <p>{transaction.id} ({transaction.category})</p>
-              </td>
-              <td>{new Date(transaction.createdAt).toLocaleDateString('hu-HU')}</td>
-              <td className={transaction.PaymentType === "Expense" ? 'expense' : 'income'}>
-                {transaction.PaymentType === "Expense" ? (
-                  <p>-{transaction.total} {transaction.currency}</p>
-                ) : (
-                  <p>+{transaction.total} {transaction.currency}</p>
-                )}
-              </td>
-              <td>{transaction.category}</td>
-            </tr>
-          ))
-        ) : (
-          <tr>
-            <td colSpan={4}>No transactions found</td>
+        {payments.map((transaction: any, index: number) => (
+          <tr key={index}>
+            <td>
+              <img src={placeholderIcon} alt="icon" className="transaction-icon" />
+              <p>{transaction.id} ({transaction.category})</p>
+            </td>
+            <td>{new Date(transaction.createdAt).toLocaleDateString('hu-HU')}</td>
+            <td className={transaction.PaymentType === "Expense" ? 'expense' : 'income'}>
+              {transaction.PaymentType === "Expense" ? (
+                <p>-{transaction.total} {transaction.currency}</p>
+              ) : (
+                <p>+{transaction.total} {transaction.currency}</p>
+              )}
+            </td>
+            <td>{transaction.category}</td>
           </tr>
-        )}
+        ))}
       </tbody>
     </table>
   );
