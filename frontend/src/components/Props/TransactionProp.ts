@@ -22,7 +22,8 @@ export enum Category {
     Other,
     Shopping,
     Rent,
-    Transport
+    Transport,
+    Transfer
 }
 
 export enum Metric {
