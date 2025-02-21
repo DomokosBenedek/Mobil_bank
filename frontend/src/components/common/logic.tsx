@@ -303,8 +303,25 @@ const logout = () => {
   };
   
   // Add user to account
-  const addUserToAccount = async (accountId: string, userId: string) => {
-    // Implement the logic to add user to account
+  const addUserToAccount = async (accountId: string, email: string) => {
+    console.log('accountId: ' + accountId);
+    console.log('userToken: ' + userToken);
+    console.log('email: ' + email);
+    try {
+      const response = await fetch(`http://localhost:3000/accounts/user/email/${accountId}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          "authorization": "Bearer " + userToken,
+        },
+        body: JSON.stringify({ email: email }),
+      });
+      if (!response.ok) throw new Error("Failed to add user to account");
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      setError((error as Error).message);
+    }
   };
 
   const updateUser = async ( firstName: String, lastName: String, email: String, password: String) => {

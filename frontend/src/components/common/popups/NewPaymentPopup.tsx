@@ -33,7 +33,6 @@ const NewPaymentPopup: React.FC<NewPaymentPopupProps> = ({ onClose, onSave }) =>
     };
     console.log('new payment: ', payment);
 
-    
     if (type === 'Income') {
       if (repeat) {
         await addIncome(activeAccount?.id || '', amount, category, description, repeatAmount, repeatMetric.toString());
@@ -53,6 +52,7 @@ const NewPaymentPopup: React.FC<NewPaymentPopupProps> = ({ onClose, onSave }) =>
     fetchIncomes(activeAccount?.id || '');
     findone(activeAccount?.id || '');
     onSave();
+    window.location.reload(); // Add this line to refresh the page
   };
 
   return (

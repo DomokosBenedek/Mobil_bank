@@ -18,7 +18,7 @@ const NewUserPopup: React.FC<NewUserPopupProps> = ({ onClose, onSave }) => {
         <h2>Add New User</h2>
         <label>
           Email:
-          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+          <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
         </label>
         <button onClick={handleSave}>Save</button>
         <button onClick={onClose}>Cancel</button>
