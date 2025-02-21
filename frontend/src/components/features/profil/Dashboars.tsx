@@ -33,15 +33,24 @@ const Dashboard_Page: React.FC = () => {
   const [showNewPaymentPopup, setShowNewPaymentPopup] = useState(false);
   const [showNewUserPopup, setShowNewUserPopup] = useState(false);
   const [showDeleteAccountPopup, setShowDeleteAccountPopup] = useState(false);
+  const [incomes, setIncomes] = useState<{ total: number; createdAt: string }[]>([]);
+  const [expenses, setExpenses] = useState<{ total: number; createdAt: string }[]>([]);
   const [payments, setPayments] = useState<any[]>([]);
 
   useEffect(() => {
-      const fetchPayments = async () => {
-        const paymentsData = await allpayment();
-        setPayments(paymentsData || []);
-      };
-      fetchPayments();
-    }, [activeAccount]);
+    const fetchPayments = async () => {
+      const paymentsData = await allpayment();
+      setPayments(paymentsData || []);
+    };
+    const fetchIncomesAndExpenses = async () => {
+      const incomesData = await fetchIncomes(activeAccount?.id || '');
+      const expensesData = await fetchExpenses(activeAccount?.id || '');
+      setIncomes(incomesData || []);
+      setExpenses(expensesData || []);
+    };
+    fetchPayments();
+    fetchIncomesAndExpenses();
+  }, [activeAccount]);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
@@ -116,7 +125,7 @@ const Dashboard_Page: React.FC = () => {
           <button className="primary_v3">View more</button>
         </div>
         <div className="sectionMain">
-          <BarChart key={activeAccount?.id} />
+          <BarChart incomes={incomes} expenses={expenses} />
         </div>   
       </section>
       {contextMenu && (

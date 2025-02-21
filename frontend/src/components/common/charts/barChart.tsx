@@ -2,8 +2,13 @@ import React, { useEffect, useRef } from 'react';
 import Chart from 'chart.js/auto';
 import { logicks } from '../logic';
 
-const BarChart: React.FC = () => {
-  const { incomes, expenses, activeAccount } = logicks();
+interface BarChartProps {
+  incomes: { total: number; createdAt: string }[];
+  expenses: { total: number; createdAt: string }[];
+}
+
+const BarChart: React.FC<BarChartProps> = ({ incomes, expenses }) => {
+  const { activeAccount } = logicks();
 
   const chartRef = useRef<HTMLCanvasElement>(null);
   const chartInstanceRef = useRef<Chart | null>(null);
@@ -11,19 +16,18 @@ const BarChart: React.FC = () => {
   useEffect(() => {
     const monthlyData = Array.from({ length: 12 }, () => ({ incomes: 0, expenses: 0 }));
 
-    if(incomes.length>0){
-      incomes?.forEach(income => {
+    if (incomes.length > 0) {
+      incomes.forEach(income => {
         const month = new Date(income.createdAt).getMonth();
         monthlyData[month].incomes += income.total;
       });
     }
-    if(expenses.length>0){
-      expenses?.forEach(expense => {
+    if (expenses.length > 0) {
+      expenses.forEach(expense => {
         const month = new Date(expense.createdAt).getMonth();
         monthlyData[month].expenses += expense.total;
       });
     }
-
 
     const labels = [
       'January', 'February', 'March', 'April', 'May', 'June',

@@ -333,8 +333,6 @@ const logout = () => {
     loading,
     error,
     activeAccount,
-    incomes,
-    expenses,
     updateUser,
     fetchAccounts,
     SetActiveAcountClick,

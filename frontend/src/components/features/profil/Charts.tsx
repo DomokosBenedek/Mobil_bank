@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import CostumeNavbar from "../../common/navbar";
 import { Account } from "../../Props/AccountProp";
 import { User } from "../../Props/UserProp";
@@ -25,16 +25,26 @@ const Charts_Page: React.FC = () => {
     addIncome,
     addExpense,
     addUserToAccount,
+    fetchIncomes,
+    fetchExpenses,
   } = logicks();
 
   const [contextMenu, setContextMenu] = useState<{ x: number; y: number; accountId: string } | null>(null);
   const [showNewPaymentPopup, setShowNewPaymentPopup] = useState(false);
   const [showNewUserPopup, setShowNewUserPopup] = useState(false);
   const [showDeleteAccountPopup, setShowDeleteAccountPopup] = useState(false);
+  const [incomes, setIncomes] = useState<{ total: number; createdAt: string }[]>([]);
+  const [expenses, setExpenses] = useState<{ total: number; createdAt: string }[]>([]);
 
-  console.log('userId: ' + user?.id);
-  console.log('activeAccountId: : ' + activeAccount?.id);
-  console.log('token: ' + user?.access_token);
+  useEffect(() => {
+    const fetchIncomesAndExpenses = async () => {
+      const incomesData = await fetchIncomes(activeAccount?.id || '');
+      const expensesData = await fetchExpenses(activeAccount?.id || '');
+      setIncomes(incomesData || []);
+      setExpenses(expensesData || []);
+    };
+    fetchIncomesAndExpenses();
+  }, [activeAccount]);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
@@ -54,54 +64,54 @@ const Charts_Page: React.FC = () => {
 
   return (
     <>
-        <section className="cards-section">
-          <div className="Title_row">
-            <h3 className="Title">Cards</h3>
-            <button className="primary_v3">View more</button>
-          </div>
-          <div className="sectionMain">
-            <div className='cardList'>
-              {user?.Accounts?.map((account, index) => {
-                const isActive = activeAccount?.id === account.id;
-                return (
-                  <div key={account.id} className={`card ${isActive ? 'active' : ''}`} onClick={() => SetActiveAcountClick(account)} onContextMenu={(e) => handleRightClick(e, account.id)}>
-                    <Card
-                      id={'*'.repeat(account.id.length - 4) + account.id.slice(-4)}
-                      number={index + 1}
-                      total={account.total || 0}
-                      currency={account.currency || "N/A"}
-                      name={`${user.firstName} ${user.lastName}`}
-                      date={new Date(account.createdAt).toLocaleDateString('hu-HU', { year: '2-digit', month: '2-digit' })}
-                    />
-                  </div>
-                );
-              })}
+      <section className="cards-section">
+        <div className="Title_row">
+          <h3 className="Title">Cards</h3>
+          <button className="primary_v3">View more</button>
+        </div>
+        <div className="sectionMain">
+          <div className='cardList'>
+            {user?.Accounts?.map((account, index) => {
+              const isActive = activeAccount?.id === account.id;
+              return (
+                <div key={account.id} className={`card ${isActive ? 'active' : ''}`} onClick={() => SetActiveAcountClick(account)} onContextMenu={(e) => handleRightClick(e, account.id)}>
+                  <Card
+                    id={'*'.repeat(account.id.length - 4) + account.id.slice(-4)}
+                    number={index + 1}
+                    total={account.total || 0}
+                    currency={account.currency || "N/A"}
+                    name={`${user.firstName} ${user.lastName}`}
+                    date={new Date(account.createdAt).toLocaleDateString('hu-HU', { year: '2-digit', month: '2-digit' })}
+                  />
+                </div>
+              );
+            })}
             <img src={Card_newCard} alt="NewCard" onClick={addNewAccount} />
-            </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/*BarCharts Section */}
-        <section className="diagram-section">
-          <div className="Title_row">
-            <h3 className="Title">Diagrams</h3>
-            <button className="primary_v3">View more</button>
-          </div>
-          <div className="sectionMain">
-            <PieChart key={activeAccount?.id} />
-          </div>   
-        </section>
+      {/* BarCharts Section */}
+      <section className="diagram-section">
+        <div className="Title_row">
+          <h3 className="Title">Diagrams</h3>
+          <button className="primary_v3">View more</button>
+        </div>
+        <div className="sectionMain">
+          <BarChart incomes={incomes} expenses={expenses} />
+        </div>   
+      </section>
 
-        {/*PieCharts Section */}
-        <section className="diagram-section">
-          <div className="Title_row">
-            <h3 className="Title">Diagrams</h3>
-            <button className="primary_v3">View more</button>
-          </div>
-          <div className="sectionMain">
-            <PieChart key={activeAccount?.id} />
-          </div>   
-        </section>
+      {/* PieCharts Section */}
+      <section className="diagram-section">
+        <div className="Title_row">
+          <h3 className="Title">Diagrams</h3>
+          <button className="primary_v3">View more</button>
+        </div>
+        <div className="sectionMain">
+          <PieChart incomes={incomes} expenses={expenses} />
+        </div>   
+      </section>
       {contextMenu && (
         <CardContextMenu
           x={contextMenu.x}

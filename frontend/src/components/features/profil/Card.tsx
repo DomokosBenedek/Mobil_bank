@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card_newCard, placeholderCard } from "../../common/img";
 import { logicks } from "../../common/logic";
 import NewPaymentPopup from '../../common/popups/NewPaymentPopup';
@@ -10,10 +10,28 @@ import '../../../design/profil_page_element/card.css';
 import DeleteAccountPopup from '../../common/popups/DeleteAccountPopu';
 
 const Card_Page: React.FC = () => {
-  const { user, loading, error, activeAccount, addIncome, addExpense, addUserToAccount, deleteAccount, SetActiveAcountClick } = logicks();
+  const { user, loading, error, activeAccount, addIncome, addExpense, addUserToAccount, deleteAccount, SetActiveAcountClick, fetchIncomes, fetchExpenses, allpayment } = logicks();
   const [showNewPaymentPopup, setShowNewPaymentPopup] = useState(false);
   const [showNewUserPopup, setShowNewUserPopup] = useState(false);
   const [showDeleteAccountPopup, setShowDeleteAccountPopup] = useState(false);
+  const [incomes, setIncomes] = useState<{ total: number; createdAt: string }[]>([]);
+  const [expenses, setExpenses] = useState<{ total: number; createdAt: string }[]>([]);
+  const [payments, setPayments] = useState<any[]>([]);
+
+  useEffect(() => {
+    const fetchPayments = async () => {
+      const paymentsData = await allpayment();
+      setPayments(paymentsData || []);
+    };
+    const fetchIncomesAndExpenses = async () => {
+      const incomesData = await fetchIncomes(activeAccount?.id || '');
+      const expensesData = await fetchExpenses(activeAccount?.id || '');
+      setIncomes(incomesData || []);
+      setExpenses(expensesData || []);
+    };
+    fetchPayments();
+    fetchIncomesAndExpenses();
+  }, [activeAccount]);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
@@ -41,16 +59,15 @@ const Card_Page: React.FC = () => {
             {activeAccount ? (
               <div>
                 <div className={"card active"}>
-                <Card
-                  id={activeAccount.id}
-                  number={1}
-                  total={activeAccount.total}
-                  currency={activeAccount.currency.toString()}
-                  name={activeAccount.ownerName}
-                  date={new Date(activeAccount.createdAt).toLocaleDateString()}
-                />
-                  </div>
-
+                  <Card
+                    id={activeAccount.id}
+                    number={1}
+                    total={activeAccount.total}
+                    currency={activeAccount.currency.toString()}
+                    name={activeAccount.ownerName}
+                    date={new Date(activeAccount.createdAt).toLocaleDateString()}
+                  />
+                </div>
                 <img src={Card_newCard} alt="New Payment" onClick={() => setShowNewPaymentPopup(true)} />
               </div>
             ) : (
@@ -65,13 +82,14 @@ const Card_Page: React.FC = () => {
             <button onClick={() => setShowDeleteAccountPopup(true)}>Delete Account</button>
           </section>
 
+          {/* Transactions Section */}
           <section className="transactions-section">
             <div className="Title_row">
               <h3 className="Title">Transactions</h3>
               <button className="primary_v3">View more</button>
             </div>
             <div className="sectionMain">
-              <Table />
+              <Table payments={payments} />
             </div>
           </section>
 
@@ -81,7 +99,7 @@ const Card_Page: React.FC = () => {
               <button className="primary_v3">View more</button>
             </div>
             <div className="sectionMain">
-              <PieChart key={activeAccount?.id} />
+              <PieChart incomes={incomes} expenses={expenses} />
             </div>
           </section>
         </div>

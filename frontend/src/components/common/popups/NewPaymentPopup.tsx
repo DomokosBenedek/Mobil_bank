@@ -9,7 +9,7 @@ interface NewPaymentPopupProps {
 }
 
 const NewPaymentPopup: React.FC<NewPaymentPopupProps> = ({ onClose, onSave }) => {
-  const { addIncome, addExpense, activeAccount, fetchAccounts, expenses, fetchExpenses, fetchIncomes, findone } = logicks();
+  const { addIncome, addExpense, activeAccount, fetchAccounts, fetchExpenses, fetchIncomes, findone } = logicks();
   const [type, setType] = useState<'Income' | 'Expense'>('Income');
   const [category, setCategory] = useState<string>('');
   const [amount, setAmount] = useState<number>(0);
@@ -49,7 +49,6 @@ const NewPaymentPopup: React.FC<NewPaymentPopupProps> = ({ onClose, onSave }) =>
     }
     fetchAccounts();
     console.log('new payment saved');
-    console.log('Account expenses: '+ expenses);
     fetchExpenses(activeAccount?.id || '');
     fetchIncomes(activeAccount?.id || '');
     findone(activeAccount?.id || '');
