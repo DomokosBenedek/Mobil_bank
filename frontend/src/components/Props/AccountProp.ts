@@ -14,6 +14,7 @@ export interface Account {
     updatedAt: Date;
     currency:  Currency;  
     ownerName: string;
+    ownerId: string;
 }
 enum Currency {
     HUF

@@ -27,6 +27,7 @@ const Dashboard_Page: React.FC = () => {
     fetchIncomes,
     fetchExpenses,
     allpayment,
+    disconnectUser,
   } = logicks();
 
   const [contextMenu, setContextMenu] = useState<{ x: number; y: number; accountId: string } | null>(null);
@@ -71,6 +72,10 @@ const Dashboard_Page: React.FC = () => {
 
   const handleDeleteAccount = () => {
     deleteAccount(activeAccount?.id || '');
+    setShowDeleteAccountPopup(false);
+  };
+  const handleDisconnect = () => {
+    disconnectUser(activeAccount?.id || '');
     setShowDeleteAccountPopup(false);
   };
 
@@ -145,7 +150,7 @@ const Dashboard_Page: React.FC = () => {
       )}
       {showDeleteAccountPopup && (
         <div className="popup-overlay">
-          <DeleteAccountPopup onClose={() => setShowDeleteAccountPopup(false)} onDelete={handleDeleteAccount} />
+          <DeleteAccountPopup onClose={() => setShowDeleteAccountPopup(false)} onDelete={handleDeleteAccount} onDisconnect={handleDisconnect} />
         </div>
       )}
       {showNewPaymentPopup && (

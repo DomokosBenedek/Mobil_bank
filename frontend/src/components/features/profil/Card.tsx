@@ -10,7 +10,7 @@ import '../../../design/profil_page_element/card.css';
 import DeleteAccountPopup from '../../common/popups/DeleteAccountPopu';
 
 const Card_Page: React.FC = () => {
-  const { user, loading, error, activeAccount, addIncome, addExpense, addUserToAccount, deleteAccount, SetActiveAcountClick, fetchIncomes, fetchExpenses, allpayment } = logicks();
+  const { user, loading, error, activeAccount, disconnectUser, addIncome, addExpense, addUserToAccount, deleteAccount, SetActiveAcountClick, fetchIncomes, fetchExpenses, allpayment } = logicks();
   const [showNewPaymentPopup, setShowNewPaymentPopup] = useState(false);
   const [showNewUserPopup, setShowNewUserPopup] = useState(false);
   const [showDeleteAccountPopup, setShowDeleteAccountPopup] = useState(false);
@@ -45,6 +45,10 @@ const Card_Page: React.FC = () => {
     deleteAccount(activeAccount?.id || '');
     setShowDeleteAccountPopup(false);
   };
+  const handleDisconnect = () => {
+    disconnectUser(activeAccount?.id || '');
+    setShowDeleteAccountPopup(false);
+  };
 
   const handleNewPaymentSave = () => {
     setShowNewPaymentPopup(false);
@@ -77,7 +81,11 @@ const Card_Page: React.FC = () => {
 
           <section className="profile-settings-section">
             <h2>Profile + Settings</h2>
-            <p>{user?.firstName} {user?.lastName}</p>
+            <h4>{`Card owner: ${activeAccount?.ownerName}`}</h4>
+            <p>
+                {`Shared with: \n
+                ${activeAccount?.userId.map((user) => user) + ", "}`}
+            </p>
             <button onClick={() => setShowNewUserPopup(true)}>Add New User</button>
             <button onClick={() => setShowDeleteAccountPopup(true)}>Delete Account</button>
           </section>
@@ -111,8 +119,8 @@ const Card_Page: React.FC = () => {
       )}
       {showDeleteAccountPopup && (
         <div className="popup-overlay">
-          <DeleteAccountPopup onClose={() => setShowDeleteAccountPopup(false)} onDelete={handleDeleteAccount} />
-        </div>
+          <DeleteAccountPopup onClose={() => setShowDeleteAccountPopup(false)} onDelete={handleDeleteAccount} onDisconnect={handleDisconnect} />
+          </div>
       )}
       {showNewPaymentPopup && (
         <NewPaymentPopup onClose={() => setShowNewPaymentPopup(false)} onSave={handleNewPaymentSave} />

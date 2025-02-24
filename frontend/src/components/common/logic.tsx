@@ -177,17 +177,15 @@ export const logicks = () => {
 };
 
 // Logout
-const logout = () => {
-  /*
-  localStorage.removeItem("loggedInUser");
+const logout = async () => {
+    navigate("/", { replace: true }); // Navigate to the home page first
+    setIsLoggedIn(false);
+    setActiveAccount(null);
+    setUser(null);
+    localStorage.removeItem("loggedInUser");
     localStorage.removeItem("UserId");
     localStorage.removeItem("Token");
     localStorage.removeItem("activeAccountId");
-    */
-    setUser(null);
-    setActiveAccount(null);
-    setIsLoggedIn(false);
-    navigate(`/`);
   };
   
   // Login
@@ -324,6 +322,27 @@ const logout = () => {
     }
   };
 
+  const disconnectUser = async (accountId: string) => {
+    try {
+      const response = await fetch(`http://localhost:3000/accounts/disconnect/${accountId}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          "authorization": "Bearer " + userToken,
+        },
+        body: JSON.stringify({ userId: userID }),
+      });
+      if (!response.ok) throw new Error("Failed to disconnect user");
+      setUser((prevUser) =>
+        prevUser ? { ...prevUser, Accounts: prevUser.Accounts?.filter(account => account.id !== accountId) } : null
+      );
+      setActiveAccount(user?.Accounts?.[0] || null);
+      localStorage.removeItem("activeAccountId");
+    } catch (error) {
+      setError((error as Error).message);
+    }
+  };
+
   const updateUser = async ( firstName: String, lastName: String, email: String, password: String) => {
     // Implement the logic to add user to account
   };
@@ -343,6 +362,7 @@ const logout = () => {
 
 
   return {
+    disconnectUser,
     fetchExpenses,
     fetchIncomes,
     findone,
