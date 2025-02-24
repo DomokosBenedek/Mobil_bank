@@ -1,5 +1,5 @@
-import { Transaction, Category } from "./TransactionProp";
+import { TransactionProp, Category } from "./TransactionProp";
 
-export interface Income extends Transaction {
+export interface Income extends TransactionProp {
     category: Category.Salary | Category.Transfer | Category.Transaction | Category.Other;
 }

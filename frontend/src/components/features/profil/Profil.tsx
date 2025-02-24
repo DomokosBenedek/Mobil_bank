@@ -15,6 +15,7 @@ const Profil_Page: React.FC = () => {
 
   return (
     <>
+      <main className="profile-main-profil">
         <div className="profil-container">
           <h2>Profil</h2>
           <div className="profil-form">
@@ -57,6 +58,7 @@ const Profil_Page: React.FC = () => {
             <button className="primary_v3">Update</button>
           </div>
         </div>
+        </main>
     </>
   );
 };

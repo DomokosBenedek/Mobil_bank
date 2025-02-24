@@ -13,6 +13,10 @@ main {
   width: 100%;
 }
 
+.profile-main-card .profile-main-changes .profile-main-charts .profile-main-dashboard .profile-main-profile{
+  margin-top: 200rem;
+}
+
 .profile-content {
   flex: 1;
   padding: 20px;

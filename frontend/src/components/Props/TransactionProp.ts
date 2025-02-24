@@ -1,4 +1,4 @@
-export interface Transaction {
+export interface TransactionProp {
     id: string;
     total: number;
     category: Category;

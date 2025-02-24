@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import CostumeNavbar from "../../common/navbar";
-import { Account } from "../../Props/AccountProp";
+import { AccountProp } from "../../Props/AccountProp";
 import { User } from "../../Props/UserProp";
 import Sidebar from "./Sidebar";
 import Card from "../../common/CardElement";
@@ -64,6 +64,7 @@ const Charts_Page: React.FC = () => {
 
   return (
     <>
+      <main className="profile-main-charts">
       <section className="cards-section">
         <div className="Title_row">
           <h3 className="Title">Cards</h3>
@@ -125,6 +126,7 @@ const Charts_Page: React.FC = () => {
       {showNewPaymentPopup && (
         <NewPaymentPopup onClose={() => setShowNewPaymentPopup(false)} onSave={handleNewPaymentSave} />
       )}
+      </main>
     </>
   );
 };

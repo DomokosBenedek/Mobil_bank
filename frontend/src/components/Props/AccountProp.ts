@@ -3,7 +3,7 @@ import { Income } from "./IncomeProp";
 import { User } from "./UserProp";
 
 
-export interface Account {
+export interface AccountProp {
     id: string; 
     Users: User[];
     userId: string[];

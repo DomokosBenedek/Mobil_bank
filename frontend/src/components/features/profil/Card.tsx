@@ -56,7 +56,7 @@ const Card_Page: React.FC = () => {
 
   return (
     <>
-      <main className="profile-main">
+      <main className="profile-main-card">
         <div className="profile-content">
           <section className="active-card-section">
             <h2>Active Card</h2>

@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { Account } from "../Props/AccountProp";
 import { User } from "../Props/UserProp";
 import { useNavigate } from "react-router-dom";
 import { Income } from "../Props/IncomeProp";
 import { Expense } from "../Props/ExpenseProp";
-import { Category, Metric, PaymentType, Transaction } from "../Props/TransactionProp";
+import { Category, Metric, PaymentType, TransactionProp } from "../Props/TransactionProp";
+import { AccountProp } from "../Props/AccountProp";
+import { Api } from "../Props/ApiProp";
 
 export const logicks = () => {
   const [user, setUser] = useState<User | null>(null);
@@ -12,7 +13,7 @@ export const logicks = () => {
   const [userToken] = useState<string | null>(localStorage.getItem("Token"));
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [activeAccount, setActiveAccount] = useState<Account | null>(null);
+  const [activeAccount, setActiveAccount] = useState<AccountProp | null>(null);
   const [isHovered, setIsHovered] = useState(false);
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -20,7 +21,7 @@ export const logicks = () => {
   const [incomes, setIncomes] = useState<Income[]>([]);
   const [expenses, setExpenses] = useState<Expense[]>([]);
   const navigate = useNavigate();
-  const [activeUserAccounts, SetActiveUserAcounts] = useState<Account[] | null>(null);
+  const [activeUserAccounts, SetActiveUserAcounts] = useState<AccountProp[] | null>(null);
   const [payments, setPayments] = useState<any[]>([]);
 
   const fetchAccounts = async () => {
@@ -38,7 +39,7 @@ export const logicks = () => {
       setUser(prevUser => prevUser ? { ...prevUser, Accounts: data } : null);
       const storedActiveAccountId = localStorage.getItem('activeAccountId');
       if (data.length > 0) {
-        const selectedAccount = data.find((acc: Account) => acc.id === storedActiveAccountId) || data[0];
+        const selectedAccount = data.find((acc: AccountProp) => acc.id === storedActiveAccountId) || data[0];
         setActiveAccount(selectedAccount);
         localStorage.setItem('activeAccountId', selectedAccount.id);
       }
@@ -121,7 +122,7 @@ export const logicks = () => {
     }
   };
 
-  const SetActiveAcountClick = (account: Account) => {
+  const SetActiveAcountClick = (account: AccountProp) => {
     setActiveAccount(account);
     localStorage.setItem("activeAccountId", account.id);
   };
@@ -346,6 +347,51 @@ const logout = async () => {
   const updateUser = async ( firstName: String, lastName: String, email: String, password: String) => {
     // Implement the logic to add user to account
   };
+
+  //Api Beolvasás
+  const fetchApiEur = async ( date: string) => {
+    try {
+      const response = await fetch(`https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@${date}/v1/currencies/eur.json`, {
+        method: "GET",
+      });
+      if (!response.ok) {
+        return [];
+      }
+      const data = await response.json();
+      const EurData: Api = {
+        date: data.date,
+        currency: "eur",
+        changes: data.eur,
+      };
+      return EurData;
+    } catch (error) {
+      setError((error as Error).message);
+      return [];
+    }
+  }
+
+  const fetchApiUsd = async ( date: string) => {
+    try {
+      const response = await fetch(`https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@${date}/v1/currencies/usd.json`, {
+        method: "GET",
+      });
+      if (!response.ok) {
+        return [];
+      }
+      const data = await response.json();
+      const UsdData: Api = {
+        date: data.date,
+        currency: "usd",
+        changes: data.usd,
+      };
+      return UsdData;
+    } catch (error) {
+      setError((error as Error).message);
+      return [];
+    }
+  }
+
+
   
   useEffect(() => {
     const storedUser = localStorage.getItem("loggedInUser");
@@ -387,6 +433,8 @@ const logout = async () => {
     setPassword,
     isLoggedIn,
     handleSubmit,
-    allpayment
+    allpayment,
+    fetchApiEur,
+    fetchApiUsd,
   };
 };

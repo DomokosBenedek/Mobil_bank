@@ -85,6 +85,7 @@ const Dashboard_Page: React.FC = () => {
 
   return (
     <>
+      <main className="profile-main-dashboard">
       <section className="cards-section">
         <div className="Title_row">
           <h3 className="Title">Cards</h3>
@@ -156,6 +157,7 @@ const Dashboard_Page: React.FC = () => {
       {showNewPaymentPopup && (
         <NewPaymentPopup onClose={() => setShowNewPaymentPopup(false)} onSave={handleNewPaymentSave} />
       )}
+      </main>
     </>
   );
 };
