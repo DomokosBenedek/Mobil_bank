@@ -83,9 +83,6 @@ const Changes_Page = () => {
 
   return (
     <>
-    <header>
-      <CostumeNavbar/>
-    </header>
       <main className="profile-main-changes">
         <section className="changes-container">
           <h2>Changes</h2>
@@ -147,9 +144,6 @@ const Changes_Page = () => {
           </section>
         )}
       </main>
-      <footer>
-        <Footer/>
-      </footer>
     </>
   );
 };

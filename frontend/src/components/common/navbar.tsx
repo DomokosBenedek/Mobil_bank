@@ -31,6 +31,9 @@ export default function CostumeNavbar() {
   if (matchPath(`/profile/${user?.firstName}${user?.lastName}/Changes`, location.pathname)) {
     currentPageTitle = "Changes";
   }
+  if (matchPath(`/Changes`, location.pathname)) {
+    currentPageTitle = "Changes";
+  }
 
     return (
       <nav className="navbar">

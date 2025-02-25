@@ -6,7 +6,7 @@ import Profile_List from './pages/Profile_List';
 import Regist from './pages/regist';
 import Profile from './pages/Profile';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Changes_Page from './components/features/profil/Changes';
+import Changes from './pages/Changes';
 
 const App = () => (
   <Router>
@@ -15,7 +15,7 @@ const App = () => (
       <Route path="/profile" element={<Profile_List />} />
       <Route path="/Regist" element={<Regist />} />
       <Route path="/profile/:username/*" element={<Profile />} />
-      <Route path="/changes" element={<Changes_Page />} />
+      <Route path="/changes" element={<Changes />} />
     </Routes>
   </Router>
 );
