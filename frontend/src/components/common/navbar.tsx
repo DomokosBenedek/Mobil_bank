@@ -48,6 +48,7 @@ export default function CostumeNavbar() {
             <li className="nav-item"><a href="#howItWork" className="nav-link">Hogyan működik</a></li>
             <li className="nav-item"><a href="#newsLetter" className="nav-link">Hírlevél</a></li>
             <li className="nav-item"><a href="#contact" className="nav-link">Kapcsolatok</a></li>
+            <li className="nav-item"><a href="changes" className="nav-link">Changes</a></li>
           </ul>
         ) : (
           // Ha másik oldalon vagyunk, jelenjen meg az oldal címe középen

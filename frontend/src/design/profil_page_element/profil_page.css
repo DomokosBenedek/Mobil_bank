@@ -3,7 +3,6 @@ main {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-
 }
 
 .profile-main {
@@ -11,10 +10,7 @@ main {
   min-height: 80vh;
   display: flex;
   width: 100%;
-}
-
-.profile-main-card .profile-main-changes .profile-main-charts .profile-main-dashboard .profile-main-profile{
-  margin-top: 200rem;
+  margin-top: 5.5rem;
 }
 
 .profile-content {
