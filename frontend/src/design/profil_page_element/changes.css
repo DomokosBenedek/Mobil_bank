@@ -2,11 +2,13 @@
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
-  }
-  
-  .changes-cards {
-    flex: 1 1 calc(50% - 20px);
+    justify-content: space-between;
+}
+
+.changes-cards {
+    flex: 1 1 calc(33.333% - 20px);
     padding: 20px;
     border-radius: 10px;
     color: white;
-  }
+    box-sizing: border-box;
+}
