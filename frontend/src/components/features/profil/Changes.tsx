@@ -20,6 +20,10 @@ const Changes_Page = () => {
 
   const [selectedCurrency, setSelectedCurrency] = useState<string | null>(null);
 
+  const getIcon = (change: number) => {
+    return change >= 0 ? '⬆️' : '⬇️';
+  };
+
   async function eurApi(date: string) {
     const eurResult: Api = (await fetchApiEur(date)) as Api;
     setEurData(eurResult);
@@ -69,9 +73,9 @@ const Changes_Page = () => {
     console.log(eurExchangeRates);
   },[eurExchangeRates])
 
-  const getBackgroundColor = (change: number) => {
-    return change >= 0 ? 'green' : 'red';
-  };
+const getCardClass = (change: number) => {
+  return change >= 0 ? 'positive' : 'negative';
+};
 
   const getChangePercentage = (today: number, yesterday: number) => {
     return ((today - yesterday) / yesterday * 100).toFixed(2);
@@ -83,68 +87,68 @@ const Changes_Page = () => {
 
   return (
     <>
-      <main className="profile-main-changes">
+        <main className="profile-main-changes">
         <section className="changes-container">
-          <h2>Changes</h2>
-          <p>Here you can see the changes of the currencies.</p>
-          <div className="changes-cards-container">
-            {currencys.map((currency) => {
-              const todayRate = currency === "eur" ? eurData?.changes.huf : usdData?.changes.huf;
-              const yesterdayRate = currency === "eur" ? eurExchangeRates[eurExchangeRates.length - 2]?.rate : usdExchangeRates[usdExchangeRates.length - 2]?.rate;
-              const changePercentage = getChangePercentage(todayRate, yesterdayRate);
-              return (
-                <div key={currency} className="changes-cards" style={{ backgroundColor: getBackgroundColor(parseFloat(changePercentage)) }} onClick={() => handleCardClick(currency)}>
-                  <h2>Currency: {currency.toUpperCase()}</h2>
-                  <div>
-                    <p>Currency: {currency === "eur" ? eurData?.currency : usdData?.currency}</p>
-                    <p>Changes: {todayRate} HUF</p>
-                    <p>Change: ({yesterdayRate}) {changePercentage}%</p>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </section>
-        {selectedCurrency === null && (
-          <>
-            <section className="changes-container">
-              <h2>Combined EUR and USD Exchange Rates</h2>
-              <div>
-                <CombinedLineChart eurExchangeRates={eurExchangeRates} usdExchangeRates={usdExchangeRates} ism={30} />
+        <h2>Changes</h2>
+        <p>Here you can see the changes of the currencies.</p>
+        <div className="changes-cards-container">
+          {currencys.map((currency) => {
+            const todayRate = currency === "eur" ? eurData?.changes.huf : usdData?.changes.huf;
+            const yesterdayRate = currency === "eur" ? eurExchangeRates[eurExchangeRates.length - 2]?.rate : usdExchangeRates[usdExchangeRates.length - 2]?.rate;
+            const changePercentage = getChangePercentage(todayRate, yesterdayRate);
+            const cardClass = getCardClass(parseFloat(changePercentage));
+            const icon = getIcon(parseFloat(changePercentage));
+            return (
+              <div key={currency} className={`changes-card ${cardClass}`} onClick={() => handleCardClick(currency)}>
+                <div className="changes-card-icon">{icon}</div>
+                <div className="changes-card-name">{currency.toUpperCase()}</div>
+                <div className="changes-card-value">{todayRate ? todayRate.toFixed(2) : 'N/A'} HUF</div>
+                <div className="changes-card-change">{yesterdayRate ? yesterdayRate.toFixed(2) : 'N/A'} ({changePercentage}%)</div>
               </div>
-            </section>
-            <section className="changes-container">
-              <h2>Currency: EUR</h2>
-              <div>
-                <LineChart exchangeRates={eurExchangeRates} ism={30} currency="eur" />
-              </div>
-            </section>
-            <section className="changes-container">
-              <h2>Currency: USD</h2>
-              <div>
-                <LineChart exchangeRates={usdExchangeRates} ism={30} currency="usd" />
-              </div>
-            </section>
-          </>
-        )}
-        {selectedCurrency === "eur" && (
+            );
+          })}
+        </div>
+      </section>
+      {selectedCurrency === null && (
+        <>
+          <section className="changes-container">
+            <h2>Combined EUR and USD Exchange Rates</h2>
+            <div>
+              <CombinedLineChart eurExchangeRates={eurExchangeRates} usdExchangeRates={usdExchangeRates} ism={30} />
+            </div>
+          </section>
           <section className="changes-container">
             <h2>Currency: EUR</h2>
             <div>
               <LineChart exchangeRates={eurExchangeRates} ism={30} currency="eur" />
             </div>
           </section>
-        )}
-        {selectedCurrency === "usd" && (
           <section className="changes-container">
             <h2>Currency: USD</h2>
             <div>
               <LineChart exchangeRates={usdExchangeRates} ism={30} currency="usd" />
             </div>
           </section>
-        )}
-      </main>
-    </>
+        </>
+      )}
+      {selectedCurrency === "eur" && (
+        <section className="changes-container">
+          <h2>Currency: EUR</h2>
+          <div>
+            <LineChart exchangeRates={eurExchangeRates} ism={30} currency="eur" />
+          </div>
+        </section>
+      )}
+      {selectedCurrency === "usd" && (
+        <section className="changes-container">
+          <h2>Currency: USD</h2>
+          <div>
+            <LineChart exchangeRates={usdExchangeRates} ism={30} currency="usd" />
+          </div>
+        </section>
+      )}
+    </main>
+  </>
   );
 };
 

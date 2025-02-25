@@ -1,18 +1,79 @@
-.changes-cards-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: space-between;
+main .profile-main-changes{
+    margin-top: 5.5rem;
 }
 
-.changes-cards {
-    flex: 1 1 calc(33.333% - 20px);
-    padding: 20px;
-    border-radius: 10px;
-    color: white;
+.changes-cards-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, auto);
+    gap: 20px;
+}
+
+.changes-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto auto;
+    padding: 0px;
+    border-radius: 15px;
+    color: black; /* Szöveg színe fekete */
+    background-color: white; /* Háttér színe fehér */
     box-sizing: border-box;
 }
 
-.changes-cards :hover {
+.changes-card-icon {
+    grid-row: span 2;
+    display: flex;
+    border-radius: 15px 0px 0px 15px;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    background-color: inherit; /* Alapértelmezett háttérszín */
+}
+
+.changes-card-name {
+    display: flex;
+    padding-left: 15px;
+    padding-top: 15px;
+    align-items: center;
+    justify-content: flex-start;
+    font-size: 1.5rem;
+}
+
+.changes-card-value {
+    display: flex;
+    padding-right: 15px;
+    padding-top: 15px;
+    align-items: center;
+    justify-content: flex-end;
+    font-size: 1.5rem;
+}
+
+.changes-card-change {
+    grid-column: span 2;
+    display: flex;
+    padding-left: 15px;
+    padding-bottom: 15px;
+    align-items: center;
+    justify-content: flex-start;
+    font-size: 1.2rem;
+}
+
+.changes-card:hover {
     cursor: pointer;
+}
+
+.changes-card.positive .changes-card-icon {
+    background-color: green; /* Pozitív változás esetén zöld háttér */
+}
+
+.changes-card.negative .changes-card-icon {
+    background-color: red; /* Negatív változás esetén piros háttér */
+}
+
+.changes-card.positive .changes-card-change {
+    color: green; /* Pozitív változás esetén zöld szöveg */
+}
+
+.changes-card.negative .changes-card-change {
+    color: red; /* Negatív változás esetén piros szöveg */
 }
