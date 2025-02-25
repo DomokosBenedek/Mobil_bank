@@ -19,9 +19,13 @@ const PieChart: React.FC<PieChartProps> = ({ incomes, expenses }) => {
   useEffect(() => {
     if (incomes.length > 0) {
       setSumIncome(incomes.reduce((sum, income) => sum + income.total, 0) || 0);
+    } else {
+      setSumIncome(0);
     }
     if (expenses.length > 0) {
       setSumExpenses(expenses.reduce((sum, expense) => sum + expense.total, 0) || 0);
+    } else {
+      setSumExpenses(0);
     }
 
     if (chartRef.current) {

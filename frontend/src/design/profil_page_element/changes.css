@@ -12,3 +12,7 @@
     color: white;
     box-sizing: border-box;
 }
+
+.changes-cards :hover {
+    cursor: pointer;
+}
