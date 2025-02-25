@@ -8,15 +8,36 @@ import Table from '../../common/Table';
 import PieChart from '../../common/charts/pieChart';
 import '../../../design/profil_page_element/card.css';
 import DeleteAccountPopup from '../../common/popups/DeleteAccountPopu';
+import CardContextMenu from '../../common/ContextMenu';
+import TransferPopup from '../../common/popups/TransferPopup';
+import { TransferProp } from '../../Props/TransferProp';
 
 const Card_Page: React.FC = () => {
-  const { user, loading, error, activeAccount, disconnectUser, addIncome, addExpense, addUserToAccount, deleteAccount, SetActiveAcountClick, fetchIncomes, fetchExpenses, allpayment } = logicks();
+  const { 
+    user,
+    userID,
+    loading,
+    error,
+    activeAccount,
+    SetActiveAcountClick,
+    addNewAccount,
+    deleteAccount,
+    addUserToAccount,
+    fetchIncomes,
+    fetchExpenses,
+    allpayment,
+    disconnectUser,
+    transfer
+  } = logicks();
+  
+  const [contextMenu, setContextMenu] = useState<{ x: number; y: number; accountId: string } | null>(null);
   const [showNewPaymentPopup, setShowNewPaymentPopup] = useState(false);
   const [showNewUserPopup, setShowNewUserPopup] = useState(false);
   const [showDeleteAccountPopup, setShowDeleteAccountPopup] = useState(false);
   const [incomes, setIncomes] = useState<{ total: number; createdAt: string }[]>([]);
   const [expenses, setExpenses] = useState<{ total: number; createdAt: string }[]>([]);
   const [payments, setPayments] = useState<any[]>([]);
+  const [showTransferPopup, setShowTransferPopup] = useState(false);
 
   useEffect(() => {
     const fetchPayments = async () => {
@@ -54,6 +75,20 @@ const Card_Page: React.FC = () => {
     setShowNewPaymentPopup(false);
   };
 
+  const handleRightClick = (event: React.MouseEvent, accountId: string) => {
+    event.preventDefault();
+    setContextMenu({ x: event.clientX, y: event.clientY, accountId });
+  };
+
+  const handleCloseContextMenu = () => {
+    setContextMenu(null);
+  };
+
+  const handleTransfer = async (transferData: TransferProp) => {
+    await transfer(transferData);
+    setShowTransferPopup(false);
+  };
+
   return (
     <>
       <main className="profile-main-card">
@@ -62,7 +97,7 @@ const Card_Page: React.FC = () => {
             <h2>Active Card</h2>
             {activeAccount ? (
               <div>
-                <div className={"card active"}>
+                <div className={"card active"} onContextMenu={(e) => handleRightClick(e, activeAccount.id)}>
                   <Card
                     id={activeAccount.id}
                     number={1}
@@ -112,6 +147,17 @@ const Card_Page: React.FC = () => {
           </section>
         </div>
       </main>
+      {contextMenu && (
+        <CardContextMenu
+          x={contextMenu.x}
+          y={contextMenu.y}
+          onClose={handleCloseContextMenu}
+          onDelete={() => setShowDeleteAccountPopup(true)}
+          onAddPayment={() => setShowNewPaymentPopup(true)}
+          onAddUser={() => setShowNewUserPopup(true)}
+          onTransfer={() => setShowTransferPopup(true)}
+        />
+      )}
       {showNewUserPopup && (
         <div className="popup-overlay">
           <NewUserPopup onClose={() => setShowNewUserPopup(false)} onSave={handleNewUserSave} />
@@ -120,10 +166,18 @@ const Card_Page: React.FC = () => {
       {showDeleteAccountPopup && (
         <div className="popup-overlay">
           <DeleteAccountPopup onClose={() => setShowDeleteAccountPopup(false)} onDelete={handleDeleteAccount} onDisconnect={handleDisconnect} />
-          </div>
+        </div>
       )}
       {showNewPaymentPopup && (
         <NewPaymentPopup onClose={() => setShowNewPaymentPopup(false)} onSave={handleNewPaymentSave} />
+      )}
+            {showTransferPopup && activeAccount?.id && user?.id && (
+        <TransferPopup 
+          onClose={() => setShowTransferPopup(false)} 
+          onTransfer={handleTransfer} 
+          activeAccountId={activeAccount.id} 
+          userId={user.id || ''} 
+        />
       )}
     </>
   );

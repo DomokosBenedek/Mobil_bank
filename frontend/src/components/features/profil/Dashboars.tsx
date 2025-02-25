@@ -45,7 +45,7 @@ const Dashboard_Page: React.FC = () => {
   
   const handleRightClick = (event: React.MouseEvent, accountId: string) => {
     event.preventDefault();
-    setContextMenu({ x: event.clientX, y: event.clientY, accountId });
+    setContextMenu({ x: event.clientX, y: event.clientY + window.scrollY, accountId });
   };
   
   const handleCloseContextMenu = () => {
