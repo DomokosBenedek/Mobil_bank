@@ -31,7 +31,6 @@ const NewPaymentPopup: React.FC<NewPaymentPopupProps> = ({ onClose, onSave }) =>
       repeat: repeat ? { metric: repeatMetric, amount: repeatAmount } : null,
       description,
     };
-    console.log('new payment: ', payment);
 
     if (type === 'Income') {
       if (repeat) {
@@ -47,7 +46,6 @@ const NewPaymentPopup: React.FC<NewPaymentPopupProps> = ({ onClose, onSave }) =>
       }
     }
     fetchAccounts();
-    console.log('new payment saved');
     fetchExpenses(activeAccount?.id || '');
     fetchIncomes(activeAccount?.id || '');
     findone(activeAccount?.id || '');

@@ -10,6 +10,7 @@ const NewUserPopup: React.FC<NewUserPopupProps> = ({ onClose, onSave }) => {
 
   const handleSave = () => {
     onSave(email);
+    window.location.reload();
   };
 
   return (

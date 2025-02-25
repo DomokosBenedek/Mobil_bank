@@ -6,6 +6,7 @@ import { Expense } from "../Props/ExpenseProp";
 import { Category, Metric, PaymentType, TransactionProp } from "../Props/TransactionProp";
 import { AccountProp } from "../Props/AccountProp";
 import { Api } from "../Props/ApiProp";
+import { TransferProp } from "../Props/TransferProp";
 
 export const logicks = () => {
   const [user, setUser] = useState<User | null>(null);
@@ -391,6 +392,25 @@ const logout = async () => {
     }
   }
 
+  //transfer
+  const transfer = async (transferData: TransferProp) => {
+    try {
+      const response = await fetch(`http://localhost:3000/accounts/transfer`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          "authorization": "Bearer " + userToken,
+        },
+        body: JSON.stringify(transferData),
+      });
+      if (!response.ok) throw new Error("Failed to transfer");
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      setError((error as Error).message);
+    }
+  };
+
 
   
   useEffect(() => {
@@ -413,6 +433,7 @@ const logout = async () => {
     fetchIncomes,
     findone,
     user,
+    userID,
     loading,
     error,
     activeAccount,
@@ -436,5 +457,6 @@ const logout = async () => {
     allpayment,
     fetchApiEur,
     fetchApiUsd,
+    transfer,
   };
 };
