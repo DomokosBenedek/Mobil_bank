@@ -24,6 +24,7 @@ export const logicks = () => {
   const navigate = useNavigate();
   const [activeUserAccounts, SetActiveUserAcounts] = useState<AccountProp[] | null>(null);
   const [payments, setPayments] = useState<any[]>([]);
+  const [loginError, setLoginError] = useState<string | null>(null); // Add this line
 
   const fetchAccounts = async () => {
     try {
@@ -218,9 +219,11 @@ const logout = async () => {
             localStorage.setItem("UserId", userData.id as string);
         }
         showToast("Sikeres bejelentkezés!");
+        setLoginError(null); // Clear the error message on successful login
     })
     .catch((error) => {
         console.error("Error:", error);
+        setLoginError("Hibás email vagy jelszó"); // Set the error message on login failure
     });
 };
   
@@ -456,5 +459,8 @@ const logout = async () => {
     fetchApiEur,
     fetchApiUsd,
     transfer,
+    userToken,
+    loginError,
+    setLoginError,
   };
 };

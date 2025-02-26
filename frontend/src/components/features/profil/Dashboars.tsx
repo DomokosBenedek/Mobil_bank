@@ -26,7 +26,8 @@ const Dashboard_Page: React.FC = () => {
     fetchExpenses,
     allpayment,
     disconnectUser,
-    transfer
+    transfer,
+    userToken,
   } = logicks();
 
   const [contextMenu, setContextMenu] = useState<{ x: number; y: number; accountId: string } | null>(null);
@@ -69,6 +70,8 @@ const Dashboard_Page: React.FC = () => {
     await transfer(transferData);
     setShowTransferPopup(false);
   };
+
+  console.log(userToken);
   
   useEffect(() => {
     const fetchPayments = async () => {

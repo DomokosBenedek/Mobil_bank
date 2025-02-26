@@ -5,6 +5,8 @@ import { logicks } from "./logic";
 
 export default function LoginDropdown() {
   const {
+    loginError,
+    setLoginError,
     user,
     isHovered,
     setIsHovered,
@@ -15,7 +17,7 @@ export default function LoginDropdown() {
     isLoggedIn,
     handleSubmit,
     logout,
-    fetchAccounts, // Add fetchAccounts to the destructured logicks
+    fetchAccounts,
   } = logicks();
   
   const navigate = useNavigate();
@@ -25,6 +27,11 @@ export default function LoginDropdown() {
       fetchAccounts();
       navigate(`/profile/${user.firstName}${user.lastName}/dashboard`, { state: { user } });
     }
+  };
+
+  const handleInputChange = (setter: React.Dispatch<React.SetStateAction<string>>, value: string) => {
+    setter(value);
+    setLoginError(null);
   };
 
   return (
@@ -58,7 +65,7 @@ export default function LoginDropdown() {
                   placeholder="Email cím"
                   className="login-input"
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={(e) => handleInputChange(setEmail, e.target.value)}
                   required
                 />
                 <input
@@ -66,12 +73,13 @@ export default function LoginDropdown() {
                   placeholder="Jelszó"
                   className="login-input"
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  onChange={(e) => handleInputChange(setPassword, e.target.value)}
                   required
                 />
                 <div className="forgot-password">
                   <a href="#forgot">Elfelejtetted a jelszavad?</a>
                 </div>
+                {loginError && <div className="error-message">{loginError}</div>}
                 <button type="submit" className="login-submit primary_v1">
                   Bejelentkezés
                 </button>
