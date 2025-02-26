@@ -36,7 +36,7 @@ export default function Register() {
     };
   
     const handleSubmit = (e: FormEvent) => {
-      e.preventDefault();
+        e.preventDefault();
   
       const { firstName, lastName, email, password, confirmPassword } =
         formData;
@@ -58,6 +58,7 @@ export default function Register() {
             password: password,
         };
         console.log(newUser);
+
         fetch("http://localhost:3000/user", {
             method: "POST",
             headers: {
@@ -74,9 +75,7 @@ export default function Register() {
     
         setError(null);
         console.log("Regisztráció sikeres", formData);
-        navigate("/profile", {
-            state: { email, firstName, lastName },
-        });
+        //navigate("/");
 
         fetch("http://localhost:3000/user", {
             method: "POST",
@@ -101,18 +100,88 @@ export default function Register() {
             </header>
             <main>
                 <section>
-                    <div className="register-container">
-                        <h2>Regisztráció</h2>
-                        <form onSubmit={handleSubmit} className="register-form">
-                            {/* ...existing code... */}
-                        </form>
-                    </div>
+                <div className="register-container">
+                    <h2>Regisztráció</h2>
+                    <form onSubmit={handleSubmit} className="register-form">
+                        <div className="form-group">
+                            <label htmlFor="firstName">Keresztnév</label>
+                            <input
+                                type="text"
+                                id="firstName"
+                                name="firstName"
+                                placeholder="Keresztnév"
+                                value={formData.firstName}
+                                onChange={handleChange}
+                                required
+                                className="form-input"
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="lastName">Vezetéknév</label>
+                            <input
+                                type="text"
+                                id="lastName"
+                                name="lastName"
+                                placeholder="Vezetéknév"
+                                value={formData.lastName}
+                                onChange={handleChange}
+                                required
+                                className="form-input"
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="email">Email cím</label>
+                            <input
+                                type="text"
+                                //type="email"
+                                id="email"
+                                name="email"
+                                placeholder="Email cím"
+                                value={formData.email}
+                                onChange={handleChange}
+                                required
+                                className="form-input"
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="password">Jelszó</label>
+                            <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                placeholder="Jelszó"
+                                value={formData.password}
+                                onChange={handleChange}
+                                required
+                                className="form-input"
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="confirmPassword">Jelszó újra</label>
+                            <input
+                                type="password"
+                                id="confirmPassword"
+                                name="confirmPassword"
+                                placeholder="Jelszó újra"
+                                value={formData.confirmPassword}
+                                onChange={handleChange}
+                                required
+                                className="form-input"
+                            />
+                        </div>
+                        {error && <p className="error-message">{error}</p>}
+                        <button type="submit" className="form-submit">
+                            Regisztráció
+                        </button>
+                    </form>
+                </div>
+
                 </section>
             </main>
             <footer>
                 <Footer/>
             </footer>
-            <Toast />
+            <Toast/>
         </>
     );
 };
