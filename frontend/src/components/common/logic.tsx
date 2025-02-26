@@ -6,6 +6,7 @@ import { Expense } from "../Props/ExpenseProp";
 import { AccountProp } from "../Props/AccountProp";
 import { Api } from "../Props/ApiProp";
 import { TransferProp } from "../Props/TransferProp";
+import { showToast } from "./CustomToast";
 
 export const logicks = () => {
   const [user, setUser] = useState<User | null>(null);
@@ -152,29 +153,30 @@ export const logicks = () => {
   // Add new account
   const addNewAccount = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/accounts`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "authorization": "Bearer " + userToken,
-        },
-        body: JSON.stringify({
-          userId: userID,
-          total: 0,
-          currency: "HUF",
-          ownerName: user?.firstName + " " + user?.lastName,
-        }),
-      });
-      if (!response.ok) throw new Error("Failed to create account");
-      const newAccount = await response.json();
-      setUser((prevUser) =>
-        prevUser ? { ...prevUser, Accounts: [...(prevUser.Accounts || []), newAccount] } : null
-    );
-    setActiveAccount(newAccount);
-    localStorage.setItem("activeAccountId", newAccount.id);
-  } catch (error) {
-    setError((error as Error).message);
-  }
+        const response = await fetch(`http://localhost:3000/accounts`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "authorization": "Bearer " + userToken,
+            },
+            body: JSON.stringify({
+                userId: userID,
+                total: 0,
+                currency: "HUF",
+                ownerName: user?.firstName + " " + user?.lastName,
+            }),
+        });
+        if (!response.ok) throw new Error("Failed to create account");
+        const newAccount = await response.json();
+        setUser((prevUser) =>
+            prevUser ? { ...prevUser, Accounts: [...(prevUser.Accounts || []), newAccount] } : null
+        );
+        setActiveAccount(newAccount);
+        localStorage.setItem("activeAccountId", newAccount.id);
+        showToast("Sikeres fiók létrehozás!");
+    } catch (error) {
+        setError((error as Error).message);
+    }
 };
 
 // Logout
@@ -193,33 +195,34 @@ const logout = async () => {
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     fetch("http://localhost:3000/user/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, password }),
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
     })
     .then((response) => {
-      if (!response.ok) {
-        throw new Error(`Server responded with status ${response.status}`);
-      }
-      return response.json();
+        if (!response.ok) {
+            throw new Error(`Server responded with status ${response.status}`);
+        }
+        return response.json();
     })
     .then((userData: User) => {
-      setUser(userData);
-      setIsLoggedIn(true);
-      localStorage.setItem("loggedInUser", JSON.stringify(userData));
-      if (userData.access_token) {
-        localStorage.setItem("Token", userData.access_token as string);
-      }
-      if (userData.id) {
-        localStorage.setItem("UserId", userData.id as string);
-      }
+        setUser(userData);
+        setIsLoggedIn(true);
+        localStorage.setItem("loggedInUser", JSON.stringify(userData));
+        if (userData.access_token) {
+            localStorage.setItem("Token", userData.access_token as string);
+        }
+        if (userData.id) {
+            localStorage.setItem("UserId", userData.id as string);
+        }
+        showToast("Sikeres bejelentkezés!");
     })
     .catch((error) => {
-      console.error("Error:", error);
+        console.error("Error:", error);
     });
-  };
+};
   
   // Delete account
   const deleteAccount = async (accountId: string) => {
@@ -245,84 +248,83 @@ const logout = async () => {
   // Add income
   const addIncome = async (accountId: string, amount: number, category: String, description: String,  repeatAmount: number, repeatMetric: String) => {
     try {
-      const response = await fetch(`http://localhost:3000/income`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "authorization": "Bearer " + userToken,
-        },
-        body: JSON.stringify({
-          total: amount,
-          category,
-          userId: userID,
-          bankAccountId: accountId,
-          description,
-          repeatAmount,
-          repeatMetric,
-          repeatStart: new Date(),
-          repeatEnd: new Date(),
-        }),
-      });
-      if (!response.ok) throw new Error("Failed to add income");
-      const newIncome = await response.json();
-      setIncomes((prevIncomes) => [...prevIncomes, newIncome]);
-      return incomes;
+        const response = await fetch(`http://localhost:3000/income`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "authorization": "Bearer " + userToken,
+            },
+            body: JSON.stringify({
+                total: amount,
+                category,
+                userId: userID,
+                bankAccountId: accountId,
+                description,
+                repeatAmount,
+                repeatMetric,
+                repeatStart: new Date(),
+                repeatEnd: new Date(),
+            }),
+        });
+        if (!response.ok) throw new Error("Failed to add income");
+        const newIncome = await response.json();
+        setIncomes((prevIncomes) => [...prevIncomes, newIncome]);
+        showToast("Sikeres jövedelem hozzáadás!");
+        return incomes;
     } catch (error) {
-      setError((error as Error).message);
+        setError((error as Error).message);
     }
-  };
+};
   
   // Add expense
   const addExpense = async (accountId: string, amount: number, category: String, description: String,  repeatAmount: number, repeatMetric: String) => {
     try {
-      const response = await fetch(`http://localhost:3000/expense`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "authorization": "Bearer " + userToken,
-        },
-        body: JSON.stringify({
-          total: amount,
-          category,
-          userId: userID,
-          bankAccountId: accountId,
-          description,
-          repeatAmount,
-          repeatMetric,
-          repeatStart: new Date(),
-          repeatEnd: new Date(),
-        }),
-      });
-      if (!response.ok) throw new Error("Failed to add expense");
-      const newExpense = await response.json();
-      setExpenses((prevExpenses) => [...prevExpenses, newExpense]);
+        const response = await fetch(`http://localhost:3000/expense`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "authorization": "Bearer " + userToken,
+            },
+            body: JSON.stringify({
+                total: amount,
+                category,
+                userId: userID,
+                bankAccountId: accountId,
+                description,
+                repeatAmount,
+                repeatMetric,
+                repeatStart: new Date(),
+                repeatEnd: new Date(),
+            }),
+        });
+        if (!response.ok) throw new Error("Failed to add expense");
+        const newExpense = await response.json();
+        setExpenses((prevExpenses) => [...prevExpenses, newExpense]);
+        showToast("Sikeres kiadás hozzáadás!");
     } catch (error) {
-      setError((error as Error).message);
+        setError((error as Error).message);
     }
-  };
+};
   
   // Add user to account
   const addUserToAccount = async (accountId: string, email: string) => {
-    console.log('accountId: ' + accountId);
-    console.log('userToken: ' + userToken);
-    console.log('email: ' + email);
     try {
-      const response = await fetch(`http://localhost:3000/accounts/user/email/${accountId}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          "authorization": "Bearer " + userToken,
-        },
-        body: JSON.stringify({ email: email }),
-      });
-      if (!response.ok) throw new Error("Failed to add user to account");
-      const data = await response.json();
-      return data;
+        const response = await fetch(`http://localhost:3000/accounts/user/email/${accountId}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+                "authorization": "Bearer " + userToken,
+            },
+            body: JSON.stringify({ email: email }),
+        });
+        if (!response.ok) throw new Error("Failed to add user to account");
+        const data = await response.json();
+        showToast("Sikeres felhasználó hozzáadás a fiókhoz!");
+        return data;
     } catch (error) {
-      console.log('error: ' + error);
-      setError((error as Error).message);
+        setError((error as Error).message);
     }
-  };
+};
 
   const disconnectUser = async (accountId: string) => {
     try {
@@ -391,21 +393,22 @@ const logout = async () => {
   //transfer
   const transfer = async (transferData: TransferProp) => {
     try {
-      const response = await fetch(`http://localhost:3000/accounts/transfer`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          "authorization": "Bearer " + userToken,
-        },
-        body: JSON.stringify(transferData),
-      });
-      if (!response.ok) throw new Error("Failed to transfer");
-      const data = await response.json();
-      return data;
+        const response = await fetch(`http://localhost:3000/accounts/transfer`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+                "authorization": "Bearer " + userToken,
+            },
+            body: JSON.stringify(transferData),
+        });
+        if (!response.ok) throw new Error("Failed to transfer");
+        const data = await response.json();
+        showToast("Sikeres átutalás!");
+        return data;
     } catch (error) {
-      setError((error as Error).message);
+        setError((error as Error).message);
     }
-  };
+};
 
 
   
