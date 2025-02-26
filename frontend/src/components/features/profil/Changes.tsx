@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import { logicks } from "../../common/logic";
 import LineChart from "../../common/charts/lineChart";
 import { Api } from "../../Props/ApiProp";
-import CostumeNavbar from "../../common/navbar";
-import Footer from "../../common/Footer";
 import "../../../design/profil_page_element/changes.css";
 import CombinedLineChart from "../../common/charts/combinedLineChart";
 

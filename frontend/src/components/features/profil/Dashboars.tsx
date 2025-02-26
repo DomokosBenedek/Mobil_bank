@@ -1,12 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import CostumeNavbar from "../../common/navbar";
-import Sidebar from "./Sidebar";
 import Card from "../../common/CardElement";
 import { Card_newCard } from "../../common/img";
-import Footer from "../../common/Footer";
 import { logicks } from "../../common/logic";
 import CardContextMenu from '../../common/ContextMenu';
-import PieChart from '../../common/charts/pieChart';
 import Table from '../../common/Table';
 import "../../../design/profil_page_element/dashboard.css";
 import BarChart from '../../common/charts/barChart';
@@ -19,7 +15,6 @@ import TransferPopup from '../../common/popups/TransferPopup';
 const Dashboard_Page: React.FC = () => {
   const { 
     user,
-    userID,
     loading,
     error,
     activeAccount,
