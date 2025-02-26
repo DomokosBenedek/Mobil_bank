@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Card_newCard, placeholderCard } from "../../common/img";
+import { Card_newCard } from "../../common/img";
 import { logicks } from "../../common/logic";
 import NewPaymentPopup from '../../common/popups/NewPaymentPopup';
 import NewUserPopup from '../../common/popups/NewUserPopup';
@@ -15,12 +15,9 @@ import { TransferProp } from '../../Props/TransferProp';
 const Card_Page: React.FC = () => {
   const { 
     user,
-    userID,
     loading,
     error,
     activeAccount,
-    SetActiveAcountClick,
-    addNewAccount,
     deleteAccount,
     addUserToAccount,
     fetchIncomes,
@@ -99,12 +96,12 @@ const Card_Page: React.FC = () => {
               <div>
                 <div className={"card active"} onContextMenu={(e) => handleRightClick(e, activeAccount.id)}>
                   <Card
-                    id={activeAccount.id}
+                    id={'*'.repeat(activeAccount.id.length - 4) + activeAccount.id.slice(-4)}
                     number={1}
                     total={activeAccount.total}
                     currency={activeAccount.currency.toString()}
                     name={activeAccount.ownerName}
-                    date={new Date(activeAccount.createdAt).toLocaleDateString()}
+                    date={new Date(activeAccount.createdAt).toLocaleDateString('hu-HU', { year: '2-digit', month: '2-digit' })}
                   />
                 </div>
                 <img src={Card_newCard} alt="New Payment" onClick={() => setShowNewPaymentPopup(true)} />

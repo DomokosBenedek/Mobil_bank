@@ -3,7 +3,6 @@ import { User } from "../Props/UserProp";
 import { useNavigate } from "react-router-dom";
 import { Income } from "../Props/IncomeProp";
 import { Expense } from "../Props/ExpenseProp";
-import { Category, Metric, PaymentType, TransactionProp } from "../Props/TransactionProp";
 import { AccountProp } from "../Props/AccountProp";
 import { Api } from "../Props/ApiProp";
 import { TransferProp } from "../Props/TransferProp";
@@ -346,10 +345,6 @@ const logout = async () => {
     }
   };
 
-  const updateUser = async ( firstName: String, lastName: String, email: String, password: String) => {
-    // Implement the logic to add user to account
-  };
-
   //Api Beolvasás
   const fetchApiEur = async ( date: string) => {
     try {
@@ -438,7 +433,6 @@ const logout = async () => {
     loading,
     error,
     activeAccount,
-    updateUser,
     fetchAccounts,
     SetActiveAcountClick,
     addNewAccount,
