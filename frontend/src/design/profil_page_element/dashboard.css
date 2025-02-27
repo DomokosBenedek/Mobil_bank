@@ -1,0 +1,74 @@
+.profile-container {
+    display: grid ;
+    grid-template-columns: 240px 740px 400px;
+    grid-template-rows: auto auto;
+    margin-top: 12vh;
+    background-color: var(--light-grey);
+  }
+  
+  #sidebar {
+    grid-row: 1 / span 2;
+  }
+  
+  .cards-section {
+    grid-column: 2 / span 2;
+    background-color: var(--light-grey);
+  }
+
+  .cards-section .cardList{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .card {
+    background-image: url('/images/Card_EmptyInactive.png');
+    color: var(--light-grey);
+    padding: 10px;
+    margin: 10px;
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .card.active {
+    background-image: url('/images/Card_empty_full.png');
+    color: var(--light-grey);
+  }
+
+  .transactions-section {
+    grid-column: 2 / span 1;
+    grid-row: 2 / span 1;
+    background-color: var(--light-grey);
+  }
+
+  .diagram-section {
+    grid-column: 3 / span 1;
+    grid-row: 2 / span 1;
+    background-color: var(--light-grey);
+  }
+
+  .profile-container section{
+    padding: 0px ;
+  }
+
+  .sectionMain {
+    background-color: rgba(255, 165, 0, 0.1);
+    border-radius: 10px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .Title_row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .Title {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  
