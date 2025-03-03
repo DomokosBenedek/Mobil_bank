@@ -1,4 +1,4 @@
-import { placeholderHero_image, placeholderIcon, placeholderImage } from "../../common/img";
+import { Icon_location, Icon_mail, Icon_phone, Map_Image, placeholderHero_image, placeholderIcon, placeholderImage } from "../../common/img";
 import "../../../design/home_page_elements/advantages.css";
 import "../../../design/home_page_elements/contact.css";
 import "../../../design/home_page_elements/functions.css";
@@ -244,7 +244,7 @@ export function Contact() {
       <div className="contact-text">
         <div className="contact-List">
           <div className="contact-object">
-            <img src={placeholderIcon} alt="Email Icon" />
+            <img src={Icon_mail} alt="Email Icon" />
             <div className="contact-object-text">
               <h6>Email</h6>
               <p>Írjon nekünk bátran!</p>
@@ -252,7 +252,7 @@ export function Contact() {
             </div>
           </div>
           <div className="contact-object">
-            <img src={placeholderIcon} alt="Telefon Icon" />
+            <img src={Icon_phone} alt="Telefon Icon" />
             <div className="contact-object-text">
               <h6>Telefon</h6>
               <p>Hívjon minket!</p>
@@ -260,7 +260,7 @@ export function Contact() {
             </div>
           </div>
           <div className="contact-object">
-            <img src={placeholderIcon} alt="Iroda Icon" />
+            <img src={Icon_location} alt="Iroda Icon" />
             <div className="contact-object-text">
               <h6>Iroda</h6>
               <p>Keressen fel személyesen!</p>
@@ -269,7 +269,7 @@ export function Contact() {
           </div>
         </div> 
         <div className="contact-image">
-          <img src={placeholderImage} alt="Contact Illustration" />
+          <img src={Map_Image} alt="Contact Illustration" />
         </div>
       </div>
     </section>

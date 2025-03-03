@@ -1,9 +1,9 @@
 .sidebar {
     width: 250px;
-    background-color: #0a1931; /* Sötétkék háttér */
-    color: #d3d3d3; /* Világosszürke szöveg */
-    top: 15vh; /* Középre igazítás */
-    border-radius: 0 20px 20px 0; /* Jobb felső és alsó sarok lekerekítése */
+    background-color: #0a1931;
+    color: #d3d3d3;
+    top: 15vh;
+    border-radius: 0 20px 20px 0;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -33,17 +33,17 @@
   }
   
   .sidebar .nav-links a img {
-    width: 20px; /* Kisebb ikonméret */
+    width: 20px;
     height: 20px;
     margin-right: 10px;
   }
   
   .sidebar .nav-links a:hover {
-    background-color: #1b2a4e; /* Sötétebb kék hover effekt */
+    background-color: #1b2a4e;
   }
   
   .sidebar .nav-links a.active {
-    font-weight: bold; /* Aktív link félkövér */
+    font-weight: bold; 
   }
   
   .sidebar .sidebar-image {

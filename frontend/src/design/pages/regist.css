@@ -1,0 +1,55 @@
+.register-main{
+      background: linear-gradient(
+        rgba(245, 121, 51, 0.8), 
+        rgba(245, 121, 51, 0.8)
+      ), 
+      url('/images/Placeholder_Hero_Image.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+  }
+  
+  .register-container {
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 30px;
+    color: var(--white);
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.5); /* Optional: Add a background color for better readability */
+    width: 30%;
+    margin: 0rem auto 2rem auto;
+  }
+  
+  /* Form input styling */
+  .form-input {
+    margin-top: 10rem;
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid var(--dark-grey);
+    background-color: rgba(255, 255, 255);
+    color: var(--white);
+  }
+  
+  /* Error message styling */
+  .error-message {
+    color: var(--orange);
+    font-weight: bold;
+  }
+  
+  /* Submit button styling */
+  button.primary_v1 {
+    font-size: 1rem;
+    font-weight: bold;
+    color: var(--light-grey);
+    background: var(--orange);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: border-color 0.25s;
+  }
+  
+  button.primary_v1:hover {
+    background-color: var(--orange-rgb) !important;  
+    color: var(--light-grey);
+  }

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { placeholderIcon } from './img';
+import { Icon_Negative, Icon_Positive } from './img';
 import { TransactionProp } from '../Props/TransactionProp';
 import TransactionDetailsPopup from './popups/TransactionDetailsPopup';
 
@@ -33,7 +33,11 @@ const Table: React.FC<any> = ({ payments }) => {
           {payments.map((transaction: any, index: number) => (
             <tr key={index} onClick={() => handleRowClick(transaction)}>
               <td>
-                <img src={placeholderIcon} alt="icon" className="transaction-icon" />
+              {transaction.PaymentType === "Expense" ? (
+                  <img src={Icon_Negative} alt="icon" className="transaction-icon" />
+                ) : (
+                  <img src={Icon_Positive} alt="icon" className="transaction-icon" />
+                )}                
                 <p>{transaction.id} ({transaction.category})</p>
               </td>
               <td>{new Date(transaction.createdAt).toLocaleDateString('hu-HU')}</td>

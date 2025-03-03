@@ -4,6 +4,7 @@ import { User } from "../components/Props/UserProp";
 import CostumeNavbar from "../components/common/navbar";
 import Footer from "../components/common/Footer";
 import Toast, { showToast } from "../components/common/CustomToast";
+import '../design/pages/regist.css'
 
 export default function Register() {
 
@@ -98,7 +99,7 @@ export default function Register() {
             <header>
                 <CostumeNavbar/>
             </header>
-            <main>
+            <main className="register-main">
                 <section>
                 <div className="register-container">
                     <h2>Regisztráció</h2>
@@ -170,7 +171,7 @@ export default function Register() {
                             />
                         </div>
                         {error && <p className="error-message">{error}</p>}
-                        <button type="submit" className="form-submit">
+                        <button type="submit" className="primary_v1">
                             Regisztráció
                         </button>
                     </form>

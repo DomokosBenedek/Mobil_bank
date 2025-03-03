@@ -4,6 +4,7 @@ import LineChart from "../../common/charts/lineChart";
 import { Api } from "../../Props/ApiProp";
 import "../../../design/profil_page_element/changes.css";
 import CombinedLineChart from "../../common/charts/combinedLineChart";
+import { Flag_EUR, Flag_USD, Icon_Arrow_white } from "../../common/img";
 
 const Changes_Page = () => {
   const { fetchApiEur, fetchApiUsd } = logicks();
@@ -18,8 +19,8 @@ const Changes_Page = () => {
 
   const [selectedCurrency, setSelectedCurrency] = useState<string | null>(null);
 
-  const getIcon = (change: number) => {
-    return change >= 0 ? '⬆️' : '⬇️';
+  const getIconClass = (change: number) => {
+    return change >= 0 ? 'rotate-left' : 'rotate-right';
   };
 
   async function eurApi(date: string) {
@@ -95,11 +96,16 @@ const getCardClass = (change: number) => {
             const yesterdayRate = currency === "eur" ? eurExchangeRates[eurExchangeRates.length - 2]?.rate : usdExchangeRates[usdExchangeRates.length - 2]?.rate;
             const changePercentage = getChangePercentage(todayRate, yesterdayRate);
             const cardClass = getCardClass(parseFloat(changePercentage));
-            const icon = getIcon(parseFloat(changePercentage));
+            const iconClass = getIconClass(parseFloat(changePercentage));
             return (
               <div key={currency} className={`changes-card ${cardClass}`} onClick={() => handleCardClick(currency)}>
-                <div className="changes-card-icon">{icon}</div>
-                <div className="changes-card-name">{currency.toUpperCase()}</div>
+                <div className="changes-card-icon">
+                  <img src={Icon_Arrow_white} alt="Arrow" className={iconClass} />
+                </div>
+                <div className="changes-card-name">
+                  <img src={currency === "eur" ? Flag_EUR : Flag_USD} alt={currency === "eur" ? "Flag_EUR" : "Flag_USD"} />
+                    {currency.toUpperCase()}
+                    </div>
                 <div className="changes-card-value">{todayRate ? todayRate.toFixed(2) : 'N/A'} HUF</div>
                 <div className="changes-card-change">{yesterdayRate ? yesterdayRate.toFixed(2) : 'N/A'} ({changePercentage}%)</div>
               </div>

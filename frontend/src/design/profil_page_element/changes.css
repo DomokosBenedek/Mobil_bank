@@ -15,8 +15,8 @@ main .profile-main-changes{
     grid-template-rows: auto auto;
     padding: 0px;
     border-radius: 15px;
-    color: black; /* Szöveg színe fekete */
-    background-color: white; /* Háttér színe fehér */
+    color: black;
+    background-color: white;
     box-sizing: border-box;
 }
 
@@ -38,6 +38,18 @@ main .profile-main-changes{
     justify-content: flex-start;
     font-size: 1.5rem;
 }
+
+.changes-card-name img {
+    width: 1.2em;
+}
+
+.rotate-left {
+    transform: rotate(-90deg);
+  }
+  
+  .rotate-right {
+    transform: rotate(90deg);
+  }
 
 .changes-card-value {
     display: flex;
