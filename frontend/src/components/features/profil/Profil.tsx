@@ -1,11 +1,8 @@
-import React, { useState } from 'react';
-import CostumeNavbar from "../../common/navbar";
-import Sidebar from "./Sidebar";
-import Footer from "../../common/Footer";
+import React, { useState } from 'react'
 import { logicks } from "../../common/logic";
 
 const Profil_Page: React.FC = () => {
-  const { user, updateUser } = logicks();
+  const { user } = logicks();
   const [firstName, setFirstName] = useState<string>(user?.firstName?.toString() || "");
   const [lastName, setLastName] = useState<string>(user?.lastName?.toString() || "");
   const [email, setEmail] = useState<string>(user?.email?.toString() || "");

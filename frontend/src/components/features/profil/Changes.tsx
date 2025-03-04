@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { logicks } from "../../common/logic";
 import LineChart from "../../common/charts/lineChart";
-import { Api } from "../../Props/ApiProp";
 import "../../../design/profil_page_element/changes.css";
 import CombinedLineChart from "../../common/charts/combinedLineChart";
-import { Flag_EUR, Flag_USD, Icon_Arrow_white } from "../../common/img";
+import ChangesCardSection from "../../ChangesCardSection";
+import { Api } from "../../Props/ApiProp";
 
 const Changes_Page = () => {
   const { fetchApiEur, fetchApiUsd } = logicks();
@@ -72,9 +72,9 @@ const Changes_Page = () => {
     console.log(eurExchangeRates);
   },[eurExchangeRates])
 
-const getCardClass = (change: number) => {
-  return change >= 0 ? 'positive' : 'negative';
-};
+  const getCardClass = (change: number) => {
+    return change >= 0 ? 'positive' : 'negative';
+  };
 
   const getChangePercentage = (today: number, yesterday: number) => {
     return ((today - yesterday) / yesterday * 100).toFixed(2);
@@ -86,73 +86,62 @@ const getCardClass = (change: number) => {
 
   return (
     <>
-        <main className="profile-main-changes">
+      <main className="profile-main-changes">
         <section className="changes-container">
-        <h2>Changes</h2>
-        <p>Here you can see the changes of the currencies.</p>
-        <div className="changes-cards-container">
-          {currencys.map((currency) => {
-            const todayRate = currency === "eur" ? eurData?.changes.huf : usdData?.changes.huf;
-            const yesterdayRate = currency === "eur" ? eurExchangeRates[eurExchangeRates.length - 2]?.rate : usdExchangeRates[usdExchangeRates.length - 2]?.rate;
-            const changePercentage = getChangePercentage(todayRate, yesterdayRate);
-            const cardClass = getCardClass(parseFloat(changePercentage));
-            const iconClass = getIconClass(parseFloat(changePercentage));
-            return (
-              <div key={currency} className={`changes-card ${cardClass}`} onClick={() => handleCardClick(currency)}>
-                <div className="changes-card-icon">
-                  <img src={Icon_Arrow_white} alt="Arrow" className={iconClass} />
-                </div>
-                <div className="changes-card-name">
-                  <img src={currency === "eur" ? Flag_EUR : Flag_USD} alt={currency === "eur" ? "Flag_EUR" : "Flag_USD"} />
-                    {currency.toUpperCase()}
-                    </div>
-                <div className="changes-card-value">{todayRate ? todayRate.toFixed(2) : 'N/A'} HUF</div>
-                <div className="changes-card-change">{yesterdayRate ? yesterdayRate.toFixed(2) : 'N/A'} ({changePercentage}%)</div>
+          <h2>Changes</h2>
+          <p>Here you can see the changes of the currencies.</p>
+          <ChangesCardSection
+            currencys={currencys}
+            eurData={eurData}
+            usdData={usdData}
+            eurExchangeRates={eurExchangeRates}
+            usdExchangeRates={usdExchangeRates}
+            getChangePercentage={getChangePercentage}
+            getCardClass={getCardClass}
+            getIconClass={getIconClass}
+            handleCardClick={handleCardClick}
+          />
+        </section>
+        {selectedCurrency === null && (
+          <>
+            <section className="changes-container">
+              <h2>Combined EUR and USD Exchange Rates</h2>
+              <div>
+                <CombinedLineChart eurExchangeRates={eurExchangeRates} usdExchangeRates={usdExchangeRates} ism={30} />
               </div>
-            );
-          })}
-        </div>
-      </section>
-      {selectedCurrency === null && (
-        <>
-          <section className="changes-container">
-            <h2>Combined EUR and USD Exchange Rates</h2>
-            <div>
-              <CombinedLineChart eurExchangeRates={eurExchangeRates} usdExchangeRates={usdExchangeRates} ism={30} />
-            </div>
-          </section>
+            </section>
+            <section className="changes-container">
+              <h2>Currency: EUR</h2>
+              <div>
+                <LineChart exchangeRates={eurExchangeRates} ism={30} currency="eur" />
+              </div>
+            </section>
+            <section className="changes-container">
+              <h2>Currency: USD</h2>
+              <div>
+                <LineChart exchangeRates={usdExchangeRates} ism={30} currency="usd" />
+              </div>
+            </section>
+          </>
+        )}
+        {selectedCurrency === "eur" && (
           <section className="changes-container">
             <h2>Currency: EUR</h2>
             <div>
               <LineChart exchangeRates={eurExchangeRates} ism={30} currency="eur" />
             </div>
           </section>
+        )}
+        {selectedCurrency === "usd" && (
           <section className="changes-container">
             <h2>Currency: USD</h2>
             <div>
               <LineChart exchangeRates={usdExchangeRates} ism={30} currency="usd" />
             </div>
           </section>
-        </>
-      )}
-      {selectedCurrency === "eur" && (
-        <section className="changes-container">
-          <h2>Currency: EUR</h2>
-          <div>
-            <LineChart exchangeRates={eurExchangeRates} ism={30} currency="eur" />
-          </div>
-        </section>
-      )}
-      {selectedCurrency === "usd" && (
-        <section className="changes-container">
-          <h2>Currency: USD</h2>
-          <div>
-            <LineChart exchangeRates={usdExchangeRates} ism={30} currency="usd" />
-          </div>
-        </section>
-      )}
-    </main>
-  </>
+        )}
+      </main>
+    </>
   );
 };
 

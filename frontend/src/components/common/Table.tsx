@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Icon_Negative, Icon_Positive } from './img';
-import { TransactionProp } from '../Props/TransactionProp';
 import TransactionDetailsPopup from './popups/TransactionDetailsPopup';
+import { TransactionProp } from '../Props/TransactionProp';
 
 const Table: React.FC<any> = ({ payments }) => {
   const [selectedTransaction, setSelectedTransaction] = useState<TransactionProp | null>(null);

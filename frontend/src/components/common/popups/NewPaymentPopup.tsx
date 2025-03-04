@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { Currency, Metric } from '../../Props/TransactionProp';
 import { logicks } from '../logic';
-import { Expense } from '../../Props/ExpenseProp';
+import { Currency, Metric } from '../../Props/TransactionProp';
 
 interface NewPaymentPopupProps {
   onClose: () => void;

@@ -10,7 +10,7 @@ import '../../../design/profil_page_element/card.css';
 import DeleteAccountPopup from '../../common/popups/DeleteAccountPopu';
 import CardContextMenu from '../../common/ContextMenu';
 import TransferPopup from '../../common/popups/TransferPopup';
-import { TransferProp } from '../../Props/TransferProp';
+import { TransferProp } from '../../common/Props/TransferProp';
 
 const Card_Page: React.FC = () => {
   const { 
