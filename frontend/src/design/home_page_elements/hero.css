@@ -1,11 +1,10 @@
-.hero{
+.hero {
   background: linear-gradient(to right, var(--orange), #eabca4) !important;
   color: var(--white) !important;
   height: 100vh !important;
   padding: 0 !important;
 }
 
-/* Szöveg stílusai */
 .hero-text {
   max-width: 40rem !important;
   margin-left: 2rem !important;
@@ -32,4 +31,67 @@
   float: right !important;
   height: inherit !important;
   width: inherit !important;
+}
+
+/* Additional hero styles from navbar.css */
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 40px;
+  background: linear-gradient(to bottom, var(--orange), #4c2510);
+  color: var(--white);
+  height: 100vh; /* Teljes képernyő magasság */
+  box-sizing: border-box;
+}
+
+.hero-text {
+  max-width: 50%;
+}
+
+.hero-text p {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+  line-height: 1.6;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 20px;
+}
+
+.main_button_altern {
+  background: var(--white);
+  color: var(--black);
+  padding: 15px 30px;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.main_button_altern:hover {
+  background: var(--light-grey);
+}
+
+.secundary_button_alter {
+  background: transparent;
+  border: 2px solid var(--white);
+  color: var(--white);
+  padding: 15px 30px;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.secundary_button_alter:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.hero-image img {
+  width: 100%;
+  object-fit: cover;
 }
