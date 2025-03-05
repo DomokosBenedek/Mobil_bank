@@ -12,7 +12,7 @@
 }
 
 .sidebar.hovered {
-  width: 250px;
+  width: 15%;
 }
 
 .sidebar .nav-links {
@@ -69,8 +69,7 @@
   display: block;
 }
 
-.sidebar .sidebar-footer {
-  margin-top: auto;
+.sidebar .sidebar-logout {
   width: 100%;
   padding: 10px 0;
 }

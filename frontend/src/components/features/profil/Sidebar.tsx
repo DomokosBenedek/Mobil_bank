@@ -43,7 +43,7 @@ const Sidebar: React.FC = () => {
                 </li>
             </ul>
             <img src={placeholderCard} alt="Card image" className="sidebar-image"/>
-            <div className="sidebar-footer">
+            <div className="sidebar-logout">
                 <div className="logout" onClick={logout}>
                     <img src={Icon_Logout} alt="icon"/> <span>Logout</span>
                 </div>
