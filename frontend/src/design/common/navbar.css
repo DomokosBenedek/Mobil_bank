@@ -11,16 +11,16 @@
   z-index: 1000;
 }
 
-.logo {
+.navbar-logo {
   flex: 0 0 auto;
 }
 
-.logo-image {
+.navbar-logo-image {
   height: 40px;
   object-fit: contain;
 }
 
-.nav-links {
+.navbar-nav-links {
   display: flex;
   list-style: none;
   margin: 0;
@@ -30,22 +30,22 @@
   gap: 20px;
 }
 
-.nav-item {
+.navbar-nav-item {
   margin: 0;
 }
 
-.nav-link {
+.navbar-nav-link {
   color: var(--white);
   font-size: 16px;
   transition: color 0.3s;
 }
 
-.nav-link:hover {
+.navbar-nav-link:hover {
   color: var(--orange);
 }
 
 /* Login gomb */
-.login {
+.navbar-login {
   flex: 0 0 auto;
   margin-right: 6rem;
 }
@@ -97,13 +97,13 @@
   }
 }
 
-.login-dropdown h2 {
+.navbar-login-dropdown h2 {
   text-align: center;
   margin-bottom: 20px;
   font-size: 1.5rem;
 }
 
-.login-input {
+.navbar-login-input {
   width: 100%;
   padding: 10px;
   margin-bottom: 15px;
@@ -115,20 +115,20 @@
   outline: none;
 }
 
-.login-input:focus {
+.navbar-login-input:focus {
   border-color: var(--orange);
 }
 
-.forgot-password a {
+.navbar-forgot-password a {
   color: var(--orange);
   text-decoration: none;
 }
 
-.forgot-password a:hover {
+.navbar-forgot-password a:hover {
   text-decoration: underline;
 }
 
-.login-submit {
+.navbar-login-submit {
   width: 100%;
   padding: 10px;
   background-color: var(--orange);
@@ -140,118 +140,6 @@
   transition: background-color 0.3s ease;
 }
 
-.login-submit:hover {
+.navbar-login-submit:hover {
   background-color: var(--dark-blue);
-}
-
-/* Hero szekció */
-.hero {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 40px;
-  background: linear-gradient(to bottom, var(--orange), #4c2510);
-  color: var(--white);
-  height: 100vh; /* Teljes képernyő magasság */
-  box-sizing: border-box;
-}
-
-.hero-text {
-  max-width: 50%;
-}
-
-.h1_alter {
-  font-size: 2.5rem;
-  margin-bottom: 20px;
-  font-weight: bold;
-}
-
-.hero-text p {
-  font-size: 1.2rem;
-  margin-bottom: 30px;
-  line-height: 1.6;
-}
-
-.hero-buttons {
-  display: flex;
-  gap: 20px;
-}
-
-.main_button_altern {
-  background: var(--white);
-  color: var(--black);
-  padding: 15px 30px;
-  font-size: 1rem;
-  font-weight: bold;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.main_button_altern:hover {
-  background: var(--light-grey);
-}
-
-.secundary_button_alter {
-  background: transparent;
-  border: 2px solid var(--white);
-  color: var(--white);
-  padding: 15px 30px;
-  font-size: 1rem;
-  font-weight: bold;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.secundary_button_alter:hover {
-  background: rgba(255, 255, 255, 0.1);
-}
-
-/* Kép stílusai */
-.hero-image img {
-  width: 100%;
-  object-fit: cover;
-}
-
-/* Footer */
-.footer {
-  background-color: var(--dark-blue);
-  color: var(--white);
-  padding: 20px;
-}
-
-.footer-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  flex-wrap: wrap;
-}
-
-.newsletter input[type="email"] {
-  padding: 10px;
-  border: none;
-  border-radius: 5px;
-  font-size: 14px;
-  color: var(--dark-blue);
-  background: var(--light-grey);
-}
-
-.newsletter button {
-  background-color: var(--orange);
-  color: var(--white);
-  padding: 10px;
-  border-radius: 5px;
-}
-
-.newsletter button:hover {
-  background-color: var(--dark-blue);
-}
-
-.footer-links a {
-  color: var(--white);
-}
-
-.footer-links a:hover {
-  text-decoration: underline;
 }

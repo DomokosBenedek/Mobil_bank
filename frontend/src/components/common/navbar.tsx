@@ -38,28 +38,28 @@ export default function CostumeNavbar() {
     return (
       <nav className="navbar">
         {/* Bal oldalon a logó */}
-        <div className="logo" onClick={() => window.location.href = "/"}>
-          <img src={placeholderIcon_text} alt="Logo" className="logo-image" />
+        <div className="navbar-logo" onClick={() => window.location.href = "/"}>
+          <img src={placeholderIcon_text} alt="Logo" className="navbar-logo-image" />
         </div>
 
         {isHomePage ? (
           // Ha a kezdőlapon vagyunk, jelenjen meg az összes link
-          <ul className="nav-links">
-            <li className="nav-item"><a href="#functions" className="nav-link">Funkciók</a></li>
-            <li className="nav-item"><a href="#advantages" className="nav-link">Előnyök</a></li>
-            <li className="nav-item"><a href="#tryItOut" className="nav-link">Próbáld ki</a></li>
-            <li className="nav-item"><a href="#howItWork" className="nav-link">Hogyan működik</a></li>
-            <li className="nav-item"><a href="#newsLetter" className="nav-link">Hírlevél</a></li>
-            <li className="nav-item"><a href="#contact" className="nav-link">Kapcsolatok</a></li>
-            <li className="nav-item"><a href="changes" className="nav-link">Changes</a></li>
+          <ul className="navbar-nav-links">
+            <li className="navbar-nav-item"><a href="#functions" className="navbar-nav-link">Funkciók</a></li>
+            <li className="navbar-nav-item"><a href="#advantages" className="navbar-nav-link">Előnyök</a></li>
+            <li className="navbar-nav-item"><a href="#tryItOut" className="navbar-nav-link">Próbáld ki</a></li>
+            <li className="navbar-nav-item"><a href="#howItWork" className="navbar-nav-link">Hogyan működik</a></li>
+            <li className="navbar-nav-item"><a href="#newsLetter" className="navbar-nav-link">Hírlevél</a></li>
+            <li className="navbar-nav-item"><a href="#contact" className="navbar-nav-link">Kapcsolatok</a></li>
+            <li className="navbar-nav-item"><a href="changes" className="navbar-nav-link">Changes</a></li>
           </ul>
         ) : (
           // Ha másik oldalon vagyunk, jelenjen meg az oldal címe középen
-          <div className="page-title">{currentPageTitle}</div>
+          <div className="navbar-page-title">{currentPageTitle}</div>
         )}
 
         {/* Jobb oldalon a login */}
-        <div className="login">
+        <div className="navbar-login">
           <LoginDropdown/>
         </div>
       </nav>
