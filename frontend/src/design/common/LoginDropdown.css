@@ -54,6 +54,24 @@
   color: var(--light-grey);
 }
 
+.profile-button {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.profile-image {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.profile-button span {
+  font-size: 16px;
+  color: var(--white);
+}
+
 .login-dropdown h2 {
   text-align: center;
   margin-bottom: 20px;
