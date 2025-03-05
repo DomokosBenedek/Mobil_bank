@@ -1,10 +1,10 @@
 import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { User } from "../components/common/Props/UserProp";
 import CostumeNavbar from "../components/common/navbar";
 import Footer from "../components/common/Footer";
 import Toast, { showToast } from "../components/common/CustomToast";
 import '../design/pages/regist.css'
+import { User } from "../components/Props/UserProp";
 
 export default function Register() {
 
