@@ -3,6 +3,19 @@
     border-collapse: collapse;
     font-size: clamp(0.5rem, 0.3848rem + 3.4783vw, 1.2rem);
   }
+
+  .transaction-table-container {
+    max-height: 350px;
+    overflow-x: auto;
+    position: relative;
+  }
+
+  .transaction-table thead {
+    background-color: #f9f9f9;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+  }
   
   td.transaction-name {
     display: flex;
