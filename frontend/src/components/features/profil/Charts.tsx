@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import CostumeNavbar from "../../common/navbar";
-import { AccountProp } from "../../common/Props/AccountProp";
-import { User } from "../../common/Props/UserProp";
 import Sidebar from "./Sidebar";
 import Card from "../../common/CardElement";
 import { Card_newCard } from "../../common/img";
@@ -15,7 +13,7 @@ import NewPaymentPopup from '../../common/popups/NewPaymentPopup';
 import TransferPopup from '../../common/popups/TransferPopup';
 import DeleteAccountPopup from '../../common/popups/DeleteAccountPopu';
 import NewUserPopup from '../../common/popups/NewUserPopup';
-import { TransferProp } from '../../common/Props/TransferProp';
+import { TransferProp } from '../../Props/TransferProp';
 
 const Charts_Page: React.FC = () => {
   const { 
