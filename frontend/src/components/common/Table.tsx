@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Icon_Negative, Icon_Positive } from './img';
 import TransactionDetailsPopup from './popups/TransactionDetailsPopup';
 import { TransactionProp } from '../Props/TransactionProp';
+import '../../design/common/table.css';
 
 const Table: React.FC<any> = ({ payments }) => {
   const [selectedTransaction, setSelectedTransaction] = useState<TransactionProp | null>(null);
@@ -32,13 +33,13 @@ const Table: React.FC<any> = ({ payments }) => {
         <tbody>
           {payments.map((transaction: any, index: number) => (
             <tr key={index} onClick={() => handleRowClick(transaction)}>
-              <td>
+              <td className='transaction-name'>
               {transaction.PaymentType === "Expense" ? (
                   <img src={Icon_Negative} alt="icon" className="transaction-icon" />
                 ) : (
                   <img src={Icon_Positive} alt="icon" className="transaction-icon" />
                 )}                
-                <p>{transaction.id} ({transaction.category})</p>
+                <p>({transaction.category})</p>
               </td>
               <td>{new Date(transaction.createdAt).toLocaleDateString('hu-HU')}</td>
               <td className={transaction.PaymentType === "Expense" ? 'expense' : 'income'}>
