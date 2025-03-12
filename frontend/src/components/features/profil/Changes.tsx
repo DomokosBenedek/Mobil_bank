@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { logicks } from "../../common/logic";
 import LineChart from "../../common/charts/lineChart";
-import "../../../design/profil_page_element/changes.css";
 import CombinedLineChart from "../../common/charts/combinedLineChart";
 import ChangesCardSection from "../../ChangesCardSection";
 import { Api } from "../../Props/ApiProp";
+import "../../../design/profil_page_element/changes.css";
 
 const Changes_Page = () => {
   const { fetchApiEur, fetchApiUsd } = logicks();

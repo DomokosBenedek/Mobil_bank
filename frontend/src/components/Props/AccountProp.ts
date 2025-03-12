@@ -15,6 +15,7 @@ export interface AccountProp {
     currency:  Currency;  
     ownerName: string;
     ownerId: string;
+    RepeatableTransaction: string[];
 }
 enum Currency {
     HUF

@@ -112,6 +112,7 @@
   .primary_v3:hover {
     background-color: var(--primary-color-dark);
   }
+
   
   /* Responsive Design */
   @media (max-width: 768px) {

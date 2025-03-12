@@ -193,8 +193,9 @@ const logout = async () => {
   };
   
   // Login
-  const handleSubmit = (event: React.FormEvent) => {
+  const Login = (event: React.FormEvent) => {
     event.preventDefault();
+    console.log("Login");
     fetch("http://localhost:3000/user/login", {
         method: "POST",
         headers: {
@@ -214,12 +215,15 @@ const logout = async () => {
         localStorage.setItem("loggedInUser", JSON.stringify(userData));
         if (userData.access_token) {
             localStorage.setItem("Token", userData.access_token as string);
+            console.log("Token: " + userData.access_token);
         }
         if (userData.id) {
             localStorage.setItem("UserId", userData.id as string);
+            console.log("UserId: " + userData.id);
         }
         showToast("Sikeres bejelentkezés!");
         setLoginError(null); // Clear the error message on successful login
+        console.log("Login success");
     })
     .catch((error) => {
         console.error("Error:", error);
@@ -393,6 +397,35 @@ const logout = async () => {
     }
   }
 
+  const createRepeatableTransaction = async (accountId: string, amount: number, category: String, description: String, repeatAmount: number, repeatMetric: String, repeatStart: Date, repeatEnd: Date) => {
+    try {
+      const response = await fetch(`http://localhost:3000/repeatabletransaction`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "authorization": "Bearer " + userToken,
+        },
+        body: JSON.stringify({
+          total: amount,
+          category,
+          description,
+          repeatAmount,
+          repeatMetric,
+          repeatStart,
+          repeatEnd,
+          accountId,
+          userId: userID,
+        })
+      });
+      if (!response.ok) throw new Error("Failed to create repeatable transaction");
+      const newTransaction = await response.json();
+      showToast("Sikeres ismétlődő tranzakció hozzáadás!");
+      return newTransaction;
+    } catch (error) {
+      setError((error as Error).message);
+    }
+  };
+
   //transfer
   const transfer = async (transferData: TransferProp) => {
     try {
@@ -454,7 +487,7 @@ const logout = async () => {
     password,
     setPassword,
     isLoggedIn,
-    handleSubmit,
+    Login,
     allpayment,
     fetchApiEur,
     fetchApiUsd,
@@ -462,5 +495,6 @@ const logout = async () => {
     userToken,
     loginError,
     setLoginError,
+    createRepeatableTransaction,
   };
 };

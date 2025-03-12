@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { logicks } from '../logic';
-import { Currency, Metric } from '../../Props/TransactionProp';
+import { Currency } from '../../Props/TransactionProp';
 
 interface NewPaymentPopupProps {
   onClose: () => void;
@@ -8,38 +8,37 @@ interface NewPaymentPopupProps {
 }
 
 const NewPaymentPopup: React.FC<NewPaymentPopupProps> = ({ onClose, onSave }) => {
-  const { addIncome, addExpense, activeAccount, fetchAccounts, fetchExpenses, fetchIncomes, findone } = logicks();
+  const { addIncome, addExpense, createRepeatableTransaction, activeAccount, fetchAccounts, fetchExpenses, fetchIncomes, findone } = logicks();
   const [type, setType] = useState<'Income' | 'Expense'>('Income');
-  const [category, setCategory] = useState<string>('');
+  const [category, setCategory] = useState<string>('Other');
   const [amount, setAmount] = useState<number>(0);
   const [currency, setCurrency] = useState<Currency>(Currency.HUF);
   const [repeat, setRepeat] = useState<boolean>(false);
-  const [repeatMetric, setRepeatMetric] = useState<Metric>(Metric.Month);
+  const [repeatMetric, setRepeatMetric] = useState<string>("Day");
   const [repeatAmount, setRepeatAmount] = useState<number>(1);
   const [description, setDescription] = useState<string>('');
-  
-  const incomeCategories: String[] = ['Salary', 'Transfer', 'Transaction', 'Other'];
-  const expenseCategories: String[] = ['Shopping', 'Rent', 'Transport', 'Transfer', 'Transaction', 'Other'];
+  const [repeatStart, setRepeatStart] = useState<string>('');
+  const [repeatEnd, setRepeatEnd] = useState<string>('');
+
+  const incomeCategories: string[] = ['Salary', 'Transfer', 'Transaction', 'Other'];
+  const expenseCategories: string[] = ['Shopping', 'Rent', 'Transport', 'Transfer', 'Transaction', 'Other'];
+  const repeatMetricList: string[] = ['Day', 'Week', 'Month', 'Year'];
 
   const handleSave = async () => {
-    const payment = {
-      type,
-      category,
-      amount,
-      currency,
-      repeat: repeat ? { metric: repeatMetric, amount: repeatAmount } : null,
-      description,
-    };
-
     if (type === 'Income') {
-      if (repeat) {
-        await addIncome(activeAccount?.id || '', amount, category, description, repeatAmount, repeatMetric.toString());
-      } else {
-        await addIncome(activeAccount?.id || '', amount, category, description, 1, "Day");
-      }
+      await addIncome(activeAccount?.id || '', amount, category, description, 1, "Day");
     } else {
       if (repeat) {
-        await addExpense(activeAccount?.id || '', amount, category, description, repeatAmount, repeatMetric.toString());
+        await createRepeatableTransaction(
+          activeAccount?.id || '',
+          amount,
+          category,
+          description,
+          repeatAmount,
+          repeatMetric,
+          new Date(repeatStart),
+          new Date(repeatEnd)
+        );
       } else {
         await addExpense(activeAccount?.id || '', amount, category, description, 1, "Day");
       }
@@ -49,7 +48,7 @@ const NewPaymentPopup: React.FC<NewPaymentPopupProps> = ({ onClose, onSave }) =>
     fetchIncomes(activeAccount?.id || '');
     findone(activeAccount?.id || '');
     onSave();
-    window.location.reload(); // Add this line to refresh the page
+    window.location.reload();
   };
 
   return (
@@ -83,26 +82,38 @@ const NewPaymentPopup: React.FC<NewPaymentPopupProps> = ({ onClose, onSave }) =>
             <option value={Currency.HUF}>HUF</option>
           </select>
         </label>
-        <label>
-          Repeat:
-          <input type="checkbox" checked={repeat} onChange={(e) => setRepeat(e.target.checked)} />
-        </label>
-        {repeat && (
+        {type === 'Expense' && (
           <>
             <label>
-              Repeat Metric:
-              <select value={repeatMetric} onChange={(e) => setRepeatMetric(e.target.value as unknown as Metric)}>
-                {Object.keys(Metric).map((key) => (
-                  <option key={key} value={Metric[key as keyof typeof Metric]}>
-                    {key}
-                  </option>
-                ))}
-              </select>
+              Repeat:
+              <input type="checkbox" checked={repeat} onChange={(e) => setRepeat(e.target.checked)} />
             </label>
-            <label>
-              Repeat Amount:
-              <input type="number" value={repeatAmount} onChange={(e) => setRepeatAmount(Number(e.target.value))} />
-            </label>
+            {repeat && (
+              <>
+                <label>
+                  Repeat Metric:
+                  <select value={repeatMetric} onChange={(e) => setRepeatMetric(e.target.value as string)}>
+                    {repeatMetricList.map((metric, index) => (
+                      <option key={index} value={metric}>
+                        {metric}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+                <label>
+                  Repeat Amount:
+                  <input type="number" value={repeatAmount} onChange={(e) => setRepeatAmount(Number(e.target.value))} />
+                </label>
+                <label>
+                  Repeat Start:
+                  <input type="date" value={repeatStart} onChange={(e) => setRepeatStart(e.target.value)} />
+                </label>
+                <label>
+                  Repeat End:
+                  <input type="date" value={repeatEnd} onChange={(e) => setRepeatEnd(e.target.value)} />
+                </label>
+              </>
+            )}
           </>
         )}
         <label>

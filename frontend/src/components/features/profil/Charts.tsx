@@ -89,6 +89,8 @@ const handleCloseContextMenu = () => {
 
   return (
     <>
+      <p>Ez az oldal még fejlesztés alatt van</p>
+      {/*
       <main className="profile-main-charts">
       <section className="cards-section">
         <div className="Title_row">
@@ -117,7 +119,6 @@ const handleCloseContextMenu = () => {
         </div>
       </section>
 
-      {/* BarCharts Section */}
       <section className="diagram-section">
         <div className="Title_row">
           <h3 className="Title">Diagrams</h3>
@@ -128,7 +129,6 @@ const handleCloseContextMenu = () => {
         </div>   
       </section>
 
-      {/* PieCharts Section */}
       <section className="diagram-section">
         <div className="Title_row">
           <h3 className="Title">Diagrams</h3>
@@ -171,6 +171,7 @@ const handleCloseContextMenu = () => {
         />
       )}
       </main>
+      */}
     </>
   );
 };
