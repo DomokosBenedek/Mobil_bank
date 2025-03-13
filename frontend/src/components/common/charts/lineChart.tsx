@@ -58,8 +58,8 @@ const LineChart: React.FC<LineChartProps> = ({ exchangeRates, ism , currency}) =
               },
               y: {
                 beginAtZero: true,
-                min: minRate - (maxRate - minRate) * 0.1, // Add some padding below the min value
-                max: maxRate + (maxRate - minRate) * 0.1, // Add some padding above the max value
+                min: minRate - (maxRate - minRate) * 0.1,
+                max: maxRate + (maxRate - minRate) * 0.1,
               },
             },
           },

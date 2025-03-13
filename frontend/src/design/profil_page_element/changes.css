@@ -1,7 +1,3 @@
-main .profile-main-changes{
-    margin-top: 5.5rem;
-}
-
 .changes-cards-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);

@@ -1,76 +1,65 @@
 import React, { useEffect, useState } from "react";
 import { logicks } from "../../common/logic";
-import LineChart from "../../common/charts/lineChart";
-import CombinedLineChart from "../../common/charts/combinedLineChart";
 import ChangesCardSection from "../../ChangesCardSection";
 import { Api } from "../../Props/ApiProp";
 import "../../../design/profil_page_element/changes.css";
+import LineChart from "../../common/charts/lineChart";
+import CombinedLineChart from "../../common/charts/combinedLineChart";
 
 const Changes_Page = () => {
-  const { fetchApiEur, fetchApiUsd } = logicks();
+  const { fetchApiCurrency } = logicks();
 
-  const currencys = ["eur", "usd"];
+  const currencys = [
+    "eur",
+    "usd",
+    "aud",
+    "cad",
+    "chf",
+    "czk",
+    "gbp",
+    "hrk",
+    "jpy",
+    "nok",
+    "pln",
+    "ron",
+    "rub",
+    "sek",
+    "uah"
+  ];
 
-  const [eurData, setEurData] = React.useState<any>(null);
-  const [usdData, setUsdData] = React.useState<any>(null);
-
-  const [eurExchangeRates, setEurExchangeRates] = useState<{ rate: any; date: string; }[]>([]);
-  const [usdExchangeRates, setUsdExchangeRates] = useState<{ rate: any; date: string; }[]>([]);
-
+  const [currencyData, setCurrencyData] = useState<{ [key: string]: any }>({});
+  const [exchangeRates, setExchangeRates] = useState<{ [key: string]: { rate: any; date: string; }[] }>({});
   const [selectedCurrency, setSelectedCurrency] = useState<string | null>(null);
 
   const getIconClass = (change: number) => {
     return change >= 0 ? 'rotate-left' : 'rotate-right';
   };
 
-  async function eurApi(date: string) {
-    const eurResult: Api = (await fetchApiEur(date)) as Api;
-    setEurData(eurResult);
-    return eurResult;
-  };
-
-  async function usdApi(date: string) {
-    const usdResult: Api = (await fetchApiUsd(date)) as Api;
-    setUsdData(usdResult);
-    return usdResult;
-  };
+  async function fetchCurrencyData(date: string, currency: string) {
+    const result: Api = (await fetchApiCurrency(date, currency)) as Api;
+    setCurrencyData(prevData => ({ ...prevData, [currency]: result }));
+    return result;
+  }
 
   useEffect(() => {
-    async function multLekerdezesEur(ism: number) {
+    async function multLekerdezes(currency: string, ism: number) {
       let rates: { rate: any; date: string }[] = [];
       let date = new Date();
       date.setDate(date.getDate() - ism);
       for (let i = 0; i < ism; i++) {
         date.setDate(date.getDate() + 1);
         let dateString = date.toISOString().split('T')[0];
-        let data: any = await eurApi(dateString);
+        let data: any = await fetchCurrencyData(dateString, currency);
         rates.push({ rate: data.changes.huf, date: dateString });
       }
-      setEurExchangeRates(rates);
+      setExchangeRates(prevRates => ({ ...prevRates, [currency]: rates }));
     }
-    async function multLekerdezesUsd(ism: number) {
-      let rates: { rate: any; date: string }[] = [];
-      let date = new Date();
-      date.setDate(date.getDate() - ism);
-      for (let i = 0; i < ism; i++) {
-        date.setDate(date.getDate() + 1);
-        let dateString = date.toISOString().split('T')[0];
-        let data: any = await usdApi(dateString);
-        rates.push({ rate: data.changes.huf, date: dateString });
-      }
-      setUsdExchangeRates(rates);
-    }
-    setEurExchangeRates([]);
-    setUsdExchangeRates([]);
-    eurApi("2025-02-24");
-    usdApi("2025-02-24");
-    multLekerdezesEur(30);
-    multLekerdezesUsd(30);
+
+    currencys.forEach(currency => {
+      fetchCurrencyData("2025-02-24", currency);
+      multLekerdezes(currency, 30);
+    });
   }, []);
-
-  useEffect(() => {
-    console.log(eurExchangeRates);
-  },[eurExchangeRates])
 
   const getCardClass = (change: number) => {
     return change >= 0 ? 'positive' : 'negative';
@@ -92,53 +81,49 @@ const Changes_Page = () => {
           <p>Here you can see the changes of the currencies.</p>
           <ChangesCardSection
             currencys={currencys}
-            eurData={eurData}
-            usdData={usdData}
-            eurExchangeRates={eurExchangeRates}
-            usdExchangeRates={usdExchangeRates}
+            currencyData={currencyData}
+            exchangeRates={exchangeRates}
             getChangePercentage={getChangePercentage}
             getCardClass={getCardClass}
             getIconClass={getIconClass}
             handleCardClick={handleCardClick}
           />
         </section>
-        {selectedCurrency === null && (
+        {selectedCurrency ? (
+          <section className="diagramLineChart" key={selectedCurrency}>
+            <h2>{selectedCurrency.toUpperCase()} Line Chart</h2>
+            <p>Here you can see the line chart of the {selectedCurrency.toUpperCase()} currency.</p>
+            {exchangeRates[selectedCurrency] && exchangeRates[selectedCurrency].length > 0 ? (
+              <LineChart exchangeRates={exchangeRates[selectedCurrency]} ism={30} currency={selectedCurrency} />
+            ) : (
+              <p>Loading data...</p>
+            )}
+          </section>
+        ) : (
           <>
-            <section className="changes-container">
-              <h2>Combined EUR and USD Exchange Rates</h2>
-              <div>
-                <CombinedLineChart eurExchangeRates={eurExchangeRates} usdExchangeRates={usdExchangeRates} ism={30} />
-              </div>
+            <section className="diagram">
             </section>
-            <section className="changes-container">
-              <h2>Currency: EUR</h2>
-              <div>
-                <LineChart exchangeRates={eurExchangeRates} ism={30} currency="eur" />
-              </div>
+            <section className="diagramCominedChart">
+              <h2>Combined Chart</h2>
+              <p>Here you can see the combined chart of the currencies.</p>
+              {Object.keys(exchangeRates).length > 0 ? (
+                <CombinedLineChart exchangeRates={exchangeRates} ism={30} />
+              ) : (
+                <p>Loading data...</p>
+              )}
             </section>
-            <section className="changes-container">
-              <h2>Currency: USD</h2>
-              <div>
-                <LineChart exchangeRates={usdExchangeRates} ism={30} currency="usd" />
-              </div>
-            </section>
+            {currencys.map(currency => (
+              <section className="diagramLineChart" key={currency}>
+                <h2>{currency.toUpperCase()} Line Chart</h2>
+                <p>Here you can see the line chart of the {currency.toUpperCase()} currency.</p>
+                {exchangeRates[currency] && exchangeRates[currency].length > 0 ? (
+                  <LineChart exchangeRates={exchangeRates[currency]} ism={30} currency={currency} />
+                ) : (
+                  <p>Loading data...</p>
+                )}
+              </section>
+            ))}
           </>
-        )}
-        {selectedCurrency === "eur" && (
-          <section className="changes-container">
-            <h2>Currency: EUR</h2>
-            <div>
-              <LineChart exchangeRates={eurExchangeRates} ism={30} currency="eur" />
-            </div>
-          </section>
-        )}
-        {selectedCurrency === "usd" && (
-          <section className="changes-container">
-            <h2>Currency: USD</h2>
-            <div>
-              <LineChart exchangeRates={usdExchangeRates} ism={30} currency="usd" />
-            </div>
-          </section>
         )}
       </main>
     </>

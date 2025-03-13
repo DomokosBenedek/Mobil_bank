@@ -1,21 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import Card from "../../common/CardElement";
 import { Card_newCard, Icon_Profil_circle } from "../../common/img";
 import { logicks } from "../../common/logic";
-import CardContextMenu from '../../common/ContextMenu';
-import Table from '../../common/Table';
+import CardContextMenu from "../../common/ContextMenu";
+import Table from "../../common/Table";
 import "../../../design/profil_page_element/dashboard.css";
-import BarChart from '../../common/charts/barChart';
-import NewPaymentPopup from '../../common/popups/NewPaymentPopup';
-import DeleteAccountPopup from '../../common/popups/DeleteAccountPopu';
-import NewUserPopup from '../../common/popups/NewUserPopup';
-import TransferPopup from '../../common/popups/TransferPopup';
-import PieChart from '../../common/charts/pieChart';
+import BarChart from "../../common/charts/barChart";
+import NewPaymentPopup from "../../common/popups/NewPaymentPopup";
+import DeleteAccountPopup from "../../common/popups/DeleteAccountPopu";
+import NewUserPopup from "../../common/popups/NewUserPopup";
+import TransferPopup from "../../common/popups/TransferPopup";
+import PieChart from "../../common/charts/pieChart";
 import ChangesCardSection from "../../ChangesCardSection"; // Import the ChangesCardSection component
-import { TransferProp } from '../../Props/TransferProp';
+import { TransferProp } from "../../Props/TransferProp";
 
 const Dashboard_Page: React.FC = () => {
-  const { 
+  const {
     user,
     loading,
     error,
@@ -31,26 +31,42 @@ const Dashboard_Page: React.FC = () => {
     transfer,
     userToken,
     fetchApiEur,
-    fetchApiUsd
+    fetchApiUsd,
   } = logicks();
 
-  const [contextMenu, setContextMenu] = useState<{ x: number; y: number; accountId: string } | null>(null);
+  const [contextMenu, setContextMenu] = useState<{
+    x: number;
+    y: number;
+    accountId: string;
+  } | null>(null);
   const [showNewPaymentPopup, setShowNewPaymentPopup] = useState(false);
   const [showNewUserPopup, setShowNewUserPopup] = useState(false);
   const [showDeleteAccountPopup, setShowDeleteAccountPopup] = useState(false);
-  const [incomes, setIncomes] = useState<{ total: number; createdAt: string }[]>([]);
-  const [expenses, setExpenses] = useState<{ total: number; createdAt: string }[]>([]);
+  const [incomes, setIncomes] = useState<
+    { total: number; createdAt: string }[]
+  >([]);
+  const [expenses, setExpenses] = useState<
+    { total: number; createdAt: string }[]
+  >([]);
   const [payments, setPayments] = useState<any[]>([]);
   const [showTransferPopup, setShowTransferPopup] = useState(false);
 
   const [eurData, setEurData] = useState<any>(null);
   const [usdData, setUsdData] = useState<any>(null);
-  const [eurExchangeRates, setEurExchangeRates] = useState<{ rate: any; date: string; }[]>([]);
-  const [usdExchangeRates, setUsdExchangeRates] = useState<{ rate: any; date: string; }[]>([]);
+  const [eurExchangeRates, setEurExchangeRates] = useState<
+    { rate: any; date: string }[]
+  >([]);
+  const [usdExchangeRates, setUsdExchangeRates] = useState<
+    { rate: any; date: string }[]
+  >([]);
 
   const handleRightClick = (event: React.MouseEvent, accountId: string) => {
     event.preventDefault();
-    setContextMenu({ x: event.clientX, y: event.clientY + window.scrollY, accountId });
+    setContextMenu({
+      x: event.clientX,
+      y: event.clientY + window.scrollY,
+      accountId,
+    });
   };
 
   const handleCloseContextMenu = () => {
@@ -58,16 +74,16 @@ const Dashboard_Page: React.FC = () => {
   };
 
   const handleNewUserSave = (email: string) => {
-    addUserToAccount(activeAccount?.id || '', email);
+    addUserToAccount(activeAccount?.id || "", email);
     setShowNewUserPopup(false);
   };
 
   const handleDeleteAccount = () => {
-    deleteAccount(activeAccount?.id || '');
+    deleteAccount(activeAccount?.id || "");
     setShowDeleteAccountPopup(false);
   };
   const handleDisconnect = () => {
-    disconnectUser(activeAccount?.id || '');
+    disconnectUser(activeAccount?.id || "");
     setShowDeleteAccountPopup(false);
   };
 
@@ -81,20 +97,20 @@ const Dashboard_Page: React.FC = () => {
   };
 
   const getIconClass = (change: number) => {
-    return change >= 0 ? 'rotate-left' : 'rotate-right';
+    return change >= 0 ? "rotate-left" : "rotate-right";
   };
 
   async function eurApi(date: string) {
     const eurResult = await fetchApiEur(date);
     setEurData(eurResult);
     return eurResult;
-  };
+  }
 
   async function usdApi(date: string) {
     const usdResult = await fetchApiUsd(date);
     setUsdData(usdResult);
     return usdResult;
-  };
+  }
 
   useEffect(() => {
     const fetchPayments = async () => {
@@ -102,8 +118,8 @@ const Dashboard_Page: React.FC = () => {
       setPayments(paymentsData || []);
     };
     const fetchIncomesAndExpenses = async () => {
-      const incomesData = await fetchIncomes(activeAccount?.id || '');
-      const expensesData = await fetchExpenses(activeAccount?.id || '');
+      const incomesData = await fetchIncomes(activeAccount?.id || "");
+      const expensesData = await fetchExpenses(activeAccount?.id || "");
       setIncomes(incomesData || []);
       setExpenses(expensesData || []);
     };
@@ -118,7 +134,7 @@ const Dashboard_Page: React.FC = () => {
       date.setDate(date.getDate() - ism);
       for (let i = 0; i < ism; i++) {
         date.setDate(date.getDate() + 1);
-        let dateString = date.toISOString().split('T')[0];
+        let dateString = date.toISOString().split("T")[0];
         let data: any = await eurApi(dateString);
         rates.push({ rate: data.changes.huf, date: dateString });
       }
@@ -130,7 +146,7 @@ const Dashboard_Page: React.FC = () => {
       date.setDate(date.getDate() - ism);
       for (let i = 0; i < ism; i++) {
         date.setDate(date.getDate() + 1);
-        let dateString = date.toISOString().split('T')[0];
+        let dateString = date.toISOString().split("T")[0];
         let data: any = await usdApi(dateString);
         rates.push({ rate: data.changes.huf, date: dateString });
       }
@@ -145,11 +161,11 @@ const Dashboard_Page: React.FC = () => {
   }, []);
 
   const getCardClass = (change: number) => {
-    return change >= 0 ? 'positive' : 'negative';
+    return change >= 0 ? "positive" : "negative";
   };
 
   const getChangePercentage = (today: number, yesterday: number) => {
-    return ((today - yesterday) / yesterday * 100).toFixed(2);
+    return (((today - yesterday) / yesterday) * 100).toFixed(2);
   };
 
   if (loading) return <p>Loading...</p>;
@@ -164,19 +180,30 @@ const Dashboard_Page: React.FC = () => {
             <button className="primary_v3">View more</button>
           </div>
           <div className="sectionMain">
-            <div className='cardList'>
+            <div className="cardList">
               {user?.Accounts?.map((account, index) => {
                 const isActive = activeAccount?.id === account.id;
                 return (
-                  <div key={account.id} className={`card ${isActive ? 'active' : ''}`} onClick={() => SetActiveAcountClick(account)} onContextMenu={(e) => handleRightClick(e, account.id)}>
+                  <div
+                    key={account.id}
+                    className={`card ${isActive ? "active" : ""}`}
+                    onClick={() => SetActiveAcountClick(account)}
+                    onContextMenu={(e) => handleRightClick(e, account.id)}
+                  >
                     <div className="card-content">
                       <Card
-                        id={'*'.repeat(account.id.length - 4) + account.id.slice(-4)}
+                        id={
+                          "*".repeat(account.id.length - 4) +
+                          account.id.slice(-4)
+                        }
                         number={index + 1}
                         total={account.total || 0}
                         currency={account.currency || "N/A"}
                         name={`${account.ownerName}`}
-                        date={new Date(account.createdAt).toLocaleDateString('hu-HU', { year: '2-digit', month: '2-digit' })}
+                        date={new Date(account.createdAt).toLocaleDateString(
+                          "hu-HU",
+                          { year: "2-digit", month: "2-digit" }
+                        )}
                       />
                     </div>
                   </div>
@@ -195,25 +222,25 @@ const Dashboard_Page: React.FC = () => {
           <div className="sectionMain">
             <img src={Icon_Profil_circle} alt="profile_icon" />
             <h2>Welcome:</h2>
-            <p>{user?.firstName} {user?.lastName}</p>
+            <p>
+              {user?.firstName} {user?.lastName}
+            </p>
             <h2>Total:</h2>
             <p>{}</p>
           </div>
         </section>
-        
+
         {/* Changes Card Section */}
         <section className="changes-card-section">
           <div className="Title_row">
             <h3 className="Title">Currency Changes</h3>
           </div>
           <div className="sectionMain">
-            <div className='changesList'>
+            <div className="changesList">
               <ChangesCardSection
                 currencys={["eur", "usd"]}
-                eurData={eurData}
-                usdData={usdData}
-                eurExchangeRates={eurExchangeRates}
-                usdExchangeRates={usdExchangeRates}
+                currencyData={{ eur: eurData, usd: usdData }}
+                exchangeRates={{ eur: eurExchangeRates, usd: usdExchangeRates }}
                 getChangePercentage={getChangePercentage}
                 getCardClass={getCardClass}
                 getIconClass={getIconClass}
@@ -268,23 +295,33 @@ const Dashboard_Page: React.FC = () => {
         )}
         {showNewUserPopup && (
           <div className="popup-overlay">
-            <NewUserPopup onClose={() => setShowNewUserPopup(false)} onSave={handleNewUserSave} />
+            <NewUserPopup
+              onClose={() => setShowNewUserPopup(false)}
+              onSave={handleNewUserSave}
+            />
           </div>
         )}
         {showDeleteAccountPopup && (
           <div className="popup-overlay">
-            <DeleteAccountPopup onClose={() => setShowDeleteAccountPopup(false)} onDelete={handleDeleteAccount} onDisconnect={handleDisconnect} />
+            <DeleteAccountPopup
+              onClose={() => setShowDeleteAccountPopup(false)}
+              onDelete={handleDeleteAccount}
+              onDisconnect={handleDisconnect}
+            />
           </div>
         )}
         {showNewPaymentPopup && (
-          <NewPaymentPopup onClose={() => setShowNewPaymentPopup(false)} onSave={handleNewPaymentSave} />
+          <NewPaymentPopup
+            onClose={() => setShowNewPaymentPopup(false)}
+            onSave={handleNewPaymentSave}
+          />
         )}
         {showTransferPopup && activeAccount?.id && user?.id && (
           <TransferPopup
             onClose={() => setShowTransferPopup(false)}
             onTransfer={handleTransfer}
             activeAccountId={activeAccount.id}
-            userId={user.id || ''}
+            userId={user.id || ""}
           />
         )}
       </main>

@@ -3,10 +3,8 @@ import ChangesCard from './common/ChangesCard';
 
 interface ChangesCardSectionProps {
   currencys: string[];
-  eurData: any;
-  usdData: any;
-  eurExchangeRates: { rate: any; date: string; }[];
-  usdExchangeRates: { rate: any; date: string; }[];
+  currencyData: { [key: string]: any };
+  exchangeRates: { [key: string]: { rate: any; date: string; }[] };
   getChangePercentage: (today: number, yesterday: number) => string;
   getCardClass: (change: number) => string;
   getIconClass: (change: number) => string;
@@ -15,10 +13,8 @@ interface ChangesCardSectionProps {
 
 const ChangesCardSection: React.FC<ChangesCardSectionProps> = ({
   currencys,
-  eurData,
-  usdData,
-  eurExchangeRates,
-  usdExchangeRates,
+  currencyData,
+  exchangeRates,
   getChangePercentage,
   getCardClass,
   getIconClass,
@@ -27,8 +23,8 @@ const ChangesCardSection: React.FC<ChangesCardSectionProps> = ({
   return (
     <div className="changes-cards-container">
       {currencys.map((currency) => {
-        const todayRate = currency === "eur" ? eurData?.changes.huf : usdData?.changes.huf;
-        const yesterdayRate = currency === "eur" ? eurExchangeRates[eurExchangeRates.length - 2]?.rate : usdExchangeRates[usdExchangeRates.length - 2]?.rate;
+        const todayRate = currencyData[currency]?.changes.huf;
+        const yesterdayRate = exchangeRates[currency]?.[exchangeRates[currency].length - 2]?.rate;
         const changePercentage = getChangePercentage(todayRate, yesterdayRate);
         const cardClass = getCardClass(parseFloat(changePercentage));
         const iconClass = getIconClass(parseFloat(changePercentage));
