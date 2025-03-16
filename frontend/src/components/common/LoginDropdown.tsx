@@ -15,7 +15,7 @@ export default function LoginDropdown() {
     password,
     setPassword,
     isLoggedIn,
-    handleSubmit,
+    Login,
     logout,
     fetchAccounts,
   } = logicks();
@@ -59,7 +59,7 @@ export default function LoginDropdown() {
           {isHovered && (
             <div className="login-dropdown">
               <h2 className="alter">Login</h2>
-              <form onSubmit={handleSubmit}>
+              <form onSubmit={Login}>
                 <input
                   type="text"
                   placeholder="Email cím"

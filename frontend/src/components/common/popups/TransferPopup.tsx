@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { TransferProp } from '../../Props/TransferProp';
 import { logicks } from '../logic';
+import { TransferProp } from '../../Props/TransferProp';
 
 interface TransferPopupProps {
   onClose: () => void;

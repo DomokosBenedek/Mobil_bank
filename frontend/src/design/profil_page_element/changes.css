@@ -1,17 +1,13 @@
-main .profile-main-changes{
-    margin-top: 5.5rem;
-}
-
 .changes-cards-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(2, auto);
-    gap: 20px;
+    gap: 10px;
 }
 
 .changes-card {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 0.5fr 1fr 1fr;
     grid-template-rows: auto auto;
     padding: 0px;
     border-radius: 15px;

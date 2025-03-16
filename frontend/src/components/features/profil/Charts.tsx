@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import CostumeNavbar from "../../common/navbar";
-import { AccountProp } from "../../Props/AccountProp";
-import { User } from "../../Props/UserProp";
 import Sidebar from "./Sidebar";
 import Card from "../../common/CardElement";
 import { Card_newCard } from "../../common/img";
@@ -91,6 +89,8 @@ const handleCloseContextMenu = () => {
 
   return (
     <>
+      <p>Ez az oldal még fejlesztés alatt van</p>
+      {/*
       <main className="profile-main-charts">
       <section className="cards-section">
         <div className="Title_row">
@@ -119,7 +119,6 @@ const handleCloseContextMenu = () => {
         </div>
       </section>
 
-      {/* BarCharts Section */}
       <section className="diagram-section">
         <div className="Title_row">
           <h3 className="Title">Diagrams</h3>
@@ -130,7 +129,6 @@ const handleCloseContextMenu = () => {
         </div>   
       </section>
 
-      {/* PieCharts Section */}
       <section className="diagram-section">
         <div className="Title_row">
           <h3 className="Title">Diagrams</h3>
@@ -173,6 +171,7 @@ const handleCloseContextMenu = () => {
         />
       )}
       </main>
+      */}
     </>
   );
 };

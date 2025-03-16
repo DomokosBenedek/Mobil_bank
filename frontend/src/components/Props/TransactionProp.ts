@@ -2,7 +2,6 @@ export interface TransactionProp {
     id: string;
     total: number;
     category: Category;
-    vendor?: string;
     description?: string;
     currency: string;
     userId: string;

@@ -47,3 +47,12 @@
   color: var(--orange);
   text-decoration: underline;
 }
+
+.newsletter input[type="email"] {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  color: var(--dark-blue);
+  background: var(--light-grey);
+}

@@ -15,6 +15,7 @@ export const Icon_Chart = '/images/Chart_icon.png';
 export const Icon_Card = '/images/Card_icon.png';
 export const Icon_Profil = '/images/Profil_icon.png';
 export const Icon_Euro = '/images/Euro_icon.png';
+export const Vector_Arrow_Dark = '/images/Vector_icon_dark.png';
 
 //Images
 export const placeholderImage = '/images/Placeholder_Image.png';
@@ -27,3 +28,16 @@ export const Map_Image = '/images/Map_v1.png';
 //Flag
 export const Flag_EUR = '/images/EUR_flag.png';
 export const Flag_USD = '/images/USD_flag.png';
+export const Flag_AUD = '/images/AUD_flag.png';
+export const Flag_CAD = '/images/CAD_flag.png';
+export const Flag_CHF = '/images/CHF_flag.png';
+export const Flag_CZK = '/images/CZK_flag.png';
+export const Flag_GBP = '/images/GBP_flag.png';
+export const Flag_HRK = '/images/HRK_flag.png';
+export const Flag_JPY = '/images/JPY_flag.png';
+export const Flag_NOK = '/images/NOK_flag.png';
+export const Flag_PLN = '/images/PLN_flag.png';
+export const Flag_RON = '/images/RON_flag.png';
+export const Flag_RUB = '/images/RUB_flag.png';
+export const Flag_SEK = '/images/SEK_flag.png';
+export const Flag_UAH = '/images/UAH_flag.png';

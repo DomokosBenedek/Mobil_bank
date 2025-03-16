@@ -2,22 +2,27 @@ import React, { useEffect, useRef } from 'react';
 import Chart from 'chart.js/auto';
 
 interface CombinedLineChartProps {
-  eurExchangeRates: { rate: number; date: string }[];
-  usdExchangeRates: { rate: number; date: string }[];
+  exchangeRates: { [key: string]: { rate: number; date: string }[] };
   ism: number;
 }
 
-const CombinedLineChart: React.FC<CombinedLineChartProps> = ({ eurExchangeRates, usdExchangeRates, ism }) => {
+const CombinedLineChart: React.FC<CombinedLineChartProps> = ({ exchangeRates, ism }) => {
   const chartRef = useRef<HTMLCanvasElement>(null);
   const chartInstanceRef = useRef<Chart | null>(null);
 
   useEffect(() => {
-    const labels = eurExchangeRates.map(rate => rate.date);
-    const eurData = eurExchangeRates.map(rate => rate.rate);
-    const usdData = usdExchangeRates.map(rate => rate.rate);
+    const labels = exchangeRates[Object.keys(exchangeRates)[0]].map(rate => rate.date);
+    const datasets = Object.keys(exchangeRates).map(currency => ({
+      label: `${currency.toUpperCase()} Exchange Rate`,
+      data: exchangeRates[currency].map(rate => rate.rate),
+      borderColor: getRandomColor(),
+      backgroundColor: undefined,
+      fill: false,
+    }));
 
-    const minRate = Math.min(...eurData, ...usdData);
-    const maxRate = Math.max(...eurData, ...usdData);
+    const allRates = Object.values(exchangeRates).flat().map(rate => rate.rate);
+    const minRate = Math.min(...allRates);
+    const maxRate = Math.max(...allRates);
 
     if (chartRef.current) {
       const ctx = chartRef.current.getContext('2d');
@@ -32,22 +37,7 @@ const CombinedLineChart: React.FC<CombinedLineChartProps> = ({ eurExchangeRates,
           type: 'line',
           data: {
             labels,
-            datasets: [
-              {
-                label: 'EUR Exchange Rate',
-                data: eurData,
-                borderColor: '#00008B',
-                backgroundColor: undefined,
-                fill: false,
-              },
-              {
-                label: 'USD Exchange Rate',
-                data: usdData,
-                borderColor: '#FF0000',
-                backgroundColor: undefined,
-                fill: false,
-              },
-            ],
+            datasets,
           },
           options: {
             responsive: true,
@@ -57,7 +47,7 @@ const CombinedLineChart: React.FC<CombinedLineChartProps> = ({ eurExchangeRates,
               },
               title: {
                 display: true,
-                text: `EUR and USD Exchange Rates for the Last ${ism} Days`,
+                text: `Exchange Rates for the Last ${ism} Days`,
               },
             },
             scales: {
@@ -74,13 +64,22 @@ const CombinedLineChart: React.FC<CombinedLineChartProps> = ({ eurExchangeRates,
         });
       }
     }
-  }, [eurExchangeRates, usdExchangeRates]);
+  }, [exchangeRates]);
 
-  if (!eurExchangeRates?.length || !usdExchangeRates?.length) {
+  if (!Object.keys(exchangeRates).length) {
     return <p>No data available</p>;
   }
 
   return <canvas ref={chartRef}></canvas>;
 };
+
+function getRandomColor() {
+  const letters = '0123456789ABCDEF';
+  let color = '#';
+  for (let i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+}
 
 export default CombinedLineChart;

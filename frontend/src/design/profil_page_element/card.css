@@ -1,106 +1,140 @@
-.profile-main {
-    display: flex;
-    width: 100%;
-    min-height: 80vh;
-  }
-  
-  .profile-content {
-    flex: 1;
-    padding: 20px;
-    background-color: #f1f1f1;
-  }
-  
-  .active-card-section,
-  .profile-settings-section,
-  .transactions-section,
-  .diagram-section {
-    background-color: rgba(255, 165, 0, 0.1);
-    border-radius: 10px;
-    padding: 20px;
-    margin-bottom: 20px;
-  }
-  
-  .active-card-section h2,
-  .profile-settings-section h2,
-  .transactions-section h3,
-  .diagram-section h3 {
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin-bottom: 10px;
-  }
-  
-  .profile-settings-section p {
-    font-size: 1.2rem;
-    margin-bottom: 10px;
-  }
-  
-  .profile-settings-section button {
-    margin-right: 10px;
-  }
-  
-  .card {
-    background-image: url('/images/Card_EmptyInactive.png');
-    color: var(--light-grey);
-    padding: 10px;
-    margin: 10px;
-    border-radius: 10px;
-    transition: background-color 0.3s ease;
-  }
-  
-  .card.active {
-    background-image: url('/images/Card_empty_full.png');
-    color: var(--light-grey);
-  }
-  
-  .transactions-section .sectionMain,
-  .diagram-section .sectionMain {
-    background-color: #fff;
-    border-radius: 10px;
-    padding: 20px;
-  }
-  
-  .Title_row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-  }
-  
-  .Title {
-    font-size: 1.5rem;
-    font-weight: bold;
-  }
-  
-  .primary_v3 {
-    background-color: #007bff;
-    color: #fff;
-    padding: 5px 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .primary_v3:hover {
-    background-color: #0056b3;
-  }
-  
-  .popup-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-  }
-  
-  .popup {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    z-index: 1001;
-  }
+.cardpage_profile-main-card {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 20px;
+  background-color: var(--light-grey);
+  padding: 20px;
+}
+
+.profile-container.sidebar-hovered {
+  grid-template-columns: 40% 25%;
+}
+
+.cardpage_transactions-section {
+  grid-column: 1 / span 1;
+  grid-row: 1 / span 1;
+  background-color: var(--light-grey);
+}
+
+.cardpage_active-card-section {
+  grid-column: 2 / span 1;
+  grid-row: 1 / span 1;
+  background-color: var(--light-grey);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cardpage_bar-diagram-section {
+  grid-column: 1 / span 1;
+  grid-row: 2 / span 1;
+  background-color: var(--light-grey);
+}
+
+.cardpage_pie-diagram-section {
+  grid-column: 2 / span 1;
+  grid-row: 2 / span 1;
+  background-color: var(--light-grey);
+}
+
+.cardpage_card-selector {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cardpage_active-card-section .buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.cardpage_active-card-section .shared-users {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.cardpage_card {
+  background-image: url('/images/Card_EmptyInactive.png');
+  color: var(--light-grey);
+  padding: 10px;
+  margin: 10px;
+  border-radius: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.cardpage_card.active {
+  background-image: url('/images/Card_empty_full.png');
+  color: var(--light-grey);
+}
+
+.cardpage_profile-main-card section {
+  padding: 20px;
+  background-color: rgba(255, 165, 0, 0.1);
+  border-radius: 10px;
+}
+
+.cardpage_sectionMain {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; /* Add this line to center align items */
+}
+
+.cardpage_Title_row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.cardpage_Title {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.primary_v3 {
+  background-color: var(--primary-color);
+  color: var(--light-grey);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.primary_v3:hover {
+  background-color: var(--primary-color-dark);
+}
+
+img#before {
+  object-fit: cover;
+  rotate: 180deg;
+}
+
+img#next {
+  object-fit: cover;
+}
+
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popup {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 1001;
+}
