@@ -26,6 +26,7 @@ const Card_Page: React.FC = () => {
     allpayment,
     disconnectUser,
     transfer,
+    SetActiveAcountClick,
   } = logicks();
 
   const [contextMenu, setContextMenu] = useState<{
@@ -44,6 +45,7 @@ const Card_Page: React.FC = () => {
   >([]);
   const [payments, setPayments] = useState<any[]>([]);
   const [showTransferPopup, setShowTransferPopup] = useState(false);
+  const [activeCardIndex, setActiveCardIndex] = useState(0);
 
   useEffect(() => {
     const fetchPayments = async () => {
@@ -59,6 +61,15 @@ const Card_Page: React.FC = () => {
     fetchPayments();
     fetchIncomesAndExpenses();
   }, [activeAccount]);
+
+  useEffect(() => {
+    if (user?.Accounts) {
+      const activeIndex = user.Accounts.findIndex(
+        (account) => account.id === activeAccount?.id
+      );
+      setActiveCardIndex(activeIndex !== -1 ? activeIndex : 0);
+    }
+  }, [user, activeAccount]);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
@@ -95,6 +106,28 @@ const Card_Page: React.FC = () => {
     setShowTransferPopup(false);
   };
 
+  const handlePreviousCard = () => {
+    if (user?.Accounts) {
+      const newIndex =
+        activeCardIndex === 0
+          ? user.Accounts.length - 1
+          : activeCardIndex - 1;
+      setActiveCardIndex(newIndex);
+      SetActiveAcountClick(user.Accounts[newIndex]);
+    }
+  };
+
+  const handleNextCard = () => {
+    if (user?.Accounts) {
+      const newIndex =
+        activeCardIndex === user.Accounts.length - 1
+          ? 0
+          : activeCardIndex + 1;
+      setActiveCardIndex(newIndex);
+      SetActiveAcountClick(user.Accounts[newIndex]);
+    }
+  };
+
   return (
     <>
       <main className="cardpage_profile-main-card">
@@ -112,37 +145,51 @@ const Card_Page: React.FC = () => {
         {/* Active Card Section */}
         <section className="cardpage_active-card-section">
           <h2>Active Card</h2>
-          {activeAccount ? (
+          {user?.Accounts && user.Accounts.length > 0 ? (
             <div className="cardpage_card-selector">
-              <img src={Vector_Arrow_Dark} alt="Vector" id="before" />
+              <img
+                src={Vector_Arrow_Dark}
+                alt="Vector"
+                id="before"
+                onClick={handlePreviousCard}
+              />
               <div
                 className={"card active"}
-                onContextMenu={(e) => handleRightClick(e, activeAccount.id)}
+                onContextMenu={(e) =>
+                  user?.Accounts && handleRightClick(e, user.Accounts[activeCardIndex].id)
+                }
               >
                 <Card
                   id={
-                    "*".repeat(activeAccount.id.length - 4) +
-                    activeAccount.id.slice(-4)
+                    "*".repeat(user.Accounts[activeCardIndex].id.length - 4) +
+                    user.Accounts[activeCardIndex].id.slice(-4)
                   }
-                  number={1}
-                  total={activeAccount.total}
-                  currency={activeAccount.currency.toString()}
-                  name={activeAccount.ownerName}
-                  date={new Date(activeAccount.createdAt).toLocaleDateString(
-                    "hu-HU",
-                    { year: "2-digit", month: "2-digit" }
-                  )}
+                  number={activeCardIndex + 1}
+                  total={user.Accounts[activeCardIndex].total}
+                  currency={user.Accounts[activeCardIndex].currency.toString()}
+                  name={user.Accounts[activeCardIndex].ownerName}
+                  date={new Date(
+                    user.Accounts[activeCardIndex].createdAt
+                  ).toLocaleDateString("hu-HU", {
+                    year: "2-digit",
+                    month: "2-digit",
+                  })}
                 />
               </div>
-              <img src={Vector_Arrow_Dark} alt="Vector" id="next" />
+              <img
+                src={Vector_Arrow_Dark}
+                alt="Vector"
+                id="next"
+                onClick={handleNextCard}
+              />
             </div>
           ) : (
             <p>No active account selected.</p>
           )}
-          <h4>{`Card owner: ${activeAccount?.ownerName}`}</h4>
+          <h4>{`Card owner: ${user?.Accounts ? user.Accounts[activeCardIndex]?.ownerName : ""}`}</h4>
           <div className="shared-users">
             <p>Shared with:</p>
-            <p>{activeAccount?.userId.join(", ")}</p>
+            <p>{user?.Accounts && user.Accounts[activeCardIndex]?.userId.join(", ")}</p>
           </div>
           <div className="buttons">
             <button onClick={() => setShowNewPaymentPopup(true)}>
@@ -154,6 +201,16 @@ const Card_Page: React.FC = () => {
             <button onClick={() => setShowDeleteAccountPopup(true)}>
               Delete Account
             </button>
+          </div>
+          <div className="card-indicators">
+            {user?.Accounts?.map((_, index) => (
+              <span
+                key={index}
+                className={`indicator ${
+                  index === activeCardIndex ? "active" : ""
+                }`}
+              ></span>
+            ))}
           </div>
         </section>
 
