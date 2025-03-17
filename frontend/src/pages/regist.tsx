@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import CostumeNavbar from "../components/common/navbar";
 import Footer from "../components/common/Footer";
 import Toast, { showToast } from "../components/common/CustomToast";
-import '../design/pages/regist.css'
 import { User } from "../components/Props/UserProp";
+import "../design/pages/regist.css";
 
 export default function Register() {
 
@@ -105,19 +105,6 @@ export default function Register() {
                     <h2>Regisztráció</h2>
                     <form onSubmit={handleSubmit} className="register-form">
                         <div className="form-group">
-                            <label htmlFor="firstName">Keresztnév</label>
-                            <input
-                                type="text"
-                                id="firstName"
-                                name="firstName"
-                                placeholder="Keresztnév"
-                                value={formData.firstName}
-                                onChange={handleChange}
-                                required
-                                className="form-input"
-                            />
-                        </div>
-                        <div className="form-group">
                             <label htmlFor="lastName">Vezetéknév</label>
                             <input
                                 type="text"
@@ -127,7 +114,20 @@ export default function Register() {
                                 value={formData.lastName}
                                 onChange={handleChange}
                                 required
-                                className="form-input"
+                                className="form-input register"
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="firstName">Keresztnév</label>
+                            <input
+                                type="text"
+                                id="firstName"
+                                name="firstName"
+                                placeholder="Keresztnév"
+                                value={formData.firstName}
+                                onChange={handleChange}
+                                required
+                                className="form-input register"
                             />
                         </div>
                         <div className="form-group">
@@ -141,7 +141,7 @@ export default function Register() {
                                 value={formData.email}
                                 onChange={handleChange}
                                 required
-                                className="form-input"
+                                className="form-input register"
                             />
                         </div>
                         <div className="form-group">
@@ -154,7 +154,7 @@ export default function Register() {
                                 value={formData.password}
                                 onChange={handleChange}
                                 required
-                                className="form-input"
+                                className="form-input register"
                             />
                         </div>
                         <div className="form-group">
@@ -167,11 +167,11 @@ export default function Register() {
                                 value={formData.confirmPassword}
                                 onChange={handleChange}
                                 required
-                                className="form-input"
+                                className="form-input register"
                             />
                         </div>
-                        {error && <p className="error-message">{error}</p>}
-                        <button type="submit" className="primary_v1">
+                        {error && <p className="error-message register">{error}</p>}
+                        <button type="submit" className="primary_v1 register">
                             Regisztráció
                         </button>
                     </form>

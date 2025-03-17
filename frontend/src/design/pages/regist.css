@@ -1,55 +1,86 @@
-.register-main{
-      background: linear-gradient(
-        rgba(245, 121, 51, 0.8), 
-        rgba(245, 121, 51, 0.8)
-      ), 
-      url('/images/Placeholder_Hero_Image.png');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-  }
-  
-  .register-container {
-    border: 2px solid rgba(255, 255, 255, 0.5);
-    border-radius: 30px;
-    color: var(--white);
-    padding: 20px;
-    background-color: rgba(255, 255, 255, 0.5); /* Optional: Add a background color for better readability */
-    width: 30%;
-    margin: 0rem auto 2rem auto;
-  }
-  
-  /* Form input styling */
-  .form-input {
-    margin-top: 10rem;
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 5px;
-    border: 1px solid var(--dark-grey);
-    background-color: rgba(255, 255, 255);
-    color: var(--white);
-  }
-  
-  /* Error message styling */
-  .error-message {
-    color: var(--orange);
-    font-weight: bold;
-  }
-  
-  /* Submit button styling */
-  button.primary_v1 {
-    font-size: 1rem;
-    font-weight: bold;
-    color: var(--light-grey);
-    background: var(--orange);
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: border-color 0.25s;
-  }
-  
-  button.primary_v1:hover {
-    background-color: var(--orange-rgb) !important;  
-    color: var(--light-grey);
-  }
+.register-main {
+  margin-top: 80px;
+  padding: 2rem;
+  background: linear-gradient(
+      rgba(245, 121, 51, 0.8), 
+      rgba(245, 121, 51, 0.8)
+  ), 
+  url('/images/Placeholder_Hero_Image.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.register-container {
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  border-radius: 30px;
+  color: var(--white);
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.5);
+  width: 30%;
+  margin: 0rem auto 2rem auto;
+}
+
+.register-container h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+  color: var(--light-grey);
+}
+
+/* Form input styling */
+.register .form-input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid var(--light-grey);
+  border-radius: 5px;
+  background: lighten(var(--dark-blue), 10%);
+  color: var(--white);
+  font-size: 14px;
+  outline: none;
+}
+
+.form-group input {
+  vertical-align: middle;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid var(--light-grey);
+  border-radius: 5px;
+  background: lighten(var(--dark-blue), 10%);
+  color: var(--white);
+  font-size: 14px;
+  outline: none;
+}
+
+.register .form-input:focus {
+  border-color: var(--orange);
+}
+
+/* Error message styling */
+.register .error-message {
+  color: var(--orange);
+  font-weight: bold;
+  text-align: center;
+}
+
+/* Submit button styling */
+.register button.primary_v1 {
+  font-size: 1rem;
+  font-weight: bold;
+  color: var(--white);
+  background: var(--orange);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 10px 20px;
+  width: 100%;
+  transition: background-color 0.25s;
+}
+
+.register button.primary_v1:hover {
+  background-color: darken(var(--orange), 10%);
+  color: var(--white);
+}
