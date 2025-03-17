@@ -77,7 +77,7 @@ export default function LoginDropdown() {
                   required
                 />
                 <div className="forgot-password">
-                  <a href="#forgot">Elfelejtetted a jelszavad?</a>
+                  <a href="/commingSoon">Elfelejtetted a jelszavad?</a>
                 </div>
                 {loginError && <div className="error-message">{loginError}</div>}
                 <button type="submit" className="login-submit primary_v1">
