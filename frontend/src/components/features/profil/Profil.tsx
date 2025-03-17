@@ -17,7 +17,7 @@ const Profil_Page: React.FC = () => {
           <h2>Profil</h2>
           <div className="profil-form">
             <div className="form-group">
-              <label htmlFor="firstName">First Name</label>
+              <label htmlFor="firstName">Keresztnév</label>
               <input
                 type="text"
                 id="firstName"
@@ -26,7 +26,7 @@ const Profil_Page: React.FC = () => {
               />
             </div>
             <div className="form-group">
-              <label htmlFor="lastName">Last Name</label>
+              <label htmlFor="lastName">Vezetéknév</label>
               <input
                 type="text"
                 id="lastName"
@@ -44,7 +44,7 @@ const Profil_Page: React.FC = () => {
               />
             </div>
             <div className="form-group">
-              <label htmlFor="password">Password</label>
+              <label htmlFor="password">Jellszó</label>
               <input
                 type="password"
                 id="password"
@@ -52,7 +52,7 @@ const Profil_Page: React.FC = () => {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-            <button className="primary_v3">Update</button>
+            <button className="primary_v3">Frissítés</button>
           </div>
         </div>
         </main>

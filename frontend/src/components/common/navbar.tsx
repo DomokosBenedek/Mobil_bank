@@ -17,22 +17,22 @@ export default function CostumeNavbar() {
   let currentPageTitle = pageTitles[location.pathname] || "";
 
   if (matchPath(`/profile/${user?.firstName}${user?.lastName}/dashboard`, location.pathname)) {
-      currentPageTitle = "Dashboard";
+      currentPageTitle = "Home";
   }
   if (matchPath(`/profile/${user?.firstName}${user?.lastName}/Card`, location.pathname)) {
-    currentPageTitle = "Card";
+    currentPageTitle = "Számla";
   }
   if (matchPath(`/profile/${user?.firstName}${user?.lastName}/Charts`, location.pathname)) {
-    currentPageTitle = "Charts";
+    currentPageTitle = "Diagramok";
   }
   if (matchPath(`/profile/${user?.firstName}${user?.lastName}/Profil`, location.pathname)) {
     currentPageTitle = "Profil";
   }
   if (matchPath(`/profile/${user?.firstName}${user?.lastName}/Changes`, location.pathname)) {
-    currentPageTitle = "Changes";
+    currentPageTitle = "Árfolyamok";
   }
   if (matchPath(`/Changes`, location.pathname)) {
-    currentPageTitle = "Changes";
+    currentPageTitle = "Árfolyamok";
   }
 
     return (
@@ -51,7 +51,7 @@ export default function CostumeNavbar() {
             <li className="navbar-nav-item"><a href="#howItWork" className="navbar-nav-link">Hogyan működik</a></li>
             <li className="navbar-nav-item"><a href="#newsLetter" className="navbar-nav-link">Hírlevél</a></li>
             <li className="navbar-nav-item"><a href="#contact" className="navbar-nav-link">Kapcsolatok</a></li>
-            <li className="navbar-nav-item"><a href="changes" className="navbar-nav-link">Changes</a></li>
+            <li className="navbar-nav-item"><a href="changes" className="navbar-nav-link">Árfolyamok</a></li>
           </ul>
         ) : (
           // Ha másik oldalon vagyunk, jelenjen meg az oldal címe középen

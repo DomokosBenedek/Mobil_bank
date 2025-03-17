@@ -176,8 +176,7 @@ const Dashboard_Page: React.FC = () => {
         {/* Cards Section */}
         <section className="cards-section">
           <div className="Title_row">
-            <h3 className="Title">Cards</h3>
-            <button className="primary_v3">View more</button>
+            <h3 className="Title">Számlák</h3>
           </div>
           <div className="sectionMain">
             <div className="cardList">
@@ -217,11 +216,11 @@ const Dashboard_Page: React.FC = () => {
         {/* User Section */}
         <section className="user-section">
           <div className="Title_row">
-            <h3 className="Title">User</h3>
+            <h3 className="Title">Felhasználó</h3>
           </div>
           <div className="sectionMain">
             <img src={Icon_Profil_circle} alt="profile_icon" />
-            <h2>Welcome:</h2>
+            <h2>Üdv újra:</h2>
             <p>
               {user?.firstName} {user?.lastName}
             </p>
@@ -233,7 +232,7 @@ const Dashboard_Page: React.FC = () => {
         {/* Changes Card Section */}
         <section className="changes-card-section">
           <div className="Title_row">
-            <h3 className="Title">Currency Changes</h3>
+            <h3 className="Title">Árfolyamok</h3>
           </div>
           <div className="sectionMain">
             <div className="changesList">
@@ -253,8 +252,7 @@ const Dashboard_Page: React.FC = () => {
         {/* Transactions Section */}
         <section className="transactions-section">
           <div className="Title_row">
-            <h3 className="Title">Transactions</h3>
-            <button className="primary_v3">View more</button>
+            <h3 className="Title">Tranzakciók</h3>
           </div>
           <div className="sectionMain">
             <Table payments={payments} />
@@ -264,8 +262,7 @@ const Dashboard_Page: React.FC = () => {
         {/* Charts Section */}
         <section className="bar-diagram-section">
           <div className="Title_row">
-            <h3 className="Title">Diagrams</h3>
-            <button className="primary_v3">View more</button>
+            <h3 className="Title">Oszlop Diagram</h3>
           </div>
           <div className="sectionMain">
             <BarChart incomes={incomes} expenses={expenses} />
@@ -274,8 +271,7 @@ const Dashboard_Page: React.FC = () => {
 
         <section className="pie-diagram-section">
           <div className="Title_row">
-            <h3 className="Title">Diagrams</h3>
-            <button className="primary_v3">View more</button>
+            <h3 className="Title">Kör Diagram</h3>
           </div>
           <div className="sectionMain">
             <PieChart incomes={incomes} expenses={expenses} />

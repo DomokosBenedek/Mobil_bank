@@ -112,11 +112,6 @@ export function Advantages() {
               </div>
             </div>
               
-            {/* Advantages buttons */}
-            <div className="advantages-buttons">
-              <button className="primary_v2">Tudj meg többet</button>
-              <button className="primary_v3">Regisztráció</button>
-            </div>
           </div>
           
           {/* Advantages image */}
@@ -168,10 +163,6 @@ export function HowItWork() {
             <h5 className="howItWork-card-title">Könnyedén nyomon követheted bevételeidet és kiadásaidat egy helyen.</h5>
             <p className="howItWork_card_text">Az alkalmazás egyszerűen használható, és segít a pénzügyi döntéseidben.</p>
           </div>
-          {/*Gomb*/}
-          <div className="howItWork-buttons">
-            <button className="primary_v3">Regisztráció</button>
-          </div>
         </div>
 
         {/*2. Kártya*/}
@@ -185,10 +176,6 @@ export function HowItWork() {
             <h5 className="howItWork-card-title">Indítsd el a pénzügyeid nyomon követését még ma!</h5>
             <p className="howItWork_card_text">Csatlakozz hozzánk, és tapasztald meg a pénzügyi kontroll előnyeit.</p>
           </div>
-          {/*Gomb*/}
-          <div className="howItWork-buttons">
-            <button className="primary_v3">Regisztráció</button>
-          </div>
         </div>
 
           {/*3. Kártya*/}
@@ -201,10 +188,6 @@ export function HowItWork() {
           <div className="howItWork-card_text">
             <h5 className="howItWork-card-title">Hozd létre a költségvetésed, és tartsd kézben a kiadásaidat!</h5>
             <p className="howItWork_card_text">Az alkalmazás lehetővé teszi a kiadások és bevételek egyszerű rögzítését.</p>
-          </div>
-          {/*Gomb*/}
-          <div className="howItWork-buttons">
-            <button className="primary_v3">Regisztráció</button>
           </div>
         </div>
 

@@ -134,8 +134,7 @@ const Card_Page: React.FC = () => {
         {/* Transactions Section */}
         <section className="cardpage_transactions-section">
           <div className="cardpage_Title_row">
-            <h3 className="cardpage_Title">Transactions</h3>
-            <button className="primary_v3">View more</button>
+            <h3 className="cardpage_Title">Tranzakciók</h3>
           </div>
           <div className="cardpage_sectionMain">
             <Table payments={payments} />
@@ -193,13 +192,13 @@ const Card_Page: React.FC = () => {
           </div>
           <div className="buttons">
             <button onClick={() => setShowNewPaymentPopup(true)}>
-              Add New Payment
+              Új Tranzakciók
             </button>
             <button onClick={() => setShowNewUserPopup(true)}>
-              Add New User
+              Felhasználó hozzáadása
             </button>
             <button onClick={() => setShowDeleteAccountPopup(true)}>
-              Delete Account
+              Számla törlése
             </button>
           </div>
           <div className="card-indicators">
@@ -217,8 +216,7 @@ const Card_Page: React.FC = () => {
         {/* Charts Section */}
         <section className="cardpage_bar-diagram-section">
           <div className="cardpage_Title_row">
-            <h3 className="cardpage_Title">Diagrams</h3>
-            <button className="primary_v3">View more</button>
+            <h3 className="cardpage_Title">Oszlop Diagram</h3>
           </div>
           <div className="cardpage_sectionMain">
             <BarChart incomes={incomes} expenses={expenses} />
@@ -227,8 +225,7 @@ const Card_Page: React.FC = () => {
 
         <section className="cardpage_pie-diagram-section">
           <div className="cardpage_Title_row">
-            <h3 className="cardpage_Title">Diagrams</h3>
-            <button className="primary_v3">View more</button>
+            <h3 className="cardpage_Title">Kör Diagram</h3>
           </div>
           <div className="cardpage_sectionMain">
             <PieChart incomes={incomes} expenses={expenses} />

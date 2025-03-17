@@ -58,7 +58,7 @@ export default function LoginDropdown() {
           <button className="login-button">Bejelentkezés</button>
           {isHovered && (
             <div className="login-dropdown">
-              <h2 className="alter">Login</h2>
+              <h2 className="alter">Bejelentkezés</h2>
               <form onSubmit={Login}>
                 <input
                   type="text"

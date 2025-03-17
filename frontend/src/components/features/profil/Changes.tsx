@@ -77,8 +77,7 @@ const Changes_Page = () => {
     <>
       <main className="profile-main-changes">
         <section className="changes-container">
-          <h2>Changes</h2>
-          <p>Here you can see the changes of the currencies.</p>
+          <h2>Árfolyamok</h2>
           <ChangesCardSection
             currencys={currencys}
             currencyData={currencyData}
@@ -91,8 +90,8 @@ const Changes_Page = () => {
         </section>
         {selectedCurrency ? (
           <section className="diagramLineChart" key={selectedCurrency}>
-            <h2>{selectedCurrency.toUpperCase()} Line Chart</h2>
-            <p>Here you can see the line chart of the {selectedCurrency.toUpperCase()} currency.</p>
+            <h2>{selectedCurrency.toUpperCase()} diagram</h2>
+            <p>Itt látod a(z) {selectedCurrency.toUpperCase()} árfolyam diagramját.</p>
             {exchangeRates[selectedCurrency] && exchangeRates[selectedCurrency].length > 0 ? (
               <LineChart exchangeRates={exchangeRates[selectedCurrency]} ism={30} currency={selectedCurrency} />
             ) : (
@@ -104,8 +103,8 @@ const Changes_Page = () => {
             <section className="diagram">
             </section>
             <section className="diagramCominedChart">
-              <h2>Combined Chart</h2>
-              <p>Here you can see the combined chart of the currencies.</p>
+              <h2>Összesítet diagram</h2>
+              <p>Itt látod az összes árfolyamot egy diagramban.</p>
               {Object.keys(exchangeRates).length > 0 ? (
                 <CombinedLineChart exchangeRates={exchangeRates} ism={30} />
               ) : (
@@ -114,8 +113,8 @@ const Changes_Page = () => {
             </section>
             {currencys.map(currency => (
               <section className="diagramLineChart" key={currency}>
-                <h2>{currency.toUpperCase()} Line Chart</h2>
-                <p>Here you can see the line chart of the {currency.toUpperCase()} currency.</p>
+                <h2>{currency.toUpperCase()} diagram</h2>
+                <p>Itt látod a(z){currency.toUpperCase()} árfolyam diagramját.</p>
                 {exchangeRates[currency] && exchangeRates[currency].length > 0 ? (
                   <LineChart exchangeRates={exchangeRates[currency]} ism={30} currency={currency} />
                 ) : (

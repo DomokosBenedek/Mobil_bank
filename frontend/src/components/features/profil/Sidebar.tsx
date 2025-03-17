@@ -23,12 +23,7 @@ const Sidebar: React.FC = () => {
                 </li>
                 <li>
                     <NavLink to={`/profile/${user?.firstName}${user?.lastName}/card`} className={({ isActive }) => (isActive ? "active" : "")}>
-                        <img src={Icon_Card} alt="icon"/> <span>Kártyák</span>
-                    </NavLink>
-                </li>
-                <li>
-                    <NavLink to={`/profile/${user?.firstName}${user?.lastName}/charts`} className={({ isActive }) => (isActive ? "active" : "")}>
-                        <img src={Icon_Chart} alt="icon"/> <span>Diagramok</span>
+                        <img src={Icon_Card} alt="icon"/> <span>Számla</span>
                     </NavLink>
                 </li>
                 <li>
@@ -38,14 +33,14 @@ const Sidebar: React.FC = () => {
                 </li>
                 <li>
                     <NavLink to={`/profile/${user?.firstName}${user?.lastName}/changes`} className={({ isActive }) => (isActive ? "active" : "")}>
-                        <img src={Icon_Euro} alt="icon"/> <span>Changes</span>
+                        <img src={Icon_Euro} alt="icon"/> <span>Árfolyamok</span>
                     </NavLink>
                 </li>
             </ul>
             <img src={placeholderCard} alt="Card image" className="sidebar-image"/>
             <div className="sidebar-logout">
                 <div className="logout" onClick={logout}>
-                    <img src={Icon_Logout} alt="icon"/> <span>Logout</span>
+                    <img src={Icon_Logout} alt="icon"/> <span>Kilépés</span>
                 </div>
             </div>
         </nav>
