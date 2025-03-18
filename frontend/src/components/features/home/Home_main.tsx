@@ -6,10 +6,12 @@ import "../../../design/home_page_elements/howItWork.css";
 import "../../../design/home_page_elements/newsLetter.css";
 import "../../../design/home_page_elements/tryItOut.css";
 import "../../../design/home_page_elements/hero.css";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 
+export function Hero() {
+  const navigate = useNavigate(); // Initialize useNavigate
 
-export function Hero() {  
-  return(
+  return (
     <section className="hero">
       <div className="hero-text">
         <h1 className="alter">Kövesd nyomon pénzügyeidet egyszerűen és gyorsan</h1>
@@ -19,8 +21,8 @@ export function Hero() {
           pénzügyeid kezelését, és mindig tudni fogod, hol állsz anyagilag.
         </p>
         <div className="hero-buttons">
-          <button className="secondary_v1">Tudj meg többet</button>
-          <button className="secondary_v2">Regisztráció</button>
+          <button className="secondary_v1" onClick={() => navigate("/commingSoon")}>Tudj meg többet</button>
+          <button className="secondary_v2" onClick={() => navigate("/regist")}>Regisztráció</button>
         </div>
       </div>
       <div className="hero-image">
@@ -30,7 +32,9 @@ export function Hero() {
   );
 }
 
-export function Functions() {  
+export function Functions() {
+  const navigate = useNavigate(); // Initialize useNavigate
+
   return (
     <section id="functions">
       <div className="functions-text">
@@ -63,67 +67,69 @@ export function Functions() {
         </div>
       </div>
       <div className="functions-buttons">
-        <button className="primary_v2">Tudj meg többet</button>
-        <button className="primary_v3">Regisztráció</button>
+        <button className="primary_v2" onClick={() => navigate("/commingSoon")}>Tudj meg többet</button>
+        <button className="primary_v3" onClick={() => navigate("/regist")}>Regisztráció</button>
       </div>
     </section>
   )
 }
-export function Advantages() {  
-    return (
-      <section id="advantages">
 
-          <div className="advantages-content">
-            {/* Advantages text */}
-            <div className="advantages-text">
-              <h2>Kövesd nyomon pénzügyeidet egyszerűen és gyorsan</h2>
-              <p>
-                Ez a mobilbanki alkalmazás lehetővé teszi, hogy könnyedén nyomon
-                kövesd bevételeidet és kiadásaidat. Használatával egyszerűsítheted a
-                pénzügyeid kezelését, és mindig tudni fogod, hol állsz anyagilag.
-              </p>
-            </div>
-
-            {/* Advantages cards */}
-            <div className="advantages-cards">
-              <div className="advantages-card">
-                <img src={placeholderIcon} alt="Advantages Icon" />
-                <h6>Egyszerű kezelés</h6>
-                <p>
-                  A mobilbanki alkalmazásunk használata egyszerű és intuitív, így
-                  bárki könnyedén használhatja.
-                </p>
-              </div>
-              <div className="advantages-card">
-                <img src={placeholderIcon} alt="Advantages Icon" />
-                <h6>Átláthatóság</h6>
-                <p>
-                  Mindig tudni fogod, hogy mire költöttél, és mennyi pénzed maradt
-                  a hónap végére.
-                </p>
-              </div>
-              <div className="advantages-card">
-                <img src={placeholderIcon} alt="Advantages Icon" />
-                <h6>Automatizált folyamatok</h6>
-                <p>
-                  Állítsd be az alkalmazást, hogy automatikusan számolja ki a
-                  bevételeidet és kiadásaidat.
-                </p>
-              </div>
-            </div>
-              
-          </div>
-          
-          {/* Advantages image */}
-          <div className="advantages-image">
-          <img src={placeholderImage} alt="Advantages Illustration" />
+export function Advantages() {
+  return (
+    <section id="advantages">
+      <div className="advantages-content">
+        {/* Advantages text */}
+        <div className="advantages-text">
+          <h2>Kövesd nyomon pénzügyeidet egyszerűen és gyorsan</h2>
+          <p>
+            Ez a mobilbanki alkalmazás lehetővé teszi, hogy könnyedén nyomon
+            kövesd bevételeidet és kiadásaidat. Használatával egyszerűsítheted a
+            pénzügyeid kezelését, és mindig tudni fogod, hol állsz anyagilag.
+          </p>
         </div>
-      </section>
-    )
+
+        {/* Advantages cards */}
+        <div className="advantages-cards">
+          <div className="advantages-card">
+            <img src={placeholderIcon} alt="Advantages Icon" />
+            <h6>Egyszerű kezelés</h6>
+            <p>
+              A mobilbanki alkalmazásunk használata egyszerű és intuitív, így
+              bárki könnyedén használhatja.
+            </p>
+          </div>
+          <div className="advantages-card">
+            <img src={placeholderIcon} alt="Advantages Icon" />
+            <h6>Átláthatóság</h6>
+            <p>
+              Mindig tudni fogod, hogy mire költöttél, és mennyi pénzed maradt
+              a hónap végére.
+            </p>
+          </div>
+          <div className="advantages-card">
+            <img src={placeholderIcon} alt="Advantages Icon" />
+            <h6>Automatizált folyamatok</h6>
+            <p>
+              Állítsd be az alkalmazást, hogy automatikusan számolja ki a
+              bevételeidet és kiadásaidat.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Advantages image */}
+      <div className="advantages-image">
+        <img src={placeholderImage} alt="Advantages Illustration" />
+      </div>
+    </section>
+  )
 }
-export function TryItOut() {  
-    return (
-      <section id="tryItOut">
+
+export function TryItOut() {
+  const navigate = useNavigate(); // Initialize useNavigate
+
+  return (
+    <section id="tryItOut">
       <div className="tryItOut-object">
         <div className="tryItOut-text">
           <h2>Próbáld ki most az alkalmazást</h2>
@@ -133,18 +139,19 @@ export function TryItOut() {
         </div>
         <div className="tryItOut-buttons">
           <button className="primary_v1">Belépés</button>
-          <button className="primary_v2">Regisztráció</button>
+          <button className="primary_v2" onClick={() => navigate("/regist")}>Regisztráció</button>
         </div>
       </div>
       <div className="tryItOut-image">
         <img src={placeholderImage} alt="tryItOut Illustration" />
       </div>
     </section>
-    )
+  )
 }
-export function HowItWork() {  
-    return (
-<section id="howItWork">
+
+export function HowItWork() {
+  return (
+    <section id="howItWork">
       {/*Cím*/}
       <div className="howItWork-text">
         <h3>Fedezd fel, hogyan segít a mobilbanki alkalmazás a pénzügyeid kezelésében!</h3>
@@ -178,7 +185,7 @@ export function HowItWork() {
           </div>
         </div>
 
-          {/*3. Kártya*/}
+        {/*3. Kártya*/}
         <div className="howItWork-card">
           {/*Ikon*/}
           <div className="howItWork-image">
@@ -190,34 +197,35 @@ export function HowItWork() {
             <p className="howItWork_card_text">Az alkalmazás lehetővé teszi a kiadások és bevételek egyszerű rögzítését.</p>
           </div>
         </div>
-
       </div>
     </section>
-    )
+  )
 }
-export function NewsLetter() {  
-    return (
-      <section id="newsLetter">
-        <div className="newsLetter-container">
-          <div className="newsLetter-title">
-            <h2>Iratkozzon fel hírlevelünkre!</h2>
-            <p>Legyen mindig naprakész az új funkciókról és frissítésekről szóló értesítéseinkkel!</p>
-          </div>
-          <div className="newsLetter-form-container">
-            <form className="newsLetter-form">
-              <input type="email" placeholder="Email cím" />
-              <button className="primary_v1">Feliratkozás</button>
-            </form>
-            <p className="tiny">By clicking Sign Up you're confirming that you agree with our Terms and Conditions.</p>
-          </div>
+
+export function NewsLetter() {
+  return (
+    <section id="newsLetter">
+      <div className="newsLetter-container">
+        <div className="newsLetter-title">
+          <h2>Iratkozzon fel hírlevelünkre!</h2>
+          <p>Legyen mindig naprakész az új funkciókról és frissítésekről szóló értesítéseinkkel!</p>
         </div>
-        <div className="newsLetter-image">
-          <img src={placeholderImage} alt="newsLetter Illustration" />
+        <div className="newsLetter-form-container">
+          <form className="newsLetter-form">
+            <input type="email" placeholder="Email cím" />
+            <button className="primary_v1">Feliratkozás</button>
+          </form>
+          <p className="tiny">By clicking Sign Up you're confirming that you agree with our Terms and Conditions.</p>
         </div>
+      </div>
+      <div className="newsLetter-image">
+        <img src={placeholderImage} alt="newsLetter Illustration" />
+      </div>
     </section>
-    )
+  )
 }
-export function Contact() {  
+
+export function Contact() {
   return (
     <section id="contact">
       <div className="contact-title">
@@ -250,7 +258,7 @@ export function Contact() {
               <p>123 Minta utca, Sydney NSW 2000 AU</p>
             </div>
           </div>
-        </div> 
+        </div>
         <div className="contact-image">
           <img src={Map_Image} alt="Contact Illustration" />
         </div>
@@ -258,4 +266,3 @@ export function Contact() {
     </section>
   )
 }
-
