@@ -1,0 +1,102 @@
+@use '../_variables' as *;
+
+.changes-cards-container {
+    display: flex;
+    flex-direction: row; /* Elemek egymás mellett */
+    overflow-x: auto; /* Vízszintes görgetés engedélyezése */
+    gap: 15px;
+    padding: 10px;
+    scroll-behavior: smooth; /* Görgetés animáció */
+  }
+
+.changes-card {
+  flex: 0 0 auto;
+  width: 100% / 3;
+  display: grid;
+  grid-template-columns: 1fr 2fr 3fr;
+  grid-template-rows: auto auto;
+  padding: 10px;
+  border-radius: 15px;
+  color: $dark-blue;
+  background-color: $white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out;
+
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+  }
+
+  &.positive .changes-card-icon {
+    background-color: $success-color;
+  }
+
+  &.negative .changes-card-icon {
+    background-color: $alert-color;
+  }
+
+  &.positive .changes-card-change {
+    color: $success-color;
+  }
+
+  &.negative .changes-card-change {
+    color: $alert-color;
+  }
+}
+
+.changes-card-icon {
+  grid-row: span 2;
+  display: flex;
+  border-radius: 15px 0 0 15px;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  background-color: inherit;
+  width: 100%; /* Fix width for icon */
+}
+
+.changes-card-name {
+  display: flex;
+  padding-left: 15px;
+  padding-top: 15px;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: clamp(0.8rem, 1.5vw, 1.5rem);
+
+  img {
+    width: 1.5em;
+  }
+}
+
+.rotate-left {
+  transform: rotate(-90deg);
+}
+
+.rotate-right {
+  transform: rotate(90deg);
+}
+
+.changes-card-value {
+  display: flex;
+  padding-right: 15px;
+  padding-top: 15px;
+  align-items: center;
+  justify-content: flex-end;
+  font-size: clamp(0.5rem, 1.5vw, 1.5rem);
+}
+
+.changes-card-change {
+  grid-column: span 2;
+  display: flex;
+  padding-left: 15px;
+  padding-bottom: 15px;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: clamp(0.5rem, 1.5vw, 1.5rem);
+}
+
+@media (max-width: 768px) {
+  .changes-card {
+    width: 200px;
+  }
+}

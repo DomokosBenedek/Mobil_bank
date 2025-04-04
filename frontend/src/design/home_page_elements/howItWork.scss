@@ -1,0 +1,59 @@
+@use '../_variables' as *;
+@use '../_mixins' as *;
+
+#howItWork {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+  background-color: $light-grey;
+
+  .howItWork-text {
+    text-align: center;
+    margin-bottom: 30px;
+
+    h3 {
+      font-size: 2rem;
+      color: $dark-blue;
+    }
+  }
+
+  .howItWork-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;
+
+    .howItWork-card {
+      flex: 1;
+      max-width: 300px;
+      text-align: center;
+      padding: 20px;
+      border: 1px solid $dark-grey;
+      border-radius: 8px;
+      background-color: $white;
+
+      .howItWork-image {
+        margin-bottom: 15px;
+
+        img {
+          max-width: 100%;
+          height: auto;
+        }
+      }
+
+      .howItWork-card_text {
+        h5 {
+          font-size: 1.5rem;
+          color: $dark-blue;
+          margin-bottom: 10px;
+        }SS
+
+        p {
+          font-size: 1rem;
+          color: $dark-grey;
+        }
+      }
+    }
+  }
+}

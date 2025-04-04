@@ -1,0 +1,111 @@
+@use '../_variables' as *;
+
+.changes-cards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px;
+  padding: 10px;
+}
+
+.changes-card {
+  display: grid;
+  grid-template-columns: 0.5fr 1fr 1fr;
+  grid-template-rows: auto auto;
+  padding: 10px;
+  border-radius: 15px;
+  color: $dark-blue;
+  background-color: $white;
+  box-sizing: border-box;
+  font-size: clamp(0.1rem, 0.5vw, 1rem); // Dinamikus szövegméret
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &.positive .changes-card-icon {
+    background-color: $success-color;
+  }
+
+  &.negative .changes-card-icon {
+    background-color: $alert-color;
+  }
+
+  &.positive .changes-card-change {
+    color: $success-color;
+  }
+
+  &.negative .changes-card-change {
+    color: $alert-color;
+  }
+}
+
+.changes-card-icon {
+  grid-row: span 2;
+  display: flex;
+  border-radius: 15px 0 0 15px;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(1.5rem, 2vw, 2.5rem); // Dinamikus ikonméret
+  background-color: inherit;
+}
+
+.changes-card-name {
+  display: flex;
+  padding-left: 15px;
+  padding-top: 15px;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: clamp(1rem, 1.0vw, 1.2rem); // Dinamikus szövegméret
+
+  img {
+    width: clamp(1em, 1vw, 1.2em); // Dinamikus kép méret
+  }
+}
+
+.rotate-left {
+  transform: rotate(-90deg);
+}
+
+.rotate-right {
+  transform: rotate(90deg);
+}
+
+.changes-card-value {
+  display: flex;
+  padding-right: 15px;
+  padding-top: 15px;
+  align-items: center;
+  justify-content: flex-end;
+  font-size: clamp(1rem, 1.2vw, 1.3rem) !important;
+}
+
+.changes-card-change {
+  grid-column: span 2;
+  display: flex;
+  padding-left: 15px;
+  padding-bottom: 15px;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: clamp(0.9rem, 1.2vw, 1.5rem); // Dinamikus szövegméret
+}
+
+@media (max-width: 768px) {
+  .changes-cards-container {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 8px;
+  }
+
+  .changes-card {
+    padding: 8px;
+  }
+
+  .changes-card-icon {
+    font-size: clamp(1.2rem, 1.5vw, 2rem);
+  }
+
+  .changes-card-name,
+  .changes-card-value,
+  .changes-card-change {
+    font-size: clamp(0.8rem, 1vw, 1.0rem);
+  }
+}

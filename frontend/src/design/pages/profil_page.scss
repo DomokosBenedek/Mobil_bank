@@ -1,0 +1,56 @@
+@use '../_variables' as *;
+
+.profile-main {
+  display: flex;
+  height: calc(100vh - 60px); // Teljes magasság mínusz a fejléc magassága
+  overflow: hidden;
+  margin-top: 60px;
+
+  .sidebar {
+    position: inherit; // A sidebar mindig a helyén marad
+    flex-shrink: 0; // Ne zsugorodjon össze
+    width: 200px; // Alapértelmezett szélesség
+    &.collapsed {
+      width: 80px; // Összecsukott állapotban kisebb szélesség
+    }
+  }
+
+  .profile-content {
+    flex: 1;
+    display: flex;
+    justify-content: center; // Vízszintesen középre igazítás
+    padding: 20px; // Némi belső margó
+    overflow-y: auto; 
+
+    .profile-main-content {
+      width: 100%; // Alapértelmezett szélesség
+      max-width: 1200px;
+      text-align: center; // Tartalom középre igazítása
+    }
+
+    .loader-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+    }
+
+    .loader {
+      width: 50px;
+      height: 50px;
+      border: 5px solid #ccc; // Külső szürke gyűrű
+      border-top: 5px solid #007bff; // Felső kék gyűrű
+      border-radius: 50%; // Kör alak
+      animation: spin 1s linear infinite; // Forgó animáció
+    }
+
+    @keyframes spin {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+  }
+}

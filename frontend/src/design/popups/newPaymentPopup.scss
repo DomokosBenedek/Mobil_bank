@@ -1,0 +1,119 @@
+@use '../_variables' as *;
+
+.popup.new-payment {
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+  box-sizing: border-box;
+
+  .type-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+
+    .type-button {
+      flex: 1;
+      padding: 10px;
+      font-size: 1rem;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+      border-radius: 10px 10px 0 0;
+
+      &:first-child {
+        margin-right: 10px;
+      }
+
+      &.expense {
+        background-color: $orange;
+        color: $white;
+      }
+
+      &.income {
+        background-color: $dark-blue;
+        color: $white;
+      }
+    }
+  }
+
+  .main-content {
+    background-color: $light-grey;
+    padding: 20px;
+    border-radius: 0 0 10px 10px;
+    box-sizing: border-box;
+    max-height: 60vh;
+    overflow-y: auto;
+
+    &.expense {
+      background-color: $orange;
+      color: $white;
+    }
+
+    &.income {
+      background-color: $dark-blue;
+      color: $white;
+    }
+  }
+
+  label {
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  input,
+  select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid $dark-grey;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.4);
+    color: $white;
+    box-sizing: border-box;
+  }
+
+  .repeat-dates {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+
+    .repeat-details {
+      margin-bottom: 10px;
+
+      label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+
+      .repeat-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+
+        input,
+        select {
+          flex: 1;
+          padding: 10px;
+          border: 1px solid $dark-grey;
+          border-radius: 5px;
+          background-color: rgba(255, 255, 255, 0.4);
+          color: $white;
+          box-sizing: border-box;
+        }
+      }
+    }
+  }
+
+  .buttons {
+    margin-top: 20px;
+
+    button {
+      width: 48%;
+      margin: 0 1%;
+    }
+  }
+}

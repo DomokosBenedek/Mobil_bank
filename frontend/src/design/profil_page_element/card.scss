@@ -1,0 +1,133 @@
+@use '../_variables' as *;
+
+.cardpage_profile-main-card {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 20px;
+  background-color: $light-grey;
+  padding: 20px;
+
+  section {
+    padding: 20px;
+    background-color: rgba($orange, 0.1);
+    border-radius: 10px;
+  }
+}
+
+.cardpage_transactions-section {
+  grid-column: 1 / span 1;
+  grid-row: 1 / span 1;
+  background-color: $light-grey;
+}
+
+.cardpage_active-card-section {
+  grid-column: 2 / span 1;
+  grid-row: 1 / span 1;
+  background-color: $light-grey;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+  }
+
+  .shared-users {
+    text-align: center;
+    margin-top: 10px;
+  }
+}
+
+.cardpage_card-selector {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cardpage_card {
+  background-image: url('/images/Card_empty_full.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: $light-grey;
+  padding: clamp(5px, 2.5% + 0.5vw, 15px); // Dinamikus padding
+  border-radius: clamp(5px, 1% + 0.5vw, 15px); // Dinamikus border-radius
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  width: 100%;
+  max-width: 380px;
+  aspect-ratio: 380 / 215;
+
+  &.active {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+  }
+}
+
+.cardpage_sectionMain {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba($orange, 0.1);
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.cardpage_Title_row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+  background: none;
+
+  .cardpage_Title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: $dark-blue;
+  }
+}
+
+img#before {
+  object-fit: cover;
+  rotate: 180deg;
+}
+
+img#next {
+  object-fit: cover;
+}
+@media (max-width: 768px) {
+  .cardpage_profile-main-card {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    section {
+      width: 100%; // Szélesség igazítása
+    }
+
+    .cardpage_transactions-section {
+      order: 1;
+    }
+
+    .cardpage_active-card-section {
+      order: 2;
+    }
+
+    .cardpage_bar-diagram-section {
+      order: 3;
+    }
+
+    .cardpage_pie-diagram-section {
+      order: 4;
+    }
+  }
+}

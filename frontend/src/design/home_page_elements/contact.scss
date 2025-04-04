@@ -1,0 +1,77 @@
+@use '../_variables' as *;
+@use '../_mixins' as *;
+
+#contact {
+  display: flex;
+  flex-direction: column;
+  padding: 40px 20px;
+  background-color: $light-grey;
+  align-items: center;
+
+  .contact-title {
+    text-align: center;
+    margin-bottom: 30px;
+
+    h2 {
+      font-size: 2rem;
+      color: $dark-blue;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 1.2rem;
+      color: $dark-blue;
+    }
+  }
+
+  .contact-text {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;
+
+    .contact-List {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+
+      .contact-object {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+
+        img {
+          width: 40px;
+          height: 40px;
+        }
+
+        .contact-object-text {
+          h6 {
+            font-size: 1.2rem;
+            color: $dark-blue;
+            margin-bottom: 5px;
+          }
+
+          p {
+            font-size: 1rem;
+            color: $dark-grey;
+
+            u {
+              color: $orange;
+            }
+          }
+        }
+      }
+    }
+
+    .contact-image {
+      align-items: center;
+      padding: 10px;
+      img {
+        width: auto;
+        height: 100%;
+        border-radius: 10px;
+      }
+    }
+  }
+}

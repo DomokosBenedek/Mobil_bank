@@ -1,10 +1,13 @@
-#functions { 
+@use '../_variables' as *;
+@use '../_mixins' as *;
+
+#functions {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 40px 20px;
-  background-color: var(--light-grey);
+  background-color: $light-grey;
 }
 
 .functions-text {
@@ -16,12 +19,12 @@
 .functions h2 {
   font-size: 2rem;
   margin-bottom: 20px;
-  color: var(--dark-blue);
+  color: $dark-blue;
 }
 
 .functions p {
   font-size: 1.2rem;
-  color: var(--dark-blue);
+  color: $dark-blue;
 }
 
 .functions-cards {
@@ -38,23 +41,22 @@
   overflow: hidden;
   text-align: center;
   padding: 20px;
-}
 
-.functions-card img {
-  max-width: 100%;
-  height: auto;
-  margin-bottom: 15px;
-}
+  img {
+    max-width: 100%;
+    height: auto;
+  }
 
-.functions-card-title {
-  font-size: 1.5rem;
-  margin-bottom: 10px;
-  color: var(--dark-blue);
-}
+  .functions-card-title {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: $dark-blue;
+  }
 
-.functions_card_text {
-  font-size: 1rem;
-  color: var(--dark-blue);
+  .functions_card_text {
+    font-size: 1rem;
+    color: $dark-blue;
+  }
 }
 
 .functions-buttons {

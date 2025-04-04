@@ -1,0 +1,206 @@
+@use '../_variables' as *;
+
+.sidebar {
+  height: calc(100vh - 80px); // Teljes magasság
+  background-color: $dark-blue;
+  color: $light-grey;
+  border-radius: 0 20px 20px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 0;
+  transition: width 0.3s ease;
+  position:inherit;
+  overflow: hidden;
+
+  &.collapsed {
+    width: 80px;
+
+    .nav-links span {
+      display: inline; // Mindig látható
+    }
+
+    .active-account {
+      display: block; // Mindig látható
+    }
+
+    .sidebar-logout span {
+      display: inline; // Mindig látható
+    }
+  }
+
+  &.expanded {
+    width: 200px;
+
+    .nav-links span {
+      display: inline;
+    }
+
+    .active-account {
+      display: block;
+      margin-top: 20px;
+      width: 90%;
+      aspect-ratio: 16 / 9;
+      background-image: url('/images/Card_empty_full.png');
+      background-size: 100%;
+      background-position: center;
+      background-repeat: no-repeat;
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+      // Szöveg stílus
+      p {
+        color: $white; // Szöveg színe fehér
+        font-size: clamp(1rem, 0.8rem + 0.5vw, 1.5rem); // Dinamikus méret
+        font-weight: bold;
+        text-align: center;
+      }
+    }
+
+    .sidebar-logout span {
+      display: inline;
+    }
+  }
+
+  .sidebar-toggle {
+    background: none;
+    border: none;
+    color: $light-grey;
+    cursor: pointer;
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+  }
+
+  .nav-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    li {
+      width: 100%;
+    }
+
+    a {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      color: $light-grey;
+      font-size: 18px;
+      padding: 10px 20px;
+      transition: background 0.3s ease;
+
+      img {
+        width: 20px;
+        height: 20px;
+        margin-right: 10px;
+      }
+
+      span {
+        color: $white;
+      }
+
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+
+      &.active {
+        font-weight: bold;
+      }
+    }
+  }
+
+  .sidebar-logout {
+    width: 100%;
+    padding: 10px 0;
+
+    .logout {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      color: $light-grey;
+      font-size: 18px;
+      padding: 10px 20px;
+
+      img {
+        width: 20px;
+        height: 20px;
+        margin-right: 10px;
+      }
+
+      span {
+        color: $white;
+      }
+
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%; // A sidebár teljes szélességű
+    height: 80px; // Fix magasság
+    flex-direction: row; // Elemek vízszintes elrendezése
+    border-radius: 20px 20px 0 0; // Csak a bal és jobb felső sarok lekerekítése
+    padding: 0;
+    z-index: 1000;
+
+    &.collapsed,
+    &.expanded {
+      width: 100%; // Mindkét állapot megszűnik, mindig teljes szélességű
+    }
+
+    .sidebar-toggle {
+      display: none; // A toggle gomb elrejtése mobil nézetben
+    }
+
+    .nav-links {
+      flex-direction: row; // Elemek vízszintes elrendezése
+      justify-content: space-around; // Egyenletes elosztás
+      align-items: center;
+      width: 100%;
+      height: 100%;
+
+      li {
+        width: auto; // Az elemek szélessége automatikus
+      }
+
+      a {
+        flex-direction: column; // Ikon és szöveg egymás alatt
+        justify-content: center;
+        align-items: center;
+        padding: 5px;
+
+        img {
+          margin: 0;
+          width: 24px; // Ikon mérete
+          height: 24px;
+        }
+
+        span {
+          font-size: 12px; // Szöveg kisebb méretű
+        }
+      }
+    }
+
+    .sidebar-logout {
+      display: none; // Kilépés gomb elrejtése mobil nézetben
+    }
+
+    .active-account {
+      display: none; // Az aktív kártya szekció elrejtése mobil nézetben
+    }
+  }
+}

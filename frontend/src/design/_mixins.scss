@@ -1,0 +1,42 @@
+// Közös flexbox központosítás
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+// Gomb alapstílus
+@mixin button-style($bg-color, $text-color, $hover-bg-color, $hover-text-color) {
+  border-radius: 5px;
+  padding: 1rem 2rem;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background-color: $bg-color;
+  color: $text-color;
+
+  &:hover {
+    background-color: $hover-bg-color;
+    color: $hover-text-color;
+  }
+}
+
+// Globális szekció-stílus
+@mixin section-style {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 40px;
+  margin: 20px auto;
+  box-sizing: border-box;
+}
+
+// Alap betűstílus
+@mixin text-style($font-size, $color, $margin-bottom: 20px) {
+  font-size: $font-size;
+  color: $color;
+  margin-bottom: $margin-bottom;
+}

@@ -1,9 +1,12 @@
+@use '../_variables' as *;
+@use '../_mixins' as *;
+
 #tryItOut {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 40px 20px;
-  background-color: var(--dark-grey);
+  background-color: $dark-grey;
 }
 
 .tryItOut-object {
@@ -16,17 +19,17 @@
 
 .tryItOut-text {
   margin-bottom: 20px;
-}
 
-.tryItOut-text h2 {
-  font-size: 2rem;
-  margin-bottom: 10px;
-  color: var(--dark-blue);
-}
+  h2 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    color: $dark-blue;
+  }
 
-.tryItOut-text p {
-  font-size: 1.2rem;
-  color: var(--dark-blue);
+  p {
+    font-size: 1.2rem;
+    color: $dark-blue;
+  }
 }
 
 .tryItOut-buttons {
@@ -41,9 +44,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-}
 
-.tryItOut-image img {
-  width: 100%;
-  height: auto;
+  img {
+    width: 100%;
+    height: auto;
+  }
 }

@@ -1,0 +1,76 @@
+@use '../_variables' as *;
+@use '../_mixins' as *;
+
+.register-main {
+  margin-top: 60px;
+  padding: 2rem;
+  background: linear-gradient(
+      rgba($orange, 0.8), 
+      rgba($orange, 0.8)
+  ), 
+  url('/images/Placeholder_Hero_Image.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.register-container {
+  border: 2px solid rgba($white, 0.5);
+  border-radius: 30px;
+  color: $white;
+  padding: 20px;
+  background-color: rgba($white, 0.5);
+  width: 30%;
+  margin: 0rem auto 2rem auto;
+
+  h2 {
+    text-align: center;
+    margin-bottom: 1rem;
+    color: $light-grey;
+  }
+}
+
+// Form input styling
+.register .form-input,
+.form-group input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid $light-grey;
+  border-radius: 5px;
+  background: ($dark-blue);
+  color: $white;
+  font-size: 14px;
+  outline: none;
+
+  &:focus {
+    border-color: $orange;
+  }
+}
+
+// Error message styling
+.register .error-message {
+  color: $orange;
+  font-weight: bold;
+  text-align: center;
+}
+
+// Submit button styling
+.register button.primary_v1 {
+  font-size: 1rem;
+  font-weight: bold;
+  color: $white;
+  background: $orange;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 10px 20px;
+  width: 100%;
+  transition: background-color 0.25s;
+
+  &:hover {
+    background-color: $orange;
+    color: $white;
+  }
+}

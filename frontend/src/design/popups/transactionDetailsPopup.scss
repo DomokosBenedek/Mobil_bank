@@ -1,0 +1,36 @@
+@use '../_variables' as *;
+
+.popup.transaction-details {
+  background-color: $light-grey;
+  color: $dark-blue;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 400px;
+  margin: auto;
+
+  h2 {
+    color: $orange;
+  }
+
+  h3 {
+    color: $dark-blue;
+    margin-top: 20px;
+  }
+
+  p {
+    margin: 5px 0;
+  }
+
+  .primary {
+    background-color: $orange;
+    color: $white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: darken($orange, 10%);
+    }
+  }
+}

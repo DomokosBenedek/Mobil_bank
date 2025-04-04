@@ -1,0 +1,6 @@
+@use '../_variables' as *;
+@use '../_mixins' as *;
+
+.Toastify__toast--success {
+  background-color: $white;
+}

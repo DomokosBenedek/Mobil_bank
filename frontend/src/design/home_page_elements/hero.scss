@@ -1,0 +1,76 @@
+@use '../_variables' as *;
+@use '../_mixins' as *;
+
+.hero {
+  background: linear-gradient(to right, $orange, #eabca4);
+  color: $white;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 40px;
+  box-sizing: border-box;
+  margin-top: 60px;
+
+  &-text {
+    max-width: 50%;
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      font-weight: bold;
+    }
+
+    p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+      line-height: 1.6;
+    }
+  }
+
+  &-buttons {
+    display: flex;
+    gap: 20px;
+
+    .main_button_altern {
+      background: $white;
+      color: $black;
+      padding: 15px 30px;
+      font-size: 1rem;
+      font-weight: bold;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background: $light-grey;
+      }
+    }
+
+    .secundary_button_alter {
+      background: transparent;
+      border: 2px solid $white;
+      color: $white;
+      padding: 15px 30px;
+      font-size: 1rem;
+      font-weight: bold;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+    }
+  }
+
+  &-image {
+    width: 100%;
+    object-fit: cover;
+
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+}

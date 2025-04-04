@@ -1,0 +1,10 @@
+@use '../_variables' as *;
+
+.popup.new-user {
+  background-color: $white;
+  color: $dark-blue;
+
+  h2 {
+    color: $orange;
+  }
+}

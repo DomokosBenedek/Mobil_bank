@@ -1,0 +1,197 @@
+@use '../_variables' as *;
+
+.Dashboard-profile-container {
+  display: grid;
+  grid-template-rows: auto auto auto; 
+  gap: 2rem;
+  background-color: $light-grey;
+  transition: grid-template-columns 0.3s ease;
+
+  // Ha a sidebár kis méretű
+  &.sidebar-collapsed {
+    grid-template-columns: 1fr 2fr 1fr;
+  }
+
+  // Ha a sidebár nagy méretű
+  &.sidebar-expanded {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+/* Cards Section */
+.Dashboard-cards-section {
+  grid-column: 1 / span 1; // 1. oszlop
+  grid-row: 1 / span 3; // 3 sor összevonva
+  background-color: $light-grey;
+
+  .card-list {
+    max-height: 1200px;
+    overflow-y: auto; 
+    flex-direction: column; 
+    gap: 20px;
+  }
+
+  .Dashboard-card {
+    width: 100%;
+    max-width: 380px; // Maximális szélesség
+    aspect-ratio: 380 / 215; // Méretarány megtartása
+    background-image: url('/images/Card_EmptyInactive.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: $light-grey;
+    border-radius: clamp(5px, 1% + 0.5vw, 15px); // Dinamikus border-radius
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    margin-top: 10px;
+
+    &.active {
+      background-image: url('/images/Card_empty_full.png');
+    }
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+    }
+  }
+}
+
+/* Transactions Section */
+.Dashboard-transactions-section {
+  grid-column: 2 / span 1; // 2. oszlop
+  grid-row: 1 / span 1; // 1. sor
+  background-color: $light-grey;
+}
+
+/* User Section */
+.Dashboard-user-section {
+  grid-column: 3 / span 1; // 3. oszlop
+  grid-row: 1 / span 1; // 1. sor
+  background-color: $light-grey;
+  .user-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center; // Szöveg középre igazítása
+    gap: 10px; // Távolság az elemek között
+  }
+  .total-info{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center; // Szöveg középre igazítása
+    gap: 10px; // Távolság az elemek között
+  }
+  .button-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-top: 20px;
+  
+    button {
+      display: flex; // Flexbox használata
+      flex-direction: row; // Elemek egymás mellett
+      align-items: center; // Kép és szöveg középre igazítása függőlegesen
+      justify-content: center; // Középre igazítás vízszintesen
+      padding: 10px;
+      border: none;
+      border-radius: 10px;
+      background-color: $light-grey;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+  
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+      }
+  
+      img {
+        width: 20px; // Kép mérete
+        height: 20px;
+        margin-right: 10px; // Távolság a szövegtől
+      }
+  
+      p {
+        font-size: 0.9rem;
+        font-weight: bold;
+        color: $dark-blue;
+        margin: 0; // Szöveg margó eltávolítása
+      }
+    }
+  }
+}
+
+/* Changes Card Section */
+.Dashboard-changes-card-section {
+  grid-column: 2 / span 2; // 2. és 3. oszlop
+  grid-row: 2 / span 1; // 2. sor
+  background-color: $light-grey;
+}
+
+/* Bar Chart Section */
+.Dashboard-bar-diagram-section {
+  grid-column: 2 / span 1; // 2. oszlop
+  grid-row: 3 / span 1; // 3. sor
+  background-color: $light-grey;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Pie Chart Section */
+.Dashboard-pie-diagram-section {
+  grid-column: 3 / span 1; // 3. oszlop
+  grid-row: 3 / span 1; // 3. sor
+  background-color: $light-grey;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Popup Overlay */
+.Dashboard-popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+
+  .Dashboard-popup {
+    background-color: $white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1001;
+  }
+}
+
+/* Title Row */
+.Dashboard-Title_row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0px;
+  .Dashboard-Title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: $dark-blue;
+  }
+}
+
+/* Section Main */
+.Dashboard-sectionMain {
+  background-color: rgba($orange, 0.1);
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}

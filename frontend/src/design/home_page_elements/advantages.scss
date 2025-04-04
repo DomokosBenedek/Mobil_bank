@@ -1,9 +1,12 @@
+@use '../_variables' as *;
+@use '../_mixins' as *;
+
 #advantages {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   padding: 40px 20px;
-  background-color: var(--light-grey);
+  background-color: $light-grey;
 }
 
 .advantages-content {
@@ -16,17 +19,17 @@
 
 .advantages-text {
   text-align: left;
-}
 
-.advantages-text h2 {
-  font-size: 2rem;
-  margin-bottom: 20px;
-  color: var(--dark-blue);
-}
+  h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: $dark-blue;
+  }
 
-.advantages-text p {
-  font-size: 1.2rem;
-  color: var(--dark-blue);
+  p {
+    font-size: 1.2rem;
+    color: $dark-blue;
+  }
 }
 
 .advantages-cards {
@@ -39,23 +42,23 @@
   flex: 1;
   max-width: 150px;
   text-align: left;
-}
 
-.advantages-card img {
-  max-width: 100%;
-  height: auto;
-  margin-bottom: 10px;
-}
+  img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+  }
 
-.advantages-card h6 {
-  font-size: 1.1rem;
-  margin-bottom: 5px;
-  color: var(--dark-blue);
-}
+  h6 {
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+    color: $dark-blue;
+  }
 
-.advantages-card p {
-  font-size: 0.9rem;
-  color: var(--dark-blue);
+  p {
+    font-size: 0.9rem;
+    color: $dark-blue;
+  }
 }
 
 .advantages-buttons {
@@ -70,9 +73,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-}
 
-.advantages-image img {
-  width: 100%;
-  height: auto;
+  img {
+    width: 100%;
+    height: auto;
+  }
 }

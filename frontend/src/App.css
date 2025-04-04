@@ -46,10 +46,6 @@ body {
   min-width: 320px;
 }
 
-main{
-  margin-top: 3rem;
-}
-
 a {
   text-decoration: none;
   color: var(--dark-blue);
@@ -154,7 +150,6 @@ button.primary_v3 {
 
 button.primary_v3:hover {
   text-decoration: underline;
-  /*color: var(--dark-blue);*/
 }
 
 button.secondary_v1 {
@@ -199,5 +194,54 @@ button.secondary_v3 {
 }
 
 button.secondary_v3:hover {
+  text-decoration: underline;
+}
+
+button.tertiary_v1 {
+  padding: 15px 30px; /* Azonos méret a primary és secondary gombokkal */
+  font-size: 1rem;
+  font-weight: bold;
+  color: var(--light-grey);
+  background: var(--dark-blue);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+button.tertiary_v1:hover {
+  background-color: rgba(37, 39, 62, 0.8);
+}
+
+
+button.tertiary_v2 {
+  padding: 15px 30px; /* Azonos méret a primary és secondary gombokkal */
+  font-size: 1rem;
+  font-weight: bold;
+  color: var(--dark-blue);
+  background: transparent;
+  border: 2px solid var(--dark-blue);
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+button.tertiary_v2:hover {
+  background-color: var(--dark-blue);
+  color: var(--light-grey);
+}
+
+button.tertiary_v3 {
+  padding: 15px 30px; /* Azonos méret a primary és secondary gombokkal */
+  font-size: 1rem;
+  font-weight: bold;
+  color: var(--dark-blue);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+button.tertiary_v3:hover {
   text-decoration: underline;
 }
