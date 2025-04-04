@@ -28,7 +28,7 @@ export const logicks = () => {
 
   const fetchAccounts = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/accounts/all/${userID}`, {
+      const response = await fetch(`http://localhost:3000/accounts/user/${userID}`, {
         method: 'GET',
         headers: {
           "Content-Type": 'application/json',
@@ -822,5 +822,6 @@ const logout = async () => {
     setLoginError,
     createRepeatableTransaction,
     fetchApiCurrency,
+    activeUserAccounts
   };
 };

@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { Icon_Profil_circle } from "./img";
-import "../../design/common/LoginDropdown.css";
+import "../../design/common/LoginDropdown.scss";
 import { logicks } from "./logic";
 
 export default function LoginDropdown() {
@@ -41,18 +41,21 @@ export default function LoginDropdown() {
       onMouseLeave={() => setIsHovered(false)}
     >
       {isLoggedIn && user ? (
-        <>
-          <div className="profile-button" onClick={handleProfileClick}>
-            <img src={Icon_Profil_circle} alt="Profil" className="profile-image" />
-            <span>{user.firstName} {user.lastName}</span>
-          </div>
-          {isHovered && (
-            <div className="profile-dropdown">
-              <span>{user.firstName} {user.lastName}</span>
-              <button className="primary_v1" onClick={logout}>Kilépés</button>
-            </div>
-          )}
-        </>
+  <>
+  <div className="profile-button" onClick={handleProfileClick}>
+    <img src={Icon_Profil_circle} alt="Profil" className="profile-image" />
+    <div className="profile-text">
+      <span className="welcome-text">Üdv újra:</span>
+      <span className="profile-name">{user.firstName} {user.lastName}</span>
+    </div>
+  </div>
+  {isHovered && (
+    <div className="profile-dropdown">
+      <span>{user.firstName} {user.lastName}</span>
+      <button className="primary_v1" onClick={logout}>Kilépés</button>
+    </div>
+  )}
+</>
       ) : (
         <>
           <button className="login-button">Bejelentkezés</button>

@@ -16,9 +16,12 @@ export const Icon_Card = '/images/Card_icon.png';
 export const Icon_Profil = '/images/Profil_icon.png';
 export const Icon_Euro = '/images/Euro_icon.png';
 export const Vector_Arrow_Dark = '/images/Vector_icon_dark.png';
+export const Filter_darkblue = '/images/Filter_darkblue.png';
+
+export const Hamburger_Orange = '/images/Hamburger_orange.png';
 
 //Images
-export const placeholderImage = '/images/Placeholder_Image.png';
+export const placeholderImage = '/images/Placeholder_image.png';
 export const placeholderCard = '/images/Placeholder_Card.png';
 export const placeholderHero_image = '/images/Placeholder_Hero_Image.png';
 export const Card_newCard = '/images/Card_newCard.png';

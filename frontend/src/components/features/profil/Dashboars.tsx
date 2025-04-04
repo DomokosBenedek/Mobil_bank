@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import Card from "../../common/CardElement";
-import { Card_newCard, Icon_Profil_circle } from "../../common/img";
+import {
+  Card_newCard,
+  Icon_Profil_circle,
+  placeholderIcon,
+} from "../../common/img";
 import { logicks } from "../../common/logic";
 import CardContextMenu from "../../common/ContextMenu";
 import Table from "../../common/Table";
-import "../../../design/profil_page_element/dashboard.css";
 import BarChart from "../../common/charts/barChart";
 import NewPaymentPopup from "../../common/popups/NewPaymentPopup";
 import DeleteAccountPopup from "../../common/popups/DeleteAccountPopu";
@@ -13,6 +16,8 @@ import TransferPopup from "../../common/popups/TransferPopup";
 import PieChart from "../../common/charts/pieChart";
 import ChangesCardSection from "../../ChangesCardSection"; // Import the ChangesCardSection component
 import { TransferProp } from "../../Props/TransferProp";
+import "../../../design/profil_page_element/dashboard.scss";
+import NewCardPopup from "../../common/popups/NewCardPopup";
 
 const Dashboard_Page: React.FC = () => {
   const {
@@ -34,6 +39,10 @@ const Dashboard_Page: React.FC = () => {
     fetchApiUsd,
   } = logicks();
 
+  console.log("userToken: ", userToken);
+  console.log("userId: ", user?.id);
+  console.log("accountId", activeAccount?.id);
+
   const [contextMenu, setContextMenu] = useState<{
     x: number;
     y: number;
@@ -50,6 +59,7 @@ const Dashboard_Page: React.FC = () => {
   >([]);
   const [payments, setPayments] = useState<any[]>([]);
   const [showTransferPopup, setShowTransferPopup] = useState(false);
+  const [showNewCardPopup, setShowNewCardPopup] = useState(false);
 
   const [eurData, setEurData] = useState<any>(null);
   const [usdData, setUsdData] = useState<any>(null);
@@ -59,6 +69,8 @@ const Dashboard_Page: React.FC = () => {
   const [usdExchangeRates, setUsdExchangeRates] = useState<
     { rate: any; date: string }[]
   >([]);
+
+  const [totalSum, setTotalSum] = useState<number>(0); // Új state az összesített total értékhez
 
   const handleRightClick = (event: React.MouseEvent, accountId: string) => {
     event.preventDefault();
@@ -94,6 +106,10 @@ const Dashboard_Page: React.FC = () => {
   const handleTransfer = async (transferData: TransferProp) => {
     await transfer(transferData);
     setShowTransferPopup(false);
+  };
+
+  const handleNewCardSave = () => {
+    setShowNewCardPopup(false);
   };
 
   const getIconClass = (change: number) => {
@@ -160,6 +176,13 @@ const Dashboard_Page: React.FC = () => {
     multLekerdezesUsd(30);
   }, []);
 
+  useEffect(() => {
+    const sum =
+      user?.Accounts?.reduce((acc, account) => acc + (account.total || 0), 0) ||
+      0;
+    setTotalSum(sum);
+  }, [user?.Accounts, activeAccount]); // Figyeljük a változásokat
+
   const getCardClass = (change: number) => {
     return change >= 0 ? "positive" : "negative";
   };
@@ -172,72 +195,96 @@ const Dashboard_Page: React.FC = () => {
   if (error) return <p>Error: {error}</p>;
   return (
     <>
-      <main className="profile-container">
+      <main className="Dashboard-profile-container sidebar-collapsed">
         {/* Cards Section */}
-        <section className="cards-section">
-          <div className="Title_row">
-            <h3 className="Title">Számlák</h3>
+        <section className="Dashboard-cards-section">
+          <div className="Dashboard-Title_row">
+            <p className="Dashboard-Title">Számláid</p>
           </div>
-          <div className="sectionMain">
-            <div className="cardList">
-              {user?.Accounts?.map((account, index) => {
-                const isActive = activeAccount?.id === account.id;
-                return (
-                  <div
-                    key={account.id}
-                    className={`card ${isActive ? "active" : ""}`}
-                    onClick={() => SetActiveAcountClick(account)}
-                    onContextMenu={(e) => handleRightClick(e, account.id)}
-                  >
-                    <div className="card-content">
-                      <Card
-                        id={
-                          "*".repeat(account.id.length - 4) +
-                          account.id.slice(-4)
-                        }
-                        number={index + 1}
-                        total={account.total || 0}
-                        currency={account.currency || "N/A"}
-                        name={`${account.ownerName}`}
-                        date={new Date(account.createdAt).toLocaleDateString(
-                          "hu-HU",
-                          { year: "2-digit", month: "2-digit" }
-                        )}
-                      />
-                    </div>
-                  </div>
-                );
-              })}
-              <img src={Card_newCard} alt="NewCard" onClick={addNewAccount} />
-            </div>
+          {/* Új kártya ikon */}
+          <img src={Card_newCard} alt="NewCard" onClick={addNewAccount} />
+
+          {/* Kártyák listája */}
+          <div className="card-list">
+            {user?.Accounts?.map((account, index) => (
+              <div
+                key={account.id}
+                className={`Dashboard-card ${
+                  activeAccount?.id === account.id ? "active" : ""
+                }`}
+                onClick={() => SetActiveAcountClick(account)}
+              >
+                <Card
+                  id={"*".repeat(account.id.length - 4) + account.id.slice(-4)}
+                  number={index + 1}
+                  total={account.total || 0}
+                  currency={account.currency || "N/A"}
+                  name={account.ownerName}
+                  date={new Date(account.createdAt).toLocaleDateString(
+                    "hu-HU",
+                    {
+                      year: "2-digit",
+                      month: "2-digit",
+                    }
+                  )}
+                />
+              </div>
+            ))}
           </div>
         </section>
 
         {/* User Section */}
-        <section className="user-section">
-          <div className="Title_row">
-            <h3 className="Title">Felhasználó</h3>
+        <section className="Dashboard-user-section">
+          <div className="Dashboard-Title_row">
+            <p className="Dashboard-Title">Felhasználó</p>
           </div>
-          <div className="sectionMain">
-            <img src={Icon_Profil_circle} alt="profile_icon" />
-            <h2>Üdv újra:</h2>
-            <p>
-              {user?.firstName} {user?.lastName}
-            </p>
-            <h2>Total:</h2>
-            <p>{}</p>
+          <div className="Dashboard-sectionMain">
+            {/* User Info */}
+            <div className="user-info">
+              <img src={Icon_Profil_circle} alt="profile_icon" />
+              <p>Üdv újra:</p>
+              <h2>
+                {user?.firstName} {user?.lastName}
+              </h2>
+            </div>
+            {/* Total Info */}
+            <div className="total-info">
+              <p>Az számláin lévő összegek értéke:</p>
+              <h2>
+                {totalSum} {user?.Accounts?.[0]?.currency || "HUF"}
+              </h2>
+            </div>
+            {/*Buttons*/}
+            <div className="button-grid">
+              <button onClick={() =>setShowNewCardPopup(true)}>
+                <img src={placeholderIcon} alt="New Card" />
+                <p>New Card</p>
+              </button>
+              <button onClick={() => setShowNewPaymentPopup(true)}>
+                <img src={placeholderIcon} alt="New Payment" />
+                <p>New Payment</p>
+              </button>
+              <button onClick={() => setShowNewUserPopup(true)}>
+                <img src={placeholderIcon} alt="New User" />
+                <p>New User</p>
+              </button>
+              <button onClick={() => setShowDeleteAccountPopup(true)}>
+                <img src={placeholderIcon} alt="Delete Account" />
+                <p>Delete Account</p>
+              </button>
+            </div>
           </div>
         </section>
 
         {/* Changes Card Section */}
-        <section className="changes-card-section">
-          <div className="Title_row">
-            <h3 className="Title">Árfolyamok</h3>
+        <section className="Dashboard-changes-card-section">
+          <div className="Dashboard-Title_row">
+            <p className="Dashboard-Title">Árfolyamok</p>
           </div>
-          <div className="sectionMain">
-            <div className="changesList">
+          <div className="Dashboard-sectionMain">
+            <div className="Dashboard-changesList">
               <ChangesCardSection
-                currencys={["eur", "usd"]}
+                currencys={["eur", "usd", "aud", "cad", "chf", "czk", "gbp", "hrk", "jpy", "nok", "pln", "ron", "rub", "sek", "uah"]}
                 currencyData={{ eur: eurData, usd: usdData }}
                 exchangeRates={{ eur: eurExchangeRates, usd: usdExchangeRates }}
                 getChangePercentage={getChangePercentage}
@@ -250,34 +297,33 @@ const Dashboard_Page: React.FC = () => {
         </section>
 
         {/* Transactions Section */}
-        <section className="transactions-section">
-          <div className="Title_row">
-            <h3 className="Title">Tranzakciók</h3>
+        <section className="Dashboard-transactions-section">
+          <div className="Dashboard-Title_row">
+            <p className="Dashboard-Title">Tranzakciók</p>
           </div>
-          <div className="sectionMain">
+          <div className="Dashboard-sectionMain">
             <Table payments={payments} />
           </div>
         </section>
 
         {/* Charts Section */}
-        <section className="bar-diagram-section">
-          <div className="Title_row">
-            <h3 className="Title">Oszlop Diagram</h3>
+        <section className="Dashboard-bar-diagram-section">
+          <div className="Dashboard-Title_row">
+            <p className="Dashboard-Title">Oszlop Diagram</p>
           </div>
-          <div className="sectionMain">
+          <div className="Dashboard-sectionMain">
             <BarChart incomes={incomes} expenses={expenses} />
           </div>
         </section>
 
-        <section className="pie-diagram-section">
-          <div className="Title_row">
-            <h3 className="Title">Kör Diagram</h3>
+        <section className="Dashboard-pie-diagram-section">
+          <div className="Dashboard-Title_row">
+            <p className="Dashboard-Title">Kör Diagram</p>
           </div>
-          <div className="sectionMain">
+          <div className="Dashboard-sectionMain">
             <PieChart incomes={incomes} expenses={expenses} />
           </div>
         </section>
-
         {contextMenu && (
           <CardContextMenu
             x={contextMenu.x}
@@ -290,7 +336,7 @@ const Dashboard_Page: React.FC = () => {
           />
         )}
         {showNewUserPopup && (
-          <div className="popup-overlay">
+          <div className="Dashboard-popup-overlay">
             <NewUserPopup
               onClose={() => setShowNewUserPopup(false)}
               onSave={handleNewUserSave}
@@ -298,7 +344,7 @@ const Dashboard_Page: React.FC = () => {
           </div>
         )}
         {showDeleteAccountPopup && (
-          <div className="popup-overlay">
+          <div className="Dashboard-popup-overlay">
             <DeleteAccountPopup
               onClose={() => setShowDeleteAccountPopup(false)}
               onDelete={handleDeleteAccount}
@@ -320,6 +366,12 @@ const Dashboard_Page: React.FC = () => {
             userId={user.id || ""}
           />
         )}
+{showNewCardPopup && (
+  <NewCardPopup
+    onClose={() => setShowNewCardPopup(false)}
+    onSave={handleNewCardSave}
+  />
+)}
       </main>
     </>
   );

@@ -1,7 +1,7 @@
 import Footer from "../components/common/Footer.tsx";
 import CostumeNavbar from "../components/common/navbar.tsx";
 import Toast from "../components/common/CustomToast.tsx";
-import '../design/pages/commingSoon.css';
+import '../design/pages/commingSoon.scss';
 
 export default function CoomingSoonPage() {
     return (

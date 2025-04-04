@@ -1,7 +1,7 @@
 import CostumeNavbar from "../components/common/navbar";
 import Footer from "../components/common/Footer";
 import Changes_Page from "../components/features/profil/Changes";
-import "../design/pages/Changes.css";
+import "../design/pages/Changes.scss";
 
 const Changes = () => {
   return (

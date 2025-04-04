@@ -1,3 +1,4 @@
+// filepath: c:\Users\bened\Git\Mobil_bank\frontend\src\components\features\profil\Card.tsx
 import React, { useState, useEffect } from "react";
 import { Card_newCard, Vector_Arrow_Dark } from "../../common/img";
 import { logicks } from "../../common/logic";
@@ -11,7 +12,7 @@ import CardContextMenu from "../../common/ContextMenu";
 import TransferPopup from "../../common/popups/TransferPopup";
 import { TransferProp } from "../../Props/TransferProp";
 import BarChart from "../../common/charts/barChart";
-import "../../../design/profil_page_element/card.css";
+import "../../../design/profil_page_element/card.scss";
 
 const Card_Page: React.FC = () => {
   const {
@@ -117,16 +118,16 @@ const Card_Page: React.FC = () => {
     }
   };
 
-  const handleNextCard = () => {
-    if (user?.Accounts) {
+const handleNextCard = () => {
+  if (user?.Accounts) {
       const newIndex =
-        activeCardIndex === user.Accounts.length - 1
-          ? 0
-          : activeCardIndex + 1;
+          activeCardIndex === user.Accounts.length - 1
+              ? 0
+              : activeCardIndex + 1;
       setActiveCardIndex(newIndex);
       SetActiveAcountClick(user.Accounts[newIndex]);
-    }
-  };
+  }
+};
 
   return (
     <>
@@ -152,29 +153,24 @@ const Card_Page: React.FC = () => {
                 id="before"
                 onClick={handlePreviousCard}
               />
-              <div
-                className={"card active"}
-                onContextMenu={(e) =>
-                  user?.Accounts && handleRightClick(e, user.Accounts[activeCardIndex].id)
+ <div className="cardpage_card">
+              <Card
+                id={
+                  "*".repeat(user.Accounts[activeCardIndex].id.length - 4) +
+                  user.Accounts[activeCardIndex].id.slice(-4)
                 }
-              >
-                <Card
-                  id={
-                    "*".repeat(user.Accounts[activeCardIndex].id.length - 4) +
-                    user.Accounts[activeCardIndex].id.slice(-4)
-                  }
-                  number={activeCardIndex + 1}
-                  total={user.Accounts[activeCardIndex].total}
-                  currency={user.Accounts[activeCardIndex].currency.toString()}
-                  name={user.Accounts[activeCardIndex].ownerName}
-                  date={new Date(
-                    user.Accounts[activeCardIndex].createdAt
-                  ).toLocaleDateString("hu-HU", {
-                    year: "2-digit",
-                    month: "2-digit",
-                  })}
-                />
-              </div>
+                number={activeCardIndex + 1}
+                total={user.Accounts[activeCardIndex].total}
+                currency={user.Accounts[activeCardIndex].currency.toString()}
+                name={user.Accounts[activeCardIndex].ownerName}
+                date={new Date(
+                  user.Accounts[activeCardIndex].createdAt
+                ).toLocaleDateString("hu-HU", {
+                  year: "2-digit",
+                  month: "2-digit",
+                })}
+              />
+            </div>
               <img
                 src={Vector_Arrow_Dark}
                 alt="Vector"

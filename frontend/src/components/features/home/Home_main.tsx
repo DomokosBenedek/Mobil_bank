@@ -1,15 +1,15 @@
 import { Icon_location, Icon_mail, Icon_phone, Map_Image, placeholderHero_image, placeholderIcon, placeholderImage } from "../../common/img";
-import "../../../design/home_page_elements/advantages.css";
-import "../../../design/home_page_elements/contact.css";
-import "../../../design/home_page_elements/functions.css";
-import "../../../design/home_page_elements/howItWork.css";
-import "../../../design/home_page_elements/newsLetter.css";
-import "../../../design/home_page_elements/tryItOut.css";
-import "../../../design/home_page_elements/hero.css";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
+import "../../../design/home_page_elements/advantages.scss";
+import "../../../design/home_page_elements/contact.scss";
+import "../../../design/home_page_elements/functions.scss";
+import "../../../design/home_page_elements/howItWork.scss";
+import "../../../design/home_page_elements/newsLetter.scss";
+import "../../../design/home_page_elements/tryItOut.scss";
+import "../../../design/home_page_elements/hero.scss";
+import { useNavigate } from "react-router-dom";
 
 export function Hero() {
-  const navigate = useNavigate(); // Initialize useNavigate
+  const navigate = useNavigate();
 
   return (
     <section className="hero">
@@ -138,7 +138,7 @@ export function TryItOut() {
           </p>
         </div>
         <div className="tryItOut-buttons">
-          <button className="primary_v1">Belépés</button>
+          <button className="primary_v1" onClick={() => navigate("/commingsoon")}>Letöltés</button>
           <button className="primary_v2" onClick={() => navigate("/regist")}>Regisztráció</button>
         </div>
       </div>

@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../design/common/CardContextMenu.css';
+import '../../design/common/CardContextMenu.scss';
 
 interface CardContextMenuProps {
   x: number;

@@ -4,7 +4,7 @@ import CostumeNavbar from "../components/common/navbar";
 import Footer from "../components/common/Footer";
 import Toast, { showToast } from "../components/common/CustomToast";
 import { User } from "../components/Props/UserProp";
-import "../design/pages/regist.css";
+import "../design/pages/regist.scss";
 
 export default function Register() {
 

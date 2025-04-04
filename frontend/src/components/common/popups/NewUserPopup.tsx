@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import "../../../design/popups/defoultPopup.scss";
+import "../../../design/popups/newUserPopup.scss";
 
 interface NewUserPopupProps {
   onClose: () => void;
@@ -15,14 +17,18 @@ const NewUserPopup: React.FC<NewUserPopupProps> = ({ onClose, onSave }) => {
 
   return (
     <div className="popup-overlay">
-      <div className="popup">
+      <div className="popup new-user">
         <h2>Add New User</h2>
         <label>
           Email:
           <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
         </label>
-        <button onClick={handleSave}>Save</button>
-        <button onClick={onClose}>Cancel</button>
+        <button className="primary" onClick={handleSave}>
+          Save
+        </button>
+        <button className="secondary" onClick={onClose}>
+          Cancel
+        </button>
       </div>
     </div>
   );

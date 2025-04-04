@@ -14,8 +14,8 @@ export default function HomePage() {
                 <Hero/>
                 <Functions/>
                 <Advantages/>
-                <TryItOut/>
                 <HowItWork/>
+                <TryItOut/>
                 <NewsLetter/>
                 <Contact/>
             </main>

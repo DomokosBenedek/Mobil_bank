@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { logicks } from '../logic';
 import { TransferProp } from '../../Props/TransferProp';
+import "../../../design/popups/defoultPopup.scss";
+import "../../../design/popups/transferPopup.scss";
 
 interface TransferPopupProps {
   onClose: () => void;
@@ -35,7 +37,7 @@ const TransferPopup: React.FC<TransferPopupProps> = ({ onClose, onTransfer}) => 
 
   return (
     <div className="popup-overlay">
-      <div className="popup">
+      <div className="popup transfer">
         <h2>Transfer</h2>
         <label>
           To Account:
@@ -45,8 +47,12 @@ const TransferPopup: React.FC<TransferPopupProps> = ({ onClose, onTransfer}) => 
           Amount:
           <input type="number" value={amount} onChange={(e) => setAmount(Number(e.target.value))} />
         </label>
-        <button onClick={handleTransfer}>Transfer</button>
-        <button onClick={onClose}>Cancel</button>
+        <button className="primary" onClick={handleTransfer}>
+          Transfer
+        </button>
+        <button className="secondary" onClick={onClose}>
+          Cancel
+        </button>
       </div>
     </div>
   );

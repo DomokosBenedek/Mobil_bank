@@ -1,5 +1,5 @@
 import { ToastContainer, toast } from 'react-toastify';
-import '../../design/common/Toast.css';
+import '../../design/common/Toast.scss';
 
 export const showToast = (message: string) => {
   toast.success(message, {

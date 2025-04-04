@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { placeholderIcon_text, Icon_mail, Icon_phone, Icon_location } from './img';
-import '../../design/common/footer.css';
+import '../../design/common/footer.scss';
 import { logicks } from './logic';
 
 const Footer = () => {
@@ -18,21 +18,21 @@ const Footer = () => {
     <footer className="footer">
       <div className="footer-content">
         <div className="footer-logo">
-          <div className='footer-logo-icon'>
-            <img src={placeholderIcon_text} alt="Logo" />  
+          <div className="footer-logo-icon">
+            <img src={placeholderIcon_text} alt="Logo" />
           </div>
           <div className="footer-contacts">
-            <div>
+            <div className="contact-item">
               <img src={Icon_mail} alt="Email" />
-              <span>hello@relume.io</span>
+              <p>hello@relume.io</p>
             </div>
-            <div>
+            <div className="contact-item">
               <img src={Icon_phone} alt="Phone" />
-              <span>+1 (555) 000-0000</span>
+              <p>+1 (555) 000-0000</p>
             </div>
-            <div>
+            <div className="contact-item">
               <img src={Icon_location} alt="Office" />
-              <span>123 Minta utca, Sydney NSW 2000 AU</span>
+              <p>123 Minta utca, Sydney NSW 2000 AU</p>
             </div>
           </div>
         </div>
@@ -60,11 +60,11 @@ const Footer = () => {
                 <NavLink to={`/profile/${user?.firstName}${user?.lastName}/profil`}>Profil</NavLink>
               </>
             ) : (
-                <>
-                    <a href="/commingSoon" onClick={handleAlert}>Home</a>
-                    <a href="/commingSoon" onClick={handleAlert}>Számla</a>
-                    <a href="/commingSoon" onClick={handleAlert}>Profil</a>
-                </>
+              <>
+                <a href="/commingSoon" onClick={handleAlert}>Home</a>
+                <a href="/commingSoon" onClick={handleAlert}>Számla</a>
+                <a href="/commingSoon" onClick={handleAlert}>Profil</a>
+              </>
             )}
           </div>
           <div className="links-column">
