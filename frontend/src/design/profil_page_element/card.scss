@@ -29,16 +29,43 @@
   flex-direction: column;
   align-items: center;
 
-  .buttons {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+  .button-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
     margin-top: 20px;
-  }
-
-  .shared-users {
-    text-align: center;
-    margin-top: 10px;
+  
+    button {
+      display: flex; // Flexbox használata
+      flex-direction: row; // Elemek egymás mellett
+      align-items: center; // Kép és szöveg középre igazítása függőlegesen
+      justify-content: center; // Középre igazítás vízszintesen
+      padding: 10px;
+      border: none;
+      border-radius: 10px;
+      background-color: $light-grey;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+  
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+      }
+  
+      img {
+        width: 20px; // Kép mérete
+        height: 20px;
+        margin-right: 10px; // Távolság a szövegtől
+      }
+  
+      p {
+        font-size: 0.9rem;
+        font-weight: bold;
+        color: $dark-blue;
+        margin: 0; // Szöveg margó eltávolítása
+      }
+    }
   }
 }
 

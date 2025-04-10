@@ -1,6 +1,10 @@
 // filepath: c:\Users\bened\Git\Mobil_bank\frontend\src\components\features\profil\Card.tsx
 import React, { useState, useEffect } from "react";
-import { Card_newCard, Vector_Arrow_Dark } from "../../common/img";
+import {
+  Card_newCard,
+  placeholderIcon,
+  Vector_Arrow_Dark,
+} from "../../common/img";
 import { logicks } from "../../common/logic";
 import NewPaymentPopup from "../../common/popups/NewPaymentPopup";
 import NewUserPopup from "../../common/popups/NewUserPopup";
@@ -13,6 +17,7 @@ import TransferPopup from "../../common/popups/TransferPopup";
 import { TransferProp } from "../../Props/TransferProp";
 import BarChart from "../../common/charts/barChart";
 import "../../../design/profil_page_element/card.scss";
+import NewCardPopup from "../../common/popups/NewCardPopup";
 
 const Card_Page: React.FC = () => {
   const {
@@ -38,6 +43,7 @@ const Card_Page: React.FC = () => {
   const [showNewPaymentPopup, setShowNewPaymentPopup] = useState(false);
   const [showNewUserPopup, setShowNewUserPopup] = useState(false);
   const [showDeleteAccountPopup, setShowDeleteAccountPopup] = useState(false);
+  const [showNewCardPopup, setShowNewCardPopup] = useState(false);
   const [incomes, setIncomes] = useState<
     { total: number; createdAt: string }[]
   >([]);
@@ -80,6 +86,10 @@ const Card_Page: React.FC = () => {
     setShowNewUserPopup(false);
   };
 
+  const handleNewCardSave = () => {
+    setShowNewCardPopup(false);
+  };
+
   const handleDeleteAccount = () => {
     deleteAccount(activeAccount?.id || "");
     setShowDeleteAccountPopup(false);
@@ -110,24 +120,20 @@ const Card_Page: React.FC = () => {
   const handlePreviousCard = () => {
     if (user?.Accounts) {
       const newIndex =
-        activeCardIndex === 0
-          ? user.Accounts.length - 1
-          : activeCardIndex - 1;
+        activeCardIndex === 0 ? user.Accounts.length - 1 : activeCardIndex - 1;
       setActiveCardIndex(newIndex);
       SetActiveAcountClick(user.Accounts[newIndex]);
     }
   };
 
-const handleNextCard = () => {
-  if (user?.Accounts) {
+  const handleNextCard = () => {
+    if (user?.Accounts) {
       const newIndex =
-          activeCardIndex === user.Accounts.length - 1
-              ? 0
-              : activeCardIndex + 1;
+        activeCardIndex === user.Accounts.length - 1 ? 0 : activeCardIndex + 1;
       setActiveCardIndex(newIndex);
       SetActiveAcountClick(user.Accounts[newIndex]);
-  }
-};
+    }
+  };
 
   return (
     <>
@@ -153,24 +159,24 @@ const handleNextCard = () => {
                 id="before"
                 onClick={handlePreviousCard}
               />
- <div className="cardpage_card">
-              <Card
-                id={
-                  "*".repeat(user.Accounts[activeCardIndex].id.length - 4) +
-                  user.Accounts[activeCardIndex].id.slice(-4)
-                }
-                number={activeCardIndex + 1}
-                total={user.Accounts[activeCardIndex].total}
-                currency={user.Accounts[activeCardIndex].currency.toString()}
-                name={user.Accounts[activeCardIndex].ownerName}
-                date={new Date(
-                  user.Accounts[activeCardIndex].createdAt
-                ).toLocaleDateString("hu-HU", {
-                  year: "2-digit",
-                  month: "2-digit",
-                })}
-              />
-            </div>
+              <div className="cardpage_card">
+                <Card
+                  id={
+                    "*".repeat(user.Accounts[activeCardIndex].id.length - 4) +
+                    user.Accounts[activeCardIndex].id.slice(-4)
+                  }
+                  number={activeCardIndex + 1}
+                  total={user.Accounts[activeCardIndex].total}
+                  currency={user.Accounts[activeCardIndex].currency.toString()}
+                  name={user.Accounts[activeCardIndex].ownerName}
+                  date={new Date(
+                    user.Accounts[activeCardIndex].createdAt
+                  ).toLocaleDateString("hu-HU", {
+                    year: "2-digit",
+                    month: "2-digit",
+                  })}
+                />
+              </div>
               <img
                 src={Vector_Arrow_Dark}
                 alt="Vector"
@@ -181,20 +187,27 @@ const handleNextCard = () => {
           ) : (
             <p>No active account selected.</p>
           )}
-          <h4>{`Card owner: ${user?.Accounts ? user.Accounts[activeCardIndex]?.ownerName : ""}`}</h4>
-          <div className="shared-users">
-            <p>Shared with:</p>
-            <p>{user?.Accounts && user.Accounts[activeCardIndex]?.userId.join(", ")}</p>
-          </div>
-          <div className="buttons">
+          <h4>{`Számla tulajdonos:`}</h4>
+          <h4>{`${
+            user?.Accounts ? user.Accounts[activeCardIndex]?.ownerName : ""
+          }`}</h4>
+          {/*Buttons*/}
+          <div className="button-grid">
+            <button onClick={() => setShowNewCardPopup(true)}>
+              <img src={placeholderIcon} alt="New Card" />
+              <p>Új Számla</p>
+            </button>
             <button onClick={() => setShowNewPaymentPopup(true)}>
-              Új Tranzakciók
+              <img src={placeholderIcon} alt="New Payment" />
+              <p>Új tranzakció</p>
             </button>
             <button onClick={() => setShowNewUserPopup(true)}>
-              Felhasználó hozzáadása
+              <img src={placeholderIcon} alt="New User" />
+              <p>Felhasználó hozzáadása</p>
             </button>
             <button onClick={() => setShowDeleteAccountPopup(true)}>
-              Számla törlése
+              <img src={placeholderIcon} alt="Delete Account" />
+              <p>Számla törlése</p>
             </button>
           </div>
           <div className="card-indicators">
@@ -268,6 +281,12 @@ const handleNextCard = () => {
           onTransfer={handleTransfer}
           activeAccountId={activeAccount.id}
           userId={user.id || ""}
+        />
+      )}
+      {showNewCardPopup && (
+        <NewCardPopup
+          onClose={() => setShowNewCardPopup(false)}
+          onSave={handleNewCardSave}
         />
       )}
     </>

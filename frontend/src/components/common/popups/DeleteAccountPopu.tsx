@@ -23,10 +23,10 @@ const DeleteAccountPopup: React.FC<DeleteAccountPopupProps> = ({ onClose, onDele
   return (
     <div className="popup-overlay">
       <div className="popup delete-account">
-        <h2>{activeAccount?.userId[0] == user?.id ? 'Delete Account' : 'Disconnect from Account'}</h2>
-        <p>{activeAccount?.userId[0] === user?.id ? 'Are you sure you want to delete this account?' : 'Are you sure you want to disconnect from this account?'}</p>
-        <button onClick={handleAction} className='primary'>Yes</button>
-        <button onClick={onClose} className='secundary'>No</button>
+        <h2>{activeAccount?.userId[0] == user?.id ? 'Számla törlése' : 'Leválasztom magam a számláról'}</h2>
+        <p>{activeAccount?.userId[0] === user?.id ? 'Biztosan törölni szeretnéd ezt a számlát?' : 'Biztosan le szeretnél válni erről a számláról?'}</p>
+        <button onClick={handleAction} className='primary'>Igen</button>
+        <button onClick={onClose} className='secundary'>Nem</button>
       </div>
     </div>
   );

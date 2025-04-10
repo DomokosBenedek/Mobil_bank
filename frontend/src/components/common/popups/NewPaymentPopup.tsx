@@ -24,31 +24,31 @@ const NewPaymentPopup: React.FC<NewPaymentPopupProps> = ({
     findone,
   } = logicks();
   const [type, setType] = useState<"Income" | "Expense">("Income");
-  const [category, setCategory] = useState<string>("Other");
+  const [category, setCategory] = useState<string>("Egyéb");
   const [amount, setAmount] = useState<number>(0);
   const [currency, setCurrency] = useState<Currency>(Currency.HUF);
   const [repeat, setRepeat] = useState<boolean>(false);
-  const [repeatMetric, setRepeatMetric] = useState<string>("Day");
+  const [repeatMetric, setRepeatMetric] = useState<string>("Nap");
   const [repeatAmount, setRepeatAmount] = useState<number>(1);
   const [description, setDescription] = useState<string>("");
   const [repeatStart, setRepeatStart] = useState<string>("");
   const [repeatEnd, setRepeatEnd] = useState<string>("");
 
   const incomeCategories: string[] = [
-    "Salary",
-    "Transfer",
-    "Transaction",
-    "Other",
+    "Fizetés",
+    "Átutalás",
+    "Tranzakció",
+    "Egyéb",
   ];
   const expenseCategories: string[] = [
-    "Shopping",
-    "Rent",
-    "Transport",
-    "Transfer",
-    "Transaction",
-    "Other",
+    "Bevásárlás",
+    "Albérlet",
+    "Közlekedés",
+    "Átutalás",
+    "Tranzakció",
+    "Egyéb",
   ];
-  const repeatMetricList: string[] = ["Day", "Week", "Month", "Year"];
+  const repeatMetricList: string[] = ["Nap", "Hét", "Hónap", "Év"];
 
   const handleSave = async () => {
     if (type === "Income") {
@@ -58,7 +58,7 @@ const NewPaymentPopup: React.FC<NewPaymentPopupProps> = ({
         category,
         description,
         1,
-        "Day"
+        "Nap"
       );
     } else {
       if (repeat) {
@@ -79,7 +79,7 @@ const NewPaymentPopup: React.FC<NewPaymentPopupProps> = ({
           category,
           description,
           1,
-          "Day"
+          "Nap"
         );
       }
     }
@@ -101,7 +101,7 @@ const NewPaymentPopup: React.FC<NewPaymentPopupProps> = ({
             }`}
             onClick={() => setType("Expense")}
           >
-            Expense
+            Kiadás
           </button>
           <button
             className={`type-button income ${
@@ -109,12 +109,12 @@ const NewPaymentPopup: React.FC<NewPaymentPopupProps> = ({
             }`}
             onClick={() => setType("Income")}
           >
-            Income
+            Bevétel
           </button>
         </div>
         <div className="main-content">
           <label>
-            Category:
+            Kategória:
             <select
               value={category}
               onChange={(e) => setCategory(e.target.value)}
@@ -129,7 +129,7 @@ const NewPaymentPopup: React.FC<NewPaymentPopupProps> = ({
             </select>
           </label>
           <label>
-            Amount:
+            Összeg:
             <input
               type="number"
               value={amount}
@@ -137,7 +137,7 @@ const NewPaymentPopup: React.FC<NewPaymentPopupProps> = ({
             />
           </label>
           <label>
-            Currency:
+            Pénznem:
             <select
               value={currency}
               onChange={(e) =>
@@ -148,7 +148,7 @@ const NewPaymentPopup: React.FC<NewPaymentPopupProps> = ({
             </select>
           </label>
           <label>
-            Description:
+            Leírás:
             <input
               type="text"
               value={description}
@@ -158,7 +158,7 @@ const NewPaymentPopup: React.FC<NewPaymentPopupProps> = ({
           {type === "Expense" && (
             <>
               <label>
-                Repeat:
+                Ismétlődő:
                 <input
                   type="checkbox"
                   checked={repeat}
@@ -169,7 +169,7 @@ const NewPaymentPopup: React.FC<NewPaymentPopupProps> = ({
                 <>
                   <div className="repeat-dates">
                     <label>
-                      Start Date:
+                      Kezdő dátum:
                       <input
                         type="date"
                         value={repeatStart}
@@ -177,7 +177,7 @@ const NewPaymentPopup: React.FC<NewPaymentPopupProps> = ({
                       />
                     </label>
                     <label>
-                      End Date:
+                      Záró dátum:
                       <input
                         type="date"
                         value={repeatEnd}
@@ -186,7 +186,7 @@ const NewPaymentPopup: React.FC<NewPaymentPopupProps> = ({
                     </label>
                   </div>
                   <div className="repeat-details">
-                    <label>Repeat:</label>
+                    <label>Ismétlődés:</label>
                     <div className="repeat-row">
                       <input
                         type="number"
@@ -194,7 +194,7 @@ const NewPaymentPopup: React.FC<NewPaymentPopupProps> = ({
                         onChange={(e) =>
                           setRepeatAmount(Number(e.target.value))
                         }
-                        placeholder="Amount"
+                        placeholder="Mennyiség"
                       />
                       <select
                         value={repeatMetric}
@@ -218,13 +218,13 @@ const NewPaymentPopup: React.FC<NewPaymentPopupProps> = ({
             className={type === "Expense" ? "tertiary_v1" : "primary_v1"}
             onClick={handleSave}
           >
-            Save
+            Mentés
           </button>
           <button
             className={type === "Expense" ? "tertiary_v2" : "primary_v2"}
             onClick={onClose}
           >
-            Cancel
+            Mégse
           </button>
         </div>
       </div>

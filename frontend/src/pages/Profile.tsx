@@ -9,6 +9,7 @@ import Changes_Page from '../components/features/profil/Changes';
 import CostumeNavbar from '../components/common/navbar';
 import Sidebar from '../components/features/profil/Sidebar';
 import '../design/pages/profil_page.scss';
+import { DotLottieReact } from '@lottiefiles/dotlottie-react'; // Import Lottie loader
 
 const Profile: React.FC = () => {
   const { user } = logicks();
@@ -54,9 +55,13 @@ const Profile: React.FC = () => {
         <div className="profile-content">
           <div className="profile-main-content">
             {loading ? (
-              // Betöltési animáció csak a fő tartalom helyett
+              // Lottie loader
               <div className="loader-container">
-                <div className="loader"></div>
+                <DotLottieReact
+                  src="https://lottie.host/3cd687c9-d028-435e-8306-84152d41455f/iA1eWqq5C8.lottie"
+                  loop
+                  autoplay
+                />
               </div>
             ) : (
               <Routes>

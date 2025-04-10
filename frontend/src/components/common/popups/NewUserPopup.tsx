@@ -18,16 +18,16 @@ const NewUserPopup: React.FC<NewUserPopupProps> = ({ onClose, onSave }) => {
   return (
     <div className="popup-overlay">
       <div className="popup new-user">
-        <h2>Add New User</h2>
+        <h2>Új felhasználó hozzáadása</h2>
         <label>
           Email:
           <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
         </label>
         <button className="primary" onClick={handleSave}>
-          Save
+          Mentés
         </button>
         <button className="secondary" onClick={onClose}>
-          Cancel
+          Mégse
         </button>
       </div>
     </div>

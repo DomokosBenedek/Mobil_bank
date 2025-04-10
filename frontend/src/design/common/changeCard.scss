@@ -4,14 +4,12 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 10px;
-  padding: 10px;
 }
 
 .changes-card {
   display: grid;
   grid-template-columns: 0.5fr 1fr 1fr;
   grid-template-rows: auto auto;
-  padding: 10px;
   border-radius: 15px;
   color: $dark-blue;
   background-color: $white;
@@ -93,10 +91,6 @@
   .changes-cards-container {
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     gap: 8px;
-  }
-
-  .changes-card {
-    padding: 8px;
   }
 
   .changes-card-icon {

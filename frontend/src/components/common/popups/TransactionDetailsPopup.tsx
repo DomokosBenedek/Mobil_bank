@@ -16,27 +16,26 @@ const TransactionDetailsPopup: React.FC<TransactionDetailsPopupProps> = ({ trans
   return (
     <div className="popup-overlay">
       <div className="popup transaction-details">
-        <h2>Transaction Details</h2>
-        <p><strong>ID:</strong> {transaction.id}</p>
-        <p><strong>Total:</strong> {transaction.total} {transaction.currency}</p>
-        <p><strong>Type:</strong> {transaction.type === PaymentType.Expense ? 'Expense' : 'Income'}</p>
-        <p><strong>Category:</strong> {transaction.category}</p>
-        <p><strong>Description:</strong> {transaction.description || 'N/A'}</p>
-        <p><strong>Created At:</strong> {new Date(transaction.createdAt).toLocaleString()}</p>
-        <p><strong>Updated At:</strong> {new Date(transaction.updatedAt).toLocaleString()}</p>
+        <h2>Tranzakció Részletei</h2>
+        <p><strong>Id:</strong> {transaction.id}</p>
+        <p><strong>Összeg:</strong> {transaction.total} {transaction.currency}</p>
+        <p><strong>Típus:</strong> {transaction.type === PaymentType.Expense ? 'Kiadás' : 'Bevétel'}</p>
+        <p><strong>Kategória:</strong> {transaction.category}</p>
+        <p><strong>Leírás:</strong> {transaction.description || 'Nincs megadva'}</p>
+        <p><strong>Létrehozva:</strong> {new Date(transaction.createdAt).toLocaleString()}</p>
+        <p><strong>Módosítva:</strong> {new Date(transaction.updatedAt).toLocaleString()}</p>
 
         {isRepeatable && (
           <>
-            <h3>Repeatable Details</h3>
-            <p><strong>Repeat Amount:</strong> {transaction.repeatAmmount}</p>
-            <p><strong>Repeat Metric:</strong> {Metric[transaction.repeatMetric]}</p>
-            <p><strong>Repeat Start:</strong> {new Date(transaction.repeatStart).toLocaleDateString()}</p>
-            <p><strong>Repeat End:</strong> {new Date(transaction.repeatEnd).toLocaleDateString()}</p>
+            <h3>Ismétlődő Részletek</h3>
+            <p><strong>Ismétlődés:</strong> {transaction.repeatAmmount} {Metric[transaction.repeatMetric]}</p>
+            <p><strong>Ismétlődés Kezdete:</strong> {new Date(transaction.repeatStart).toLocaleDateString()}</p>
+            <p><strong>Ismétlődés Vége:</strong> {new Date(transaction.repeatEnd).toLocaleDateString()}</p>
           </>
         )}
 
         <button className="primary" onClick={onClose}>
-          Close
+          Bezárás
         </button>
       </div>
     </div>

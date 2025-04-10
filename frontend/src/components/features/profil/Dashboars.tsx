@@ -258,19 +258,19 @@ const Dashboard_Page: React.FC = () => {
             <div className="button-grid">
               <button onClick={() =>setShowNewCardPopup(true)}>
                 <img src={placeholderIcon} alt="New Card" />
-                <p>New Card</p>
+                <p>Új Számla</p>
               </button>
               <button onClick={() => setShowNewPaymentPopup(true)}>
                 <img src={placeholderIcon} alt="New Payment" />
-                <p>New Payment</p>
+                <p>Új tranzakció</p>
               </button>
               <button onClick={() => setShowNewUserPopup(true)}>
                 <img src={placeholderIcon} alt="New User" />
-                <p>New User</p>
+                <p>Felhasználó hozzáadása</p>
               </button>
               <button onClick={() => setShowDeleteAccountPopup(true)}>
                 <img src={placeholderIcon} alt="Delete Account" />
-                <p>Delete Account</p>
+                <p>Számla törlése</p>
               </button>
             </div>
           </div>

@@ -38,20 +38,20 @@ const TransferPopup: React.FC<TransferPopupProps> = ({ onClose, onTransfer}) => 
   return (
     <div className="popup-overlay">
       <div className="popup transfer">
-        <h2>Transfer</h2>
+        <h2>Átutalás</h2>
         <label>
-          To Account:
+          Cél számla:
           <input type="text" value={accountto} onChange={(e) => setAccountto(e.target.value)} />
         </label>
         <label>
-          Amount:
+          Összeg:
           <input type="number" value={amount} onChange={(e) => setAmount(Number(e.target.value))} />
         </label>
         <button className="primary" onClick={handleTransfer}>
-          Transfer
+          Átutalás
         </button>
         <button className="secondary" onClick={onClose}>
-          Cancel
+          Mégse
         </button>
       </div>
     </div>
