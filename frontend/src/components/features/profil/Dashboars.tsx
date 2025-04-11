@@ -16,8 +16,8 @@ import TransferPopup from "../../common/popups/TransferPopup";
 import PieChart from "../../common/charts/pieChart";
 import ChangesCardSection from "../../ChangesCardSection"; // Import the ChangesCardSection component
 import { TransferProp } from "../../Props/TransferProp";
-import "../../../design/profil_page_element/dashboard.scss";
 import NewCardPopup from "../../common/popups/NewCardPopup";
+import "../../../design/profil_page_element/dashboard.scss";
 
 const Dashboard_Page: React.FC = () => {
   const {

@@ -82,127 +82,128 @@ const Table: React.FC<any> = ({ payments }) => {
       }
     });
 
-  return (
-    <>
-      <div className="filters">
-        <button
-          className="filter-button"
-          onClick={() => setShowFilters((prev) => !prev)} // Szűrők megjelenítése/elrejtése
-        >
-          <img src={Filter_darkblue} alt="icon" />
-        </button>
-        {showFilters && ( // Szűrők megjelenítése, ha a gomb aktív
-          <div className="filter-dropdown">
-            <div>
-              <label>Type:</label>
-              <select
-                onChange={(e) =>
-                  setFilterType(e.target.value as "Income" | "Expense" | "All")
-                }
-              >
-                <option value="All">All</option>
-                <option value="Income">Income</option>
-                <option value="Expense">Expense</option>
-              </select>
-            </div>
-            <div>
-              <label>Category:</label>
-              <select
-                onChange={(e) => setFilterCategory(e.target.value || null)}
-              >
-                <option value="">All</option>
-                {incomeCategories.concat(expenseCategories).map((category) => (
-                  <option key={category} value={category}>
-                    {category}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div>
-              <label>Date Range:</label>
-              <input
-                type="date"
-                onChange={(e) =>
-                  setFilterDate((prev) => ({ ...prev, start: e.target.value }))
-                }
-              />
-              -tól
-              <input
-                type="date"
-                onChange={(e) =>
-                  setFilterDate((prev) => ({ ...prev, end: e.target.value }))
-                }
-              />
-              -ig
-            </div>
-            <div>
-              <label>Sort By:</label>
-              <select onChange={(e) => setSortOption(e.target.value)}>
-                <option value="date-desc">Date (Newest First)</option>
-                <option value="date-asc">Date (Oldest First)</option>
-                <option value="amount-desc">Amount (Highest First)</option>
-                <option value="amount-asc">Amount (Lowest First)</option>
-                <option value="description-asc">Description (A-Z)</option>
-                <option value="description-desc">Description (Z-A)</option>
-              </select>
-            </div>
+    return (
+      <>
+        <div className="filters">
+          <div className="filter-header">
+            <h2 className="table-title">Tranzakciók</h2>
+            <button
+              className="filter-button"
+              onClick={() => setShowFilters((prev) => !prev)}
+            >
+              <img src={Filter_darkblue} alt="icon" />
+            </button>
           </div>
-        )}
-      </div>
-      <div className="transaction-table-container">
-        <table className="transaction-table">
-          <tbody>
-            {filteredPayments.map((transaction: any, index: number) => (
-              <tr key={index} onClick={() => handleRowClick(transaction)}>
-                <td className="transaction-icon-cell">
-                  {transaction.PaymentType === "Expense" ? (
-                    <img
-                      src={Icon_Negative}
-                      alt="icon"
-                      className="transaction-icon"
-                    />
-                  ) : (
-                    <img
-                      src={Icon_Positive}
-                      alt="icon"
-                      className="transaction-icon"
-                    />
-                  )}
-                </td>
-                <td className="transaction-details">
-                  <p className="category">
-                    <strong>{transaction.category}</strong>
-                  </p>
-                  <p>
-                    {new Date(transaction.createdAt).toLocaleDateString(
-                      "hu-HU"
-                    )}
-                  </p>
-                  <p className="category-tag">{transaction.category}</p>
-                </td>
-                <td
-                  className={`transaction-amount ${
-                    transaction.PaymentType === "Expense" ? "expense" : "income"
-                  }`}
+          {showFilters && (
+            <div className="filter-dropdown">
+              <div>
+                <label>Type:</label>
+                <select
+                  onChange={(e) =>
+                    setFilterType(e.target.value as "Income" | "Expense" | "All")
+                  }
                 >
-                  <strong>
-                    {transaction.PaymentType === "Expense" ? "-" : "+"}
-                    {transaction.total} {transaction.currency}
-                  </strong>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      {selectedTransaction && (
-        <TransactionDetailsPopup
-          transaction={selectedTransaction}
-          onClose={handleClosePopup}
-        />
-      )}
-    </>
-  );
+                  <option value="All">All</option>
+                  <option value="Income">Income</option>
+                  <option value="Expense">Expense</option>
+                </select>
+              </div>
+              <div>
+                <label>Category:</label>
+                <select
+                  onChange={(e) => setFilterCategory(e.target.value || null)}
+                >
+                  <option value="">All</option>
+                  {incomeCategories.concat(expenseCategories).map((category) => (
+                    <option key={category} value={category}>
+                      {category}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <label>Date Range:</label>
+                <input
+                  type="date"
+                  onChange={(e) =>
+                    setFilterDate((prev) => ({ ...prev, start: e.target.value }))
+                  }
+                />
+                -tól
+                <input
+                  type="date"
+                  onChange={(e) =>
+                    setFilterDate((prev) => ({ ...prev, end: e.target.value }))
+                  }
+                />
+                -ig
+              </div>
+              <div>
+                <label>Sort By:</label>
+                <select onChange={(e) => setSortOption(e.target.value)}>
+                  <option value="date-desc">Date (Newest First)</option>
+                  <option value="date-asc">Date (Oldest First)</option>
+                  <option value="amount-desc">Amount (Highest First)</option>
+                  <option value="amount-asc">Amount (Lowest First)</option>
+                  <option value="description-asc">Description (A-Z)</option>
+                  <option value="description-desc">Description (Z-A)</option>
+                </select>
+              </div>
+            </div>
+          )}
+        </div>
+        <div className="transaction-table-container">
+          <table className="transaction-table">
+            <tbody>
+              {filteredPayments.map((transaction: any, index: number) => (
+                <tr key={index} onClick={() => handleRowClick(transaction)}>
+                  <td className="transaction-icon-cell">
+                    {transaction.PaymentType === "Expense" ? (
+                      <img
+                        src={Icon_Negative}
+                        alt="icon"
+                        className="transaction-icon"
+                      />
+                    ) : (
+                      <img
+                        src={Icon_Positive}
+                        alt="icon"
+                        className="transaction-icon"
+                      />
+                    )}
+                  </td>
+                  <td className="transaction-details">
+                    <p className="category">
+                      <strong>{transaction.category}</strong>
+                    </p>
+                    <p>
+                      {new Date(transaction.createdAt).toLocaleDateString("hu-HU")}
+                    </p>
+                    <p className="category-tag">{transaction.category}</p>
+                  </td>
+                  <td
+                    className={`transaction-amount ${
+                      transaction.PaymentType === "Expense" ? "expense" : "income"
+                    }`}
+                  >
+                    <strong>
+                      {transaction.PaymentType === "Expense" ? "-" : "+"}
+                      {transaction.total} {transaction.currency}
+                    </strong>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        {selectedTransaction && (
+          <TransactionDetailsPopup
+            transaction={selectedTransaction}
+            onClose={handleClosePopup}
+          />
+        )}
+      </>
+    );
 };
 
 export default Table;

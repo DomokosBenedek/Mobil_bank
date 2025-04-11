@@ -24,31 +24,31 @@ const NewPaymentPopup: React.FC<NewPaymentPopupProps> = ({
     findone,
   } = logicks();
   const [type, setType] = useState<"Income" | "Expense">("Income");
-  const [category, setCategory] = useState<string>("Egyéb");
+  const [category, setCategory] = useState<string>("Other");
   const [amount, setAmount] = useState<number>(0);
   const [currency, setCurrency] = useState<Currency>(Currency.HUF);
   const [repeat, setRepeat] = useState<boolean>(false);
-  const [repeatMetric, setRepeatMetric] = useState<string>("Nap");
+  const [repeatMetric, setRepeatMetric] = useState<string>("Day");
   const [repeatAmount, setRepeatAmount] = useState<number>(1);
   const [description, setDescription] = useState<string>("");
   const [repeatStart, setRepeatStart] = useState<string>("");
   const [repeatEnd, setRepeatEnd] = useState<string>("");
 
   const incomeCategories: string[] = [
-    "Fizetés",
-    "Átutalás",
-    "Tranzakció",
-    "Egyéb",
+    "Salary",
+    "Transfer",
+    "Transaction",
+    "Other",
   ];
   const expenseCategories: string[] = [
-    "Bevásárlás",
-    "Albérlet",
-    "Közlekedés",
-    "Átutalás",
-    "Tranzakció",
-    "Egyéb",
+    "Shopping",
+    "Rent",
+    "Transport",
+    "Transfer",
+    "Transaction",
+    "Other",
   ];
-  const repeatMetricList: string[] = ["Nap", "Hét", "Hónap", "Év"];
+  const repeatMetricList: string[] = ["Day", "Week", "Month", "Year"];
 
   const handleSave = async () => {
     if (type === "Income") {
@@ -58,7 +58,7 @@ const NewPaymentPopup: React.FC<NewPaymentPopupProps> = ({
         category,
         description,
         1,
-        "Nap"
+        "Day"
       );
     } else {
       if (repeat) {
@@ -79,7 +79,7 @@ const NewPaymentPopup: React.FC<NewPaymentPopupProps> = ({
           category,
           description,
           1,
-          "Nap"
+          "Day"
         );
       }
     }
