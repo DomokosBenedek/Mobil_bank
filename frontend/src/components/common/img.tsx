@@ -9,12 +9,18 @@ export const Icon_Positive = '/images/Positive_icon_light.png';
 export const Icon_Negative = '/images/Negative_Icon_light.png';
 export const Icon_Arrow_white = '/images/Arrowe_icon_white.png';
 export const Icon_Arrow_dark = '/images/Arrowe_icon_dark.png';
+
 export const Icon_Home = '/images/Home_icon.png';
-export const Icon_Logout = '/images/Logout_icon.png';
-export const Icon_Chart = '/images/Chart_icon.png';
+export const Icon_Home_White = '/images/Home_icon_white.png';
 export const Icon_Card = '/images/Card_icon.png';
+export const Icon_Card_White = '/images/Card_icon_white.png';
 export const Icon_Profil = '/images/Profil_icon.png';
+export const Icon_Profil_White = '/images/Profil_icon_white.png';
 export const Icon_Euro = '/images/Euro_icon.png';
+export const Icon_Euro_White = '/images/Euro_icon_white.png';
+export const Icon_Logout = '/images/Logout_icon.png';
+//export const Icon_Chart = '/images/Chart_icon.png';
+
 export const Vector_Arrow_Dark = '/images/Vector_icon_dark.png';
 export const Filter_darkblue = '/images/Filter_darkblue.png';
 
