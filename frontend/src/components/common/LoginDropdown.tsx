@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Icon_Profil_circle } from "./img";
 import "../../design/common/LoginDropdown.scss";
@@ -8,8 +9,6 @@ export default function LoginDropdown() {
     loginError,
     setLoginError,
     user,
-    isHovered,
-    setIsHovered,
     email,
     setEmail,
     password,
@@ -19,8 +18,15 @@ export default function LoginDropdown() {
     logout,
     fetchAccounts,
   } = logicks();
-  
+
   const navigate = useNavigate();
+  const [isDropdownVisible, setIsDropdownVisible] = useState(false);
+
+  const handleProfile = () => {
+    if (user) {
+      setIsDropdownVisible((prev) => !prev); 
+    }
+  };
 
   const handleProfileClick = () => {
     if (user) {
@@ -34,32 +40,42 @@ export default function LoginDropdown() {
     setLoginError(null);
   };
 
+  const handleLoginButtonClick = () => {
+    setIsDropdownVisible((prev) => !prev); // Toggle dropdown visibility
+  };
+  
   return (
-    <div
-      className="login-container"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
+    <div className="login-container">
       {isLoggedIn && user ? (
-  <>
-  <div className="profile-button" onClick={handleProfileClick}>
-    <img src={Icon_Profil_circle} alt="Profil" className="profile-image" />
-    <div className="profile-text">
-      <span className="welcome-text">Üdv újra:</span>
-      <span className="profile-name">{user.firstName} {user.lastName}</span>
-    </div>
+        <>
+          <div className="profile-button" onClick={handleProfile}>
+            <img src={Icon_Profil_circle} alt="Profil" className="profile-image" />
+            <div className="profile-text">
+              <span className="welcome-text">Üdv újra:</span>
+              <span className="profile-name">{user.firstName} {user.lastName}</span>
+            </div>
+          </div>
+          {isDropdownVisible && (
+  <div className="profile-dropdown">
+    <span>{user.firstName} {user.lastName}</span>
+    <button
+      className="primary_v2"
+      onClick={handleProfileClick}
+    >
+      Profil
+    </button>
+    <button className="primary_v1" onClick={logout}>
+      Kilépés
+    </button>
   </div>
-  {isHovered && (
-    <div className="profile-dropdown">
-      <span>{user.firstName} {user.lastName}</span>
-      <button className="primary_v1" onClick={logout}>Kilépés</button>
-    </div>
-  )}
-</>
+)}
+        </>
       ) : (
         <>
-          <button className="login-button">Bejelentkezés</button>
-          {isHovered && (
+          <button className="login-button" onClick={handleLoginButtonClick}>
+            Bejelentkezés
+          </button>
+          {isDropdownVisible && (
             <div className="login-dropdown">
               <h2 className="alter">Bejelentkezés</h2>
               <form onSubmit={Login}>
