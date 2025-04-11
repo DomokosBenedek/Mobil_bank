@@ -42,11 +42,11 @@ const Profil_Page: React.FC = () => {
           <section className="profile-section-user">
             <h3>Felhasználói adatok</h3>
             <div className="form-group-profile">
-              <label>Keresztnév</label>
+              <label>Vezetéknév</label>
               <p>{firstName}</p>
             </div>
             <div className="form-group-profile">
-              <label>Vezetéknév</label>
+              <label>Keresztnév</label>
               <p>{lastName}</p>
             </div>
             <div className="form-group-profile">

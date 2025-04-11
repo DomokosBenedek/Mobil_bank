@@ -84,74 +84,72 @@ const Table: React.FC<any> = ({ payments }) => {
 
     return (
       <>
-        <div className="filters">
-          <div className="filter-header">
-            <h2 className="table-title">Tranzakciók</h2>
-            <button
-              className="filter-button"
-              onClick={() => setShowFilters((prev) => !prev)}
-            >
-              <img src={Filter_darkblue} alt="icon" />
-            </button>
-          </div>
-          {showFilters && (
-            <div className="filter-dropdown">
-              <div>
-                <label>Type:</label>
-                <select
-                  onChange={(e) =>
-                    setFilterType(e.target.value as "Income" | "Expense" | "All")
-                  }
-                >
-                  <option value="All">All</option>
-                  <option value="Income">Income</option>
-                  <option value="Expense">Expense</option>
-                </select>
-              </div>
-              <div>
-                <label>Category:</label>
-                <select
-                  onChange={(e) => setFilterCategory(e.target.value || null)}
-                >
-                  <option value="">All</option>
-                  {incomeCategories.concat(expenseCategories).map((category) => (
-                    <option key={category} value={category}>
-                      {category}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div>
-                <label>Date Range:</label>
-                <input
-                  type="date"
-                  onChange={(e) =>
-                    setFilterDate((prev) => ({ ...prev, start: e.target.value }))
-                  }
-                />
-                -tól
-                <input
-                  type="date"
-                  onChange={(e) =>
-                    setFilterDate((prev) => ({ ...prev, end: e.target.value }))
-                  }
-                />
-                -ig
-              </div>
-              <div>
-                <label>Sort By:</label>
-                <select onChange={(e) => setSortOption(e.target.value)}>
-                  <option value="date-desc">Date (Newest First)</option>
-                  <option value="date-asc">Date (Oldest First)</option>
-                  <option value="amount-desc">Amount (Highest First)</option>
-                  <option value="amount-asc">Amount (Lowest First)</option>
-                  <option value="description-asc">Description (A-Z)</option>
-                  <option value="description-desc">Description (Z-A)</option>
-                </select>
-              </div>
-            </div>
-          )}
+        <div className="filter-header">
+          <h2 className="table-title">Tranzakciók</h2>
+          <button
+            className="filter-button"
+            onClick={() => setShowFilters((prev) => !prev)}
+          >
+            <img src={Filter_darkblue} alt="icon" />
+          </button>
         </div>
+        {showFilters && (
+          <div className="filter-dropdown">
+            <div>
+              <label>Type:</label>
+              <select
+                onChange={(e) =>
+                  setFilterType(e.target.value as "Income" | "Expense" | "All")
+                }
+              >
+                <option value="All">All</option>
+                <option value="Income">Income</option>
+                <option value="Expense">Expense</option>
+              </select>
+            </div>
+            <div>
+              <label>Category:</label>
+              <select
+                onChange={(e) => setFilterCategory(e.target.value || null)}
+              >
+                <option value="">All</option>
+                {incomeCategories.concat(expenseCategories).map((category) => (
+                  <option key={category} value={category}>
+                    {category}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label>Date Range:</label>
+              <input
+                type="date"
+                onChange={(e) =>
+                  setFilterDate((prev) => ({ ...prev, start: e.target.value }))
+                }
+              />
+              -tól
+              <input
+                type="date"
+                onChange={(e) =>
+                  setFilterDate((prev) => ({ ...prev, end: e.target.value }))
+                }
+              />
+              -ig
+            </div>
+            <div>
+              <label>Sort By:</label>
+              <select onChange={(e) => setSortOption(e.target.value)}>
+                <option value="date-desc">Date (Newest First)</option>
+                <option value="date-asc">Date (Oldest First)</option>
+                <option value="amount-desc">Amount (Highest First)</option>
+                <option value="amount-asc">Amount (Lowest First)</option>
+                <option value="description-asc">Description (A-Z)</option>
+                <option value="description-desc">Description (Z-A)</option>
+              </select>
+            </div>
+          </div>
+        )}
         <div className="transaction-table-container">
           <table className="transaction-table">
             <tbody>

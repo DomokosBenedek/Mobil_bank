@@ -140,9 +140,6 @@ const Card_Page: React.FC = () => {
       <main className="cardpage_profile-main-card">
         {/* Transactions Section */}
         <section className="cardpage_transactions-section">
-          <div className="cardpage_Title_row">
-            <h3 className="cardpage_Title">Tranzakciók</h3>
-          </div>
           <div className="cardpage_sectionMain">
             <Table payments={payments} />
           </div>

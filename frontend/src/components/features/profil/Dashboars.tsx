@@ -298,9 +298,6 @@ const Dashboard_Page: React.FC = () => {
 
         {/* Transactions Section */}
         <section className="Dashboard-transactions-section">
-          <div className="Dashboard-Title_row">
-            <p className="Dashboard-Title">Tranzakciók</p>
-          </div>
           <div className="Dashboard-sectionMain">
             <Table payments={payments} />
           </div>
