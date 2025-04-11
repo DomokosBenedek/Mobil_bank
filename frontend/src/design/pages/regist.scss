@@ -20,7 +20,7 @@
   color: $white;
   padding: 20px;
   background-color: rgba($white, 0.5);
-  width: 30%;
+  width: clamp(30%, 30%, 100%);
   margin: 0rem auto 2rem auto;
 
   h2 {
@@ -72,5 +72,16 @@
   &:hover {
     background-color: $orange;
     color: $white;
+  }
+}
+
+// Password criteria styling
+.password-criteria {
+  margin-top: -15px;
+  margin-bottom: 10px;
+  p {
+    margin: 5px 0;
+    font-weight: bold;
+    font-size: 0.8rem !important;
   }
 }
