@@ -2,18 +2,26 @@
 @use '../_mixins' as *;
 
 .hero {
-  background: linear-gradient(to right, $orange, #eabca4);
+  background: 
+    linear-gradient(to right, $orange, rgba(255, 165, 0, 0));
+  background-blend-mode: normal, normal, multiply;
   color: $white;
-  height: 100vh;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 40px;
+  padding-left: 40px;
   box-sizing: border-box;
   margin-top: 60px;
+  overflow: hidden;
 
   &-text {
     max-width: 50%;
+    margin-right: 10px;
+
+    @media screen and (max-width: 768px) {
+      max-width: 100%;
+    }
 
     h1 {
       font-size: 2.5rem;
@@ -65,11 +73,11 @@
   }
 
   &-image {
-    width: 100%;
+    height: 100%;
     object-fit: cover;
 
     img {
-      width: 100%;
+      height:  100%;
       height: auto;
     }
   }
