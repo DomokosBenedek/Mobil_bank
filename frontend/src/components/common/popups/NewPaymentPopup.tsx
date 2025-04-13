@@ -93,7 +93,7 @@ const NewPaymentPopup: React.FC<NewPaymentPopupProps> = ({
 
   return (
     <div className="popup-overlay">
-      <div className={`popup new-payment ${type.toLowerCase()}`}>
+      <div className={`popup new-payment`}>
         <div className="type-buttons">
           <button
             className={`type-button expense ${
@@ -112,7 +112,8 @@ const NewPaymentPopup: React.FC<NewPaymentPopupProps> = ({
             Bevétel
           </button>
         </div>
-        <div className="main-content">
+        <div className={`main-content ${type.toLowerCase()}`}>
+          <div className="inputs">
           <label>
             Kategória:
             <select
@@ -212,7 +213,7 @@ const NewPaymentPopup: React.FC<NewPaymentPopupProps> = ({
               )}
             </>
           )}
-        </div>
+          </div>
         <div className="buttons">
           <button
             className={type === "Expense" ? "tertiary_v1" : "primary_v1"}
@@ -226,6 +227,7 @@ const NewPaymentPopup: React.FC<NewPaymentPopupProps> = ({
           >
             Mégse
           </button>
+        </div>
         </div>
       </div>
     </div>

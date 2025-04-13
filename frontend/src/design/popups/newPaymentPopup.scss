@@ -8,24 +8,22 @@
   max-width: 400px;
   text-align: center;
   box-sizing: border-box;
+  background-color: $light-grey; // Az oldal háttere mindig $light-grey
 
   .type-buttons {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 20px;
+    padding: 0; // Térköz eltávolítása a gombok körül
+    gap: 0; // Térköz eltávolítása a gombok között
 
     .type-button {
       flex: 1;
-      padding: 10px;
       font-size: 1rem;
       font-weight: bold;
       border: none;
       cursor: pointer;
       border-radius: 10px 10px 0 0;
-
-      &:first-child {
-        margin-right: 10px;
-      }
+      width: 100%;
 
       &.expense {
         background-color: $orange;
@@ -40,13 +38,10 @@
   }
 
   .main-content {
-    background-color: $light-grey;
     padding: 20px;
     border-radius: 0 0 10px 10px;
-    box-sizing: border-box;
-    max-height: 60vh;
-    overflow-y: auto;
 
+    // Színváltozás a típus alapján
     &.expense {
       background-color: $orange;
       color: $white;
@@ -56,6 +51,13 @@
       background-color: $dark-blue;
       color: $white;
     }
+  }
+
+  .inputs {
+    max-height: 60vh;
+    box-sizing: border-box;
+    overflow-y: auto;
+    overflow-x: hidden; // Oldalirányú scrollbar eltávolítása
   }
 
   label {
@@ -71,7 +73,7 @@
     border: 1px solid $dark-grey;
     border-radius: 5px;
     background-color: rgba(255, 255, 255, 0.4);
-    color: $white;
+    color: $dark-blue; // A legördülő menük szövegének színe sötétkék
     box-sizing: border-box;
   }
 
@@ -101,7 +103,7 @@
           border: 1px solid $dark-grey;
           border-radius: 5px;
           background-color: rgba(255, 255, 255, 0.4);
-          color: $white;
+          color: $dark-blue; // A legördülő menük szövegének színe sötétkék
           box-sizing: border-box;
         }
       }
