@@ -19,7 +19,7 @@ A projekt dokumentációi az alábbi struktúrában találhatók:
 ```plaintext
 /dokumentumok
 ├── Felhasznaloi_Dokumentacio.doxs                       # Útmutató a program használatához
-├── Teszteloi_Dokumentacio.docxs                         # A rendszer tesztelését leíró dokumentum
+├── Teszteles_Dokumentacio.docxs                         # A rendszer tesztelését leíró dokumentum
 ```
 
 ---
