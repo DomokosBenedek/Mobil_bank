@@ -52,22 +52,6 @@ const Footer = () => {
             <a href="/commingSoon">Letöltések</a>
           </div>
           <div className="links-column">
-            <p>Profil oldal:</p>
-            {user ? (
-              <>
-                <NavLink to={`/profile/${user?.firstName}${user?.lastName}/dashboard`}>Home</NavLink>
-                <NavLink to={`/profile/${user?.firstName}${user?.lastName}/card`}>Számla</NavLink>
-                <NavLink to={`/profile/${user?.firstName}${user?.lastName}/profil`}>Profil</NavLink>
-              </>
-            ) : (
-              <>
-                <a href="/commingSoon" onClick={handleAlert}>Home</a>
-                <a href="/commingSoon" onClick={handleAlert}>Számla</a>
-                <a href="/commingSoon" onClick={handleAlert}>Profil</a>
-              </>
-            )}
-          </div>
-          <div className="links-column">
             <p>Készítők:</p>
             <a href="/commingSoon">Varga Dávid Zoltán</a>
             <a href="/commingSoon">Borbély Dániel</a>

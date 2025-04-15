@@ -1,4 +1,4 @@
-import { Icon_location, Icon_mail, Icon_phone, Map_Image, placeholderHero_image, placeholderIcon, placeholderImage } from "../../common/img";
+import { analyse, datareport, easyusing, Icon_location, Icon_mail, Icon_phone, Map_Image, newslatter, placeholderHero_image, placeholderIcon, placeholderImage, savingmoney } from "../../common/img";
 import "../../../design/home_page_elements/advantages.scss";
 import "../../../design/home_page_elements/contact.scss";
 import "../../../design/home_page_elements/functions.scss";
@@ -46,21 +46,21 @@ export function Functions() {
       <div className="functions-cards">
         <div className="functions-card">
           <div className="functions-image">
-            <img src={placeholderImage} alt="functions Illustration" />
+            <img src={savingmoney} alt="savingmoney Illustration" />
           </div>
           <h4 className="functions-card-title">Bevételek és kiadások nyomon követése</h4>
           <p className="functions_card_text">Könnyedén rögzítheted és ellenőrizheted pénzügyeidet.</p>
         </div>
         <div className="functions-card">
           <div className="functions-image">
-            <img src={placeholderImage} alt="functions Illustration" />
+            <img src={easyusing} alt="easyusing Illustration" />
           </div>
           <h4 className="functions-card-title">Fizetések egyszerű kezelése</h4>
           <p className="functions_card_text">Az alkalmazás segítségével gyorsan intézheted a kifizetéseidet.</p>
         </div>
         <div className="functions-card">
           <div className="functions-image">
-            <img src={placeholderImage} alt="functions Illustration" />
+            <img src={datareport} alt="datareport Illustration" />
           </div>
           <h4 className="functions-card-title">Felhasználói adatbázis kezelése</h4>
           <p className="functions_card_text">Biztonságosan tárolhatod adataidat és tranzakcióidat.</p>
@@ -119,7 +119,7 @@ export function Advantages() {
 
       {/* Advantages image */}
       <div className="advantages-image">
-        <img src={placeholderImage} alt="Advantages Illustration" />
+        <img src={analyse} alt="analyse Illustration" />
       </div>
     </section>
   )
@@ -141,9 +141,6 @@ export function TryItOut() {
           <button className="primary_v1" onClick={() => navigate("/commingsoon")}>Letöltés</button>
           <button className="primary_v2" onClick={() => navigate("/regist")}>Regisztráció</button>
         </div>
-      </div>
-      <div className="tryItOut-image">
-        <img src={placeholderImage} alt="tryItOut Illustration" />
       </div>
     </section>
   )
@@ -219,7 +216,7 @@ export function NewsLetter() {
         </div>
       </div>
       <div className="newsLetter-image">
-        <img src={placeholderImage} alt="newsLetter Illustration" />
+        <img src={newslatter} alt="newslatter Illustration" />
       </div>
     </section>
   )
