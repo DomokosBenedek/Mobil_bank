@@ -14,12 +14,12 @@ import DeleteAccountPopup from "../../common/popups/DeleteAccountPopu";
 import NewUserPopup from "../../common/popups/NewUserPopup";
 import TransferPopup from "../../common/popups/TransferPopup";
 import PieChart from "../../common/charts/pieChart";
-import ChangesCardSection from "../../ChangesCardSection"; // Import the ChangesCardSection component
 import { TransferProp } from "../../Props/TransferProp";
 import NewCardPopup from "../../common/popups/NewCardPopup";
 import "../../../design/profil_page_element/dashboard.scss";
 import DeleteRepeatableTransactionPopup from "../../common/popups/DeleteRepeatableTransactionPopupProps";
 import StopRepeatableTransactionPopup from "../../common/popups/StopRepeatableTransactionPopupProps";
+import ChangesCardSection from "../../common/ChangesCardSection";
 
 const Dashboard_Page: React.FC = () => {
   const {

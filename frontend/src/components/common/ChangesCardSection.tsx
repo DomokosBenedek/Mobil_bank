@@ -1,6 +1,6 @@
 import React from "react";
-import ChangesCard from "./common/ChangesCard";
-import "../design/common/ChangesCardSection.scss";
+import ChangesCard from "./ChangesCard";
+import "../../design/common/ChangesCardSection.scss";
 
 interface ChangesCardSectionProps {
   currencys: string[];

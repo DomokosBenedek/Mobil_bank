@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { logicks } from "../../common/logic";
-import ChangesCardSection from "../../ChangesCardSection";
 import { Api } from "../../Props/ApiProp";
 import "../../../design/profil_page_element/changes.scss";
 import LineChart from "../../common/charts/lineChart";
 import CombinedLineChart from "../../common/charts/combinedLineChart";
+import ChangesCardSection from "../../common/ChangesCardSection";
 
 const Changes_Page = () => {
   const { fetchApiCurrency } = logicks();
