@@ -6,13 +6,13 @@ Egy modern, felhasználóbarát webes banki alkalmazás, amely lehetővé teszi 
 
 ## 📁 Tartalomjegyzék
 
-- [📄 Dokumentumok](#-dokumentumok)
+- [📄 Dokuments](#-dokuments)
 - [💻 Frontend](#-frontend)
 - [🛠️ Fejlesztői dokumentáció](#-fejlesztői-dokumentáció)
 
 ---
 
-## 📄 Dokumentumok
+## 📄 Dokuments
 
 A projekt dokumentációi az alábbi struktúrában találhatók:
 
