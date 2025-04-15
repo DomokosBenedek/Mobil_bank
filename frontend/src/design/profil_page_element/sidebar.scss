@@ -10,7 +10,7 @@
   align-items: center;
   padding: 20px 0;
   transition: width 0.3s ease;
-  position:inherit;
+  position: inherit;
   overflow: hidden;
 
   &.collapsed {
@@ -114,6 +114,21 @@
         font-weight: bold;
         color: $white;
       }
+    }
+  }
+
+  .sidebar-countdown {
+    margin-top: 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: center;
+
+    .countdown-label {
+      color: $white; // "Kilépésig:" text in white
+    }
+
+    .countdown-timer {
+      color: $orange; // Timer text in orange
     }
   }
 

@@ -8,10 +8,6 @@ export interface TransactionProp {
     createdAt: Date;
     updatedAt: Date;
     accountId: string;
-    repeatAmmount: number;
-    repeatMetric: Metric;
-    repeatStart: Date;
-    repeatEnd: Date;
     type: PaymentType;
 }
 
@@ -23,13 +19,6 @@ export enum Category {
     Rent,
     Transport,
     Transfer
-}
-
-export enum Metric {
-    Day,
-    Week,
-    Month,
-    Year
 }
 
 export enum PaymentType {

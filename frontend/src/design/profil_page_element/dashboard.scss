@@ -65,6 +65,12 @@
   grid-column: 2 / span 1; // 2. oszlop
   grid-row: 1 / span 1; // 1. sor
   background-color: $light-grey;
+
+  .toggle-button {
+    margin-left: auto; 
+    font-size: 0.8rem; 
+    padding: 5px 10px; 
+  }
 }
 
 /* User Section */
@@ -194,4 +200,57 @@
   border-radius: 10px;
   padding: 20px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.repeatable-transactions-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+
+  th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+
+  tr:hover {
+    background-color: #f1f1f1;
+  }
+  .action-button {
+    padding: 5px 10px;
+    margin: 0 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+  
+    &.stop-button {
+      background-color: #f0ad4e;
+      color: white;
+  
+      &:hover {
+        background-color: #ec971f;
+      }
+    }
+  
+    &.delete-button {
+      background-color: #d9534f;
+      color: white;
+  
+      &:hover {
+        background-color: #c9302c;
+      }
+    }
+  }
 }

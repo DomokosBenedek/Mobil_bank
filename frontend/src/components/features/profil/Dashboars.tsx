@@ -18,6 +18,8 @@ import ChangesCardSection from "../../ChangesCardSection"; // Import the Changes
 import { TransferProp } from "../../Props/TransferProp";
 import NewCardPopup from "../../common/popups/NewCardPopup";
 import "../../../design/profil_page_element/dashboard.scss";
+import DeleteRepeatableTransactionPopup from "../../common/popups/DeleteRepeatableTransactionPopupProps";
+import StopRepeatableTransactionPopup from "../../common/popups/StopRepeatableTransactionPopupProps";
 
 const Dashboard_Page: React.FC = () => {
   const {
@@ -35,8 +37,10 @@ const Dashboard_Page: React.FC = () => {
     disconnectUser,
     transfer,
     userToken,
-    fetchApiEur,
-    fetchApiUsd,
+    fetchApiCurrency,
+    fetchRepeatableTransactions,
+    stopRepeatableTransaction,
+    deleteRepeatableTransaction,
   } = logicks();
 
   console.log("userToken: ", userToken);
@@ -61,25 +65,39 @@ const Dashboard_Page: React.FC = () => {
   const [showTransferPopup, setShowTransferPopup] = useState(false);
   const [showNewCardPopup, setShowNewCardPopup] = useState(false);
 
-  const [eurData, setEurData] = useState<any>(null);
-  const [usdData, setUsdData] = useState<any>(null);
-  const [eurExchangeRates, setEurExchangeRates] = useState<
-    { rate: any; date: string }[]
-  >([]);
-  const [usdExchangeRates, setUsdExchangeRates] = useState<
-    { rate: any; date: string }[]
-  >([]);
+  const [currencyData, setCurrencyData] = useState<{ [key: string]: any }>({});
+  const [exchangeRates, setExchangeRates] = useState<{
+    [key: string]: { rate: any; date: string }[];
+  }>({});
+  const currencys = [
+    "eur",
+    "usd",
+    "aud",
+    "cad",
+    "chf",
+    "czk",
+    "gbp",
+    "hrk",
+    "jpy",
+    "nok",
+    "pln",
+    "ron",
+    "rub",
+    "sek",
+    "uah",
+  ];
 
   const [totalSum, setTotalSum] = useState<number>(0); // Új state az összesített total értékhez
+  const [repeatableTransactions, setRepeatableTransactions] = useState<any[]>(
+    []
+  );
 
-  const handleRightClick = (event: React.MouseEvent, accountId: string) => {
-    event.preventDefault();
-    setContextMenu({
-      x: event.clientX,
-      y: event.clientY + window.scrollY,
-      accountId,
-    });
-  };
+  const [showPaymentsTable, setShowPaymentsTable] = useState(true); // Új state a váltáshoz
+  const [showStopPopup, setShowStopPopup] = useState(false);
+  const [showDeletePopup, setShowDeletePopup] = useState(false);
+  const [selectedTransactionId, setSelectedTransactionId] = useState<
+    string | null
+  >(null);
 
   const handleCloseContextMenu = () => {
     setContextMenu(null);
@@ -116,18 +134,6 @@ const Dashboard_Page: React.FC = () => {
     return change >= 0 ? "rotate-left" : "rotate-right";
   };
 
-  async function eurApi(date: string) {
-    const eurResult = await fetchApiEur(date);
-    setEurData(eurResult);
-    return eurResult;
-  }
-
-  async function usdApi(date: string) {
-    const usdResult = await fetchApiUsd(date);
-    setUsdData(usdResult);
-    return usdResult;
-  }
-
   useEffect(() => {
     const fetchPayments = async () => {
       const paymentsData = await allpayment();
@@ -144,36 +150,39 @@ const Dashboard_Page: React.FC = () => {
   }, [activeAccount]);
 
   useEffect(() => {
-    async function multLekerdezesEur(ism: number) {
+    const fetchRepeatableTransactionsData = async () => {
+      if (activeAccount?.id) {
+        const data = await fetchRepeatableTransactions(activeAccount.id);
+        setRepeatableTransactions(data || []);
+      }
+    };
+    fetchRepeatableTransactionsData();
+  }, [activeAccount]);
+
+  useEffect(() => {
+    async function fetchCurrencyData(date: string, currency: string) {
+      const result = await fetchApiCurrency(date, currency);
+      setCurrencyData((prevData) => ({ ...prevData, [currency]: result }));
+      return result;
+    }
+
+    async function fetchExchangeRates(currency: string, days: number) {
       let rates: { rate: any; date: string }[] = [];
       let date = new Date();
-      date.setDate(date.getDate() - ism);
-      for (let i = 0; i < ism; i++) {
+      date.setDate(date.getDate() - days);
+      for (let i = 0; i < days; i++) {
         date.setDate(date.getDate() + 1);
-        let dateString = date.toISOString().split("T")[0];
-        let data: any = await eurApi(dateString);
+        const dateString = date.toISOString().split("T")[0];
+        const data: any = await fetchCurrencyData(dateString, currency);
         rates.push({ rate: data.changes.huf, date: dateString });
       }
-      setEurExchangeRates(rates);
+      setExchangeRates((prevRates) => ({ ...prevRates, [currency]: rates }));
     }
-    async function multLekerdezesUsd(ism: number) {
-      let rates: { rate: any; date: string }[] = [];
-      let date = new Date();
-      date.setDate(date.getDate() - ism);
-      for (let i = 0; i < ism; i++) {
-        date.setDate(date.getDate() + 1);
-        let dateString = date.toISOString().split("T")[0];
-        let data: any = await usdApi(dateString);
-        rates.push({ rate: data.changes.huf, date: dateString });
-      }
-      setUsdExchangeRates(rates);
-    }
-    setEurExchangeRates([]);
-    setUsdExchangeRates([]);
-    eurApi("2025-02-24");
-    usdApi("2025-02-24");
-    multLekerdezesEur(30);
-    multLekerdezesUsd(30);
+
+    currencys.forEach((currency) => {
+      fetchCurrencyData("2025-02-24", currency);
+      fetchExchangeRates(currency, 30);
+    });
   }, []);
 
   useEffect(() => {
@@ -256,7 +265,7 @@ const Dashboard_Page: React.FC = () => {
             </div>
             {/*Buttons*/}
             <div className="button-grid">
-              <button onClick={() =>setShowNewCardPopup(true)}>
+              <button onClick={() => setShowNewCardPopup(true)}>
                 <img src={placeholderIcon} alt="New Card" />
                 <p>Új Számla</p>
               </button>
@@ -284,9 +293,9 @@ const Dashboard_Page: React.FC = () => {
           <div className="Dashboard-sectionMain">
             <div className="Dashboard-changesList">
               <ChangesCardSection
-                currencys={["eur", "usd", "aud", "cad", "chf", "czk", "gbp", "hrk", "jpy", "nok", "pln", "ron", "rub", "sek", "uah"]}
-                currencyData={{ eur: eurData, usd: usdData }}
-                exchangeRates={{ eur: eurExchangeRates, usd: usdExchangeRates }}
+                currencys={currencys}
+                currencyData={currencyData}
+                exchangeRates={exchangeRates}
                 getChangePercentage={getChangePercentage}
                 getCardClass={getCardClass}
                 getIconClass={getIconClass}
@@ -298,8 +307,89 @@ const Dashboard_Page: React.FC = () => {
 
         {/* Transactions Section */}
         <section className="Dashboard-transactions-section">
+          <div className="Dashboard-Title_row">
+            <p className="Dashboard-Title">Tranzakciók</p>
+            <button
+              className="toggle-button primary_v3"
+              onClick={() => setShowPaymentsTable(!showPaymentsTable)}
+            >
+              {showPaymentsTable ? "Ismétlődő Tranzakciók" : "Tranzakciók"}
+            </button>
+          </div>
           <div className="Dashboard-sectionMain">
-            <Table payments={payments} />
+            {showPaymentsTable ? (
+              <Table payments={payments} />
+            ) : (
+              <div className="repeatable-transactions">
+                <div className="Dashboard-Title_row">
+                  <p className="Dashboard-Title">Ismétlödő fizetések</p>
+                </div>
+                {repeatableTransactions.length > 0 ? (
+                  <table className="repeatable-transactions-table">
+                    <thead>
+                      <tr>
+                        <th>Név és Kategória</th>
+                        <th>Kezdés és Befejezés</th>
+                        <th>Ismétlődés</th>
+                        <th>Összeg</th>
+                        <th>Műveletek</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {repeatableTransactions.map((transaction, index) => (
+                        <tr key={index}>
+                          <td>
+                            <strong>{transaction.name}</strong>
+                            <br />
+                            {transaction.category}
+                          </td>
+                          <td>
+                            {new Date(transaction.repeatStart)
+                              .toISOString()
+                              .split("T")[0]
+                              .replace(/-/g, "/")
+                              .slice(2)}{" "}
+                            -{" "}
+                            {new Date(transaction.repeatEnd)
+                              .toISOString()
+                              .split("T")[0]
+                              .replace(/-/g, "/")
+                              .slice(2)}
+                          </td>
+                          <td>
+                            {transaction.repeatAmount}{" "}
+                            {transaction.repeatMetric}
+                          </td>
+                          <td>{transaction.total}</td>
+                          <td>
+                            <button
+                              onClick={() => {
+                                setSelectedTransactionId(transaction.id);
+                                setShowStopPopup(true);
+                              }}
+                              className="action-button stop-button"
+                            >
+                              Stop
+                            </button>
+                            <button
+                              onClick={() => {
+                                setSelectedTransactionId(transaction.id);
+                                setShowDeletePopup(true);
+                              }}
+                              className="action-button delete-button"
+                            >
+                              Delete
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                ) : (
+                  <p>Nincsenek ismétlődő tranzakciók.</p>
+                )}
+              </div>
+            )}
           </div>
         </section>
 
@@ -363,12 +453,39 @@ const Dashboard_Page: React.FC = () => {
             userId={user.id || ""}
           />
         )}
-{showNewCardPopup && (
-  <NewCardPopup
-    onClose={() => setShowNewCardPopup(false)}
-    onSave={handleNewCardSave}
-  />
-)}
+        {showNewCardPopup && (
+          <NewCardPopup
+            onClose={() => setShowNewCardPopup(false)}
+            onSave={handleNewCardSave}
+          />
+        )}
+        {showStopPopup && selectedTransactionId && (
+          <StopRepeatableTransactionPopup
+            onClose={() => setShowStopPopup(false)}
+            onConfirm={async () => {
+              await stopRepeatableTransaction(selectedTransactionId);
+              setShowStopPopup(false);
+              const updatedTransactions = await fetchRepeatableTransactions(
+                activeAccount?.id || ""
+              );
+              setRepeatableTransactions(updatedTransactions);
+            }}
+          />
+        )}
+
+        {showDeletePopup && selectedTransactionId && (
+          <DeleteRepeatableTransactionPopup
+            onClose={() => setShowDeletePopup(false)}
+            onConfirm={async () => {
+              await deleteRepeatableTransaction(selectedTransactionId);
+              setShowDeletePopup(false);
+              const updatedTransactions = await fetchRepeatableTransactions(
+                activeAccount?.id || ""
+              );
+              setRepeatableTransactions(updatedTransactions);
+            }}
+          />
+        )}
       </main>
     </>
   );

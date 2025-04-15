@@ -24,7 +24,42 @@ export const logicks = () => {
   const navigate = useNavigate();
   const [activeUserAccounts, SetActiveUserAcounts] = useState<AccountProp[] | null>(null);
   const [payments, setPayments] = useState<any[]>([]);
-  const [loginError, setLoginError] = useState<string | null>(null); // Add this line
+  const [loginError, setLoginError] = useState<string | null>(null);
+  const [timeLeft, setTimeLeft] = useState<number | null>(null); 
+
+  const saveLoginTime = () => {
+    const loginTime = new Date().getTime();
+    localStorage.setItem("loginTime", loginTime.toString());
+  };
+
+    const startCountdown = () => {
+    const loginTime = parseInt(localStorage.getItem("loginTime") || "0", 10);
+    const currentTime = new Date().getTime();
+    const timeElapsed = currentTime - loginTime;
+    const timeRemaining = 3600000 - timeElapsed; // 1 óra milliszekundumban
+
+    if (timeRemaining <= 0) {
+      logout(); // Ha lejárt az idő, kiléptetjük a felhasználót
+    } else {
+      setTimeLeft(timeRemaining);
+    }
+  };
+  useEffect(() => {
+    if (timeLeft === null) return;
+
+    const timer = setInterval(() => {
+      setTimeLeft((prev) => {
+        if (prev !== null && prev <= 1000) {
+          clearInterval(timer);
+          logout();
+          return null;
+        }
+        return prev !== null ? prev - 1000 : null;
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [timeLeft]);
 
   const fetchAccounts = async () => {
     try {
@@ -195,23 +230,24 @@ const logout = async () => {
   // Login
   const Login = (event: React.FormEvent) => {
     event.preventDefault();
-    console.log("Login");
     fetch("http://localhost:3000/user/login", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
     })
-    .then((response) => {
+      .then((response) => {
         if (!response.ok) {
-            throw new Error(`Server responded with status ${response.status}`);
+          throw new Error(`Server responded with status ${response.status}`);
         }
         return response.json();
-    })
-    .then((userData: User) => {
+      })
+      .then((userData) => {
         setUser(userData);
         setIsLoggedIn(true);
+        saveLoginTime(); // Login idő mentése
+        startCountdown(); // Visszaszámláló indítása
         localStorage.setItem("loggedInUser", JSON.stringify(userData));
         if (userData.access_token) {
             localStorage.setItem("Token", userData.access_token as string);
@@ -691,52 +727,112 @@ const logout = async () => {
     }
   };
 
-  /* 
-    eur
-    usd
-    aud
-    cad
-    chf
-    czk
-    gbp
-    hrk
-    jpy
-    nok
-    pln
-    ron
-    rub
-    sek
-    uah
-    */
+    const createRepeatableTransaction = async (
+      accountId: string,
+      amount: number,
+      category: String,
+      description: String,
+      repeatName: string,
+      repeatAmount: number,
+      repeatMetric: String,
+      repeatStart: Date,
+      repeatEnd: Date
+    ) => {
+      try {
+        const response = await fetch(`http://localhost:3000/repeatabletransaction`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "authorization": "Bearer " + userToken,
+          },
+          body: JSON.stringify({
+            total: amount,
+            category,
+            description,
+            name: repeatName || "",
+            repeatAmount,
+            repeatMetric,
+            repeatStart,
+            repeatEnd,
+            accountId,
+            userId: userID,
+          }),
+        });
+        if (!response.ok) throw new Error("Failed to create repeatable transaction");
+        const newTransaction = await response.json();
+        showToast("Sikeres ismétlődő tranzakció hozzáadás!");
+        return newTransaction;
+      } catch (error) {
+        setError((error as Error).message);
+      }
+    };
 
-  const createRepeatableTransaction = async (accountId: string, amount: number, category: String, description: String, repeatAmount: number, repeatMetric: String, repeatStart: Date, repeatEnd: Date) => {
-    try {
-      const response = await fetch(`http://localhost:3000/repeatabletransaction`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "authorization": "Bearer " + userToken,
-        },
-        body: JSON.stringify({
-          total: amount,
-          category,
-          description,
-          repeatAmount,
-          repeatMetric,
-          repeatStart,
-          repeatEnd,
-          accountId,
-          userId: userID,
-        })
-      });
-      if (!response.ok) throw new Error("Failed to create repeatable transaction");
-      const newTransaction = await response.json();
-      showToast("Sikeres ismétlődő tranzakció hozzáadás!");
-      return newTransaction;
-    } catch (error) {
-      setError((error as Error).message);
-    }
-  };
+    const fetchRepeatableTransactions = async (accountId: string) => {
+      try {
+        const response = await fetch(`http://localhost:3000/accounts/allrepeat/${accountId}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "authorization": "Bearer " + userToken,
+          },
+        });
+        if (!response.ok) throw new Error("Failed to fetch repeatable transactions");
+        const data = await response.json();
+        return data || [];
+      } catch (error) {
+        console.error("Error fetching repeatable transactions:", error);
+        return [];
+      }
+    };
+
+    const stopRepeatableTransaction = async (transactionId: string) => {
+      try {
+        const response = await fetch(`http://localhost:3000/repeatabletransaction/stop/${transactionId}`, {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            "authorization": "Bearer " + userToken,
+          },
+        });
+        if (!response.ok) throw new Error("Failed to stop repeatable transaction");
+        showToast("Ismétlődő tranzakció leállítva!");
+        // Frissítsük az ismétlődő tranzakciók listáját
+        if (activeAccount?.id) {
+          const updatedTransactions = await fetchRepeatableTransactions(activeAccount.id);
+          setPayments(updatedTransactions); // Frissítsük az állapotot
+        }
+      } catch (error) {
+        console.error("Error stopping repeatable transaction:", error);
+      }
+    };
+    
+    const deleteRepeatableTransaction = async (transactionId: string) => {
+      try {
+        const response = await fetch(`http://localhost:3000/repeatabletransaction/${transactionId}`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            "authorization": "Bearer " + userToken,
+          },
+        });
+        if (!response.ok) throw new Error("Failed to delete repeatable transaction");
+        showToast("Ismétlődő tranzakció törölve!");
+    
+        // Frissítsük az ismétlődő tranzakciók listáját
+        if (activeAccount?.id) {
+          const updatedTransactions = await fetchRepeatableTransactions(activeAccount.id);
+          setPayments(updatedTransactions); // Frissítsük az ismétlődő tranzakciókat
+        }
+    
+        // Számoljuk újra a payments adatokat
+        if (activeAccount) {
+          const updatedPayments = await allpayment();
+          setPayments(updatedPayments || []);
+        }
+      } catch (error) {
+        console.error("Error deleting repeatable transaction:", error);
+      }
+    };
 
   //transfer
   const transfer = async (transferData: TransferProp) => {
@@ -772,6 +868,14 @@ const logout = async () => {
     }
 
   }, [userID, userToken]);
+  useEffect(() => {
+    const storedUser = localStorage.getItem("loggedInUser");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+      setIsLoggedIn(true);
+      startCountdown(); // Visszaszámláló indítása, ha már be van jelentkezve
+    }
+  }, []);
 
 
   return {
@@ -821,7 +925,11 @@ const logout = async () => {
     loginError,
     setLoginError,
     createRepeatableTransaction,
+    fetchRepeatableTransactions,
+    stopRepeatableTransaction,
+    deleteRepeatableTransaction,
     fetchApiCurrency,
-    activeUserAccounts
+    activeUserAccounts,
+    timeLeft,
   };
 };

@@ -19,6 +19,12 @@
   grid-column: 1 / span 1;
   grid-row: 1 / span 1;
   background-color: $light-grey;
+
+  .toggle-button {
+    margin-left: auto; 
+    font-size: 0.8rem; 
+    padding: 5px 10px; 
+  }
 }
 
 .cardpage_active-card-section {

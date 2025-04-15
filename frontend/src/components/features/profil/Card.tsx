@@ -18,6 +18,8 @@ import { TransferProp } from "../../Props/TransferProp";
 import BarChart from "../../common/charts/barChart";
 import "../../../design/profil_page_element/card.scss";
 import NewCardPopup from "../../common/popups/NewCardPopup";
+import DeleteRepeatableTransactionPopup from "../../common/popups/DeleteRepeatableTransactionPopupProps";
+import StopRepeatableTransactionPopup from "../../common/popups/StopRepeatableTransactionPopupProps";
 
 const Card_Page: React.FC = () => {
   const {
@@ -33,6 +35,9 @@ const Card_Page: React.FC = () => {
     disconnectUser,
     transfer,
     SetActiveAcountClick,
+    fetchRepeatableTransactions,
+    stopRepeatableTransaction,
+    deleteRepeatableTransaction,
   } = logicks();
 
   const [contextMenu, setContextMenu] = useState<{
@@ -53,6 +58,13 @@ const Card_Page: React.FC = () => {
   const [payments, setPayments] = useState<any[]>([]);
   const [showTransferPopup, setShowTransferPopup] = useState(false);
   const [activeCardIndex, setActiveCardIndex] = useState(0);
+
+  const [showPaymentsTable, setShowPaymentsTable] = useState(true); // Új state a váltáshoz
+const [repeatableTransactions, setRepeatableTransactions] = useState<any[]>([]);
+const [showStopPopup, setShowStopPopup] = useState(false);
+const [showDeletePopup, setShowDeletePopup] = useState(false);
+const [selectedTransactionId, setSelectedTransactionId] = useState<string | null>(null);
+
 
   useEffect(() => {
     const fetchPayments = async () => {
@@ -77,6 +89,17 @@ const Card_Page: React.FC = () => {
       setActiveCardIndex(activeIndex !== -1 ? activeIndex : 0);
     }
   }, [user, activeAccount]);
+
+  useEffect(() => {
+    const fetchRepeatableTransactionsData = async () => {
+      if (activeAccount?.id) {
+        const data = await fetchRepeatableTransactions(activeAccount.id);
+        setRepeatableTransactions(data || []);
+      }
+    };
+    fetchRepeatableTransactionsData();
+  }, [activeAccount]);
+  
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
@@ -140,10 +163,90 @@ const Card_Page: React.FC = () => {
       <main className="cardpage_profile-main-card">
         {/* Transactions Section */}
         <section className="cardpage_transactions-section">
-          <div className="cardpage_sectionMain">
-            <Table payments={payments} />
-          </div>
-        </section>
+  <div className="cardpage_Title_row">
+    <p className="cardpage_Title">Tranzakciók</p>
+    <button
+      className="toggle-button primary_v3"
+      onClick={() => setShowPaymentsTable(!showPaymentsTable)}
+    >
+      {showPaymentsTable ? "Ismétlődő Tranzakciók" : "Tranzakciók"}
+    </button>
+  </div>
+  <div className="cardpage_sectionMain">
+    {showPaymentsTable ? (
+      <Table payments={payments} />
+    ) : (
+      <div className="repeatable-transactions">
+        <div className="cardpage_Title_row">
+          <p className="cardpage_Title">Ismétlődő fizetések</p>
+        </div>
+        {repeatableTransactions.length > 0 ? (
+          <table className="repeatable-transactions-table">
+            <thead>
+              <tr>
+                <th>Név és Kategória</th>
+                <th>Kezdés és Befejezés</th>
+                <th>Ismétlődés</th>
+                <th>Összeg</th>
+                <th>Műveletek</th>
+              </tr>
+            </thead>
+            <tbody>
+              {repeatableTransactions.map((transaction, index) => (
+                <tr key={index}>
+                  <td>
+                    <strong>{transaction.name}</strong>
+                    <br />
+                    {transaction.category}
+                  </td>
+                  <td>
+                    {new Date(transaction.repeatStart)
+                      .toISOString()
+                      .split("T")[0]
+                      .replace(/-/g, "/")
+                      .slice(2)}{" "}
+                    -{" "}
+                    {new Date(transaction.repeatEnd)
+                      .toISOString()
+                      .split("T")[0]
+                      .replace(/-/g, "/")
+                      .slice(2)}
+                  </td>
+                  <td>
+                    {transaction.repeatAmount} {transaction.repeatMetric}
+                  </td>
+                  <td>{transaction.total}</td>
+                  <td>
+                    <button
+                      onClick={() => {
+                        setSelectedTransactionId(transaction.id);
+                        setShowStopPopup(true);
+                      }}
+                      className="action-button stop-button"
+                    >
+                      Stop
+                    </button>
+                    <button
+                      onClick={() => {
+                        setSelectedTransactionId(transaction.id);
+                        setShowDeletePopup(true);
+                      }}
+                      className="action-button delete-button"
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        ) : (
+          <p>Nincsenek ismétlődő tranzakciók.</p>
+        )}
+      </div>
+    )}
+  </div>
+</section>
 
         {/* Active Card Section */}
         <section className="cardpage_active-card-section">
@@ -286,6 +389,33 @@ const Card_Page: React.FC = () => {
           onSave={handleNewCardSave}
         />
       )}
+      {showStopPopup && selectedTransactionId && (
+  <StopRepeatableTransactionPopup
+    onClose={() => setShowStopPopup(false)}
+    onConfirm={async () => {
+      await stopRepeatableTransaction(selectedTransactionId);
+      setShowStopPopup(false);
+      const updatedTransactions = await fetchRepeatableTransactions(
+        activeAccount?.id || ""
+      );
+      setRepeatableTransactions(updatedTransactions);
+    }}
+  />
+)}
+
+{showDeletePopup && selectedTransactionId && (
+  <DeleteRepeatableTransactionPopup
+    onClose={() => setShowDeletePopup(false)}
+    onConfirm={async () => {
+      await deleteRepeatableTransaction(selectedTransactionId);
+      setShowDeletePopup(false);
+      const updatedTransactions = await fetchRepeatableTransactions(
+        activeAccount?.id || ""
+      );
+      setRepeatableTransactions(updatedTransactions);
+    }}
+  />
+)}
     </>
   );
 };

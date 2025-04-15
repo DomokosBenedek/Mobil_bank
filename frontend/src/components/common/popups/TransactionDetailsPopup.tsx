@@ -1,5 +1,5 @@
 import React from 'react';
-import { TransactionProp, Metric, PaymentType } from '../../Props/TransactionProp';
+import { TransactionProp, PaymentType } from '../../Props/TransactionProp';
 import "../../../design/popups/defoultPopup.scss";
 import "../../../design/popups/deleteAccountPopup.scss";
 
@@ -10,8 +10,6 @@ interface TransactionDetailsPopupProps {
 
 const TransactionDetailsPopup: React.FC<TransactionDetailsPopupProps> = ({ transaction, onClose }) => {
   if (!transaction) return null;
-
-  const isRepeatable = transaction.repeatAmmount > 0 && transaction.repeatMetric !== undefined;
 
   return (
     <div className="popup-overlay">
@@ -24,16 +22,6 @@ const TransactionDetailsPopup: React.FC<TransactionDetailsPopupProps> = ({ trans
         <p><strong>Leírás:</strong> {transaction.description || 'Nincs megadva'}</p>
         <p><strong>Létrehozva:</strong> {new Date(transaction.createdAt).toLocaleString()}</p>
         <p><strong>Módosítva:</strong> {new Date(transaction.updatedAt).toLocaleString()}</p>
-
-        {isRepeatable && (
-          <>
-            <h3>Ismétlődő Részletek</h3>
-            <p><strong>Ismétlődés:</strong> {transaction.repeatAmmount} {Metric[transaction.repeatMetric]}</p>
-            <p><strong>Ismétlődés Kezdete:</strong> {new Date(transaction.repeatStart).toLocaleDateString()}</p>
-            <p><strong>Ismétlődés Vége:</strong> {new Date(transaction.repeatEnd).toLocaleDateString()}</p>
-          </>
-        )}
-
         <button className="primary" onClick={onClose}>
           Bezárás
         </button>

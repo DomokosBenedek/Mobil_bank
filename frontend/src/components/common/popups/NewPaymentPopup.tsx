@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { logicks } from "../logic";
 import { Currency } from "../../Props/TransactionProp";
+import { toast } from "react-toastify";
 import "../../../design/popups/defoultPopup.scss";
 import "../../../design/popups/newPaymentPopup.scss";
 
@@ -31,6 +32,7 @@ const NewPaymentPopup: React.FC<NewPaymentPopupProps> = ({
   const [repeatMetric, setRepeatMetric] = useState<string>("Day");
   const [repeatAmount, setRepeatAmount] = useState<number>(1);
   const [description, setDescription] = useState<string>("");
+  const [repeatName, setRepeatName] = useState<string>("");
   const [repeatStart, setRepeatStart] = useState<string>("");
   const [repeatEnd, setRepeatEnd] = useState<string>("");
 
@@ -51,29 +53,14 @@ const NewPaymentPopup: React.FC<NewPaymentPopupProps> = ({
   const repeatMetricList: string[] = ["Day", "Week", "Month", "Year"];
 
   const handleSave = async () => {
-    if (type === "Income") {
-      await addIncome(
-        activeAccount?.id || "",
-        amount,
-        category,
-        description,
-        1,
-        "Day"
-      );
-    } else {
-      if (repeat) {
-        await createRepeatableTransaction(
-          activeAccount?.id || "",
-          amount,
-          category,
-          description,
-          repeatAmount,
-          repeatMetric,
-          new Date(repeatStart),
-          new Date(repeatEnd)
-        );
-      } else {
-        await addExpense(
+    try {
+      if (type === "Expense" && repeat && !repeatName) {
+        const formattedDate = new Date(repeatStart).toISOString().split("T")[0]; // Format as yyyy-mm-dd
+        setRepeatName(`${formattedDate} Ismétlődés`);
+      }
+  
+      if (type === "Income") {
+        await addIncome(
           activeAccount?.id || "",
           amount,
           category,
@@ -81,14 +68,44 @@ const NewPaymentPopup: React.FC<NewPaymentPopupProps> = ({
           1,
           "Day"
         );
+        toast.success("Bevétel sikeresen hozzáadva!");
+      } else {
+        if (repeat) {
+          await createRepeatableTransaction(
+            activeAccount?.id || "",
+            amount,
+            category,
+            description,
+            repeatName || `${new Date(repeatStart).toISOString().split("T")[0]} Ismétlődés`,
+            repeatAmount,
+            repeatMetric,
+            new Date(repeatStart),
+            new Date(repeatEnd)
+          );
+          toast.success("Ismétlődő tranzakció sikeresen létrehozva!");
+        } else {
+          await addExpense(
+            activeAccount?.id || "",
+            amount,
+            category,
+            description,
+            1,
+            "Day"
+          );
+          toast.success("Kiadás sikeresen hozzáadva!");
+        }
       }
+  
+      fetchAccounts();
+      fetchExpenses(activeAccount?.id || "");
+      fetchIncomes(activeAccount?.id || "");
+      findone(activeAccount?.id || "");
+      onSave();
+      window.location.reload();
+    } catch (error) {
+      toast.error("Hiba történt a mentés során!");
+      console.error(error);
     }
-    fetchAccounts();
-    fetchExpenses(activeAccount?.id || "");
-    fetchIncomes(activeAccount?.id || "");
-    findone(activeAccount?.id || "");
-    onSave();
-    window.location.reload();
   };
 
   return (
@@ -169,6 +186,14 @@ const NewPaymentPopup: React.FC<NewPaymentPopupProps> = ({
               {repeat && (
                 <>
                   <div className="repeat-dates">
+                  <label>
+                      Előfizetés neve:
+                      <input
+                        type="text"
+                        value={repeatName}
+                        onChange={(e) => setRepeatName(e.target.value)}
+                      />
+                    </label>
                     <label>
                       Kezdő dátum:
                       <input
