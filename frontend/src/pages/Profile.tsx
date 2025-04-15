@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import Card_Page from '../components/features/profil/Card';
-import Charts_Page from '../components/features/profil/Charts';
 import Dashboard_Page from '../components/features/profil/Dashboars';
 import Profil_Page from '../components/features/profil/Profil';
 import { logicks } from '../components/common/logic';
@@ -67,7 +66,6 @@ const Profile: React.FC = () => {
               <Routes>
                 <Route path={`/dashboard`} element={<Dashboard_Page />} />
                 <Route path={`/card`} element={<Card_Page />} />
-                <Route path={`/charts`} element={<Charts_Page />} />
                 <Route path={`/profil`} element={<Profil_Page />} />
                 <Route path={`/changes`} element={<Changes_Page />} />
               </Routes>
