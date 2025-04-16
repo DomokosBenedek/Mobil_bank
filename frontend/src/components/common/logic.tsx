@@ -256,11 +256,11 @@ const logout = async () => {
             localStorage.setItem("UserId", userData.id as string);
         }
         showToast("Sikeres bejelentkezés!");
-        setLoginError(null); // Clear the error message on successful login
+        setLoginError(null); 
     })
     .catch((error) => {
         console.error("Error:", error);
-        setLoginError("Hibás email vagy jelszó"); // Set the error message on login failure
+        setLoginError("Hibás email vagy jelszó"); 
     });
 };
   

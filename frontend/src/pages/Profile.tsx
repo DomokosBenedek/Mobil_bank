@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import Card_Page from '../components/features/profil/Card';
-import Dashboard_Page from '../components/features/profil/Dashboars';
+import Dashboard_Page from '../components/features/profil/Dashboard';
 import Profil_Page from '../components/features/profil/Profil';
 import { logicks } from '../components/common/logic';
 import Changes_Page from '../components/features/profil/Changes';

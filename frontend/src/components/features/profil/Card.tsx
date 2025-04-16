@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import {
-  Card_newCard,
   placeholderIcon,
   Vector_Arrow_Dark,
 } from "../../common/img";
@@ -19,6 +18,7 @@ import "../../../design/profil_page_element/card.scss";
 import NewCardPopup from "../../common/popups/NewCardPopup";
 import DeleteRepeatableTransactionPopup from "../../common/popups/DeleteRepeatableTransactionPopupProps";
 import StopRepeatableTransactionPopup from "../../common/popups/StopRepeatableTransactionPopupProps";
+import { toast } from "react-toastify";
 
 const Card_Page: React.FC = () => {
   const {
@@ -26,6 +26,7 @@ const Card_Page: React.FC = () => {
     loading,
     error,
     activeAccount,
+    addNewAccount,
     deleteAccount,
     addUserToAccount,
     fetchIncomes,
@@ -109,29 +110,42 @@ const [selectedTransactionId, setSelectedTransactionId] = useState<string | null
     setShowNewUserPopup(false);
   };
 
-  const handleNewCardSave = () => {
-    setShowNewCardPopup(false);
-  };
-
   const handleDeleteAccount = async () => {
-    await deleteAccount(activeAccount?.id || "");
-    await refreshData(); // Adatok frissítése
-    setShowDeleteAccountPopup(false);
+    if (user?.Accounts && user.Accounts.length <= 1) {
+      toast.error("Nem törölhető az utolsó számla!");
+      return;
+    }
+    try {
+      await deleteAccount(activeAccount?.id || "");
+      if (user?.Accounts && user.Accounts.length > 1) {
+        SetActiveAcountClick(user.Accounts[0]); 
+      }
+      setActiveCardIndex(0); 
+      await refreshData();
+      setShowDeleteAccountPopup(false);
+      toast.success("A számla sikeresen törölve!");
+    } catch (error) {
+      toast.error("Hiba történt a számla törlése közben!");
+    }
   };
-
+  
   const handleDisconnect = () => {
+    if (user?.Accounts && user.Accounts.length <= 1) {
+      toast.error("Nem lehet lecsatlakozni az utolsó számláról!");
+      return;
+    }
     disconnectUser(activeAccount?.id || "");
+    if (user?.Accounts && user.Accounts.length > 1) {
+      SetActiveAcountClick(user.Accounts[0]);
+    }
+    setActiveCardIndex(0);
     setShowDeleteAccountPopup(false);
+    toast.success("Sikeresen lecsatlakoztál a számláról!");
   };
 
   const handleNewPaymentSave = async () => {
     await refreshData(); 
     setShowNewPaymentPopup(false);
-  };
-
-  const handleRightClick = (event: React.MouseEvent, accountId: string) => {
-    event.preventDefault();
-    setContextMenu({ x: event.clientX, y: event.clientY, accountId });
   };
 
   const handleCloseContextMenu = () => {
@@ -387,9 +401,9 @@ const [selectedTransactionId, setSelectedTransactionId] = useState<string | null
         />
       )}
       {showNewCardPopup && (
-        <NewCardPopup
-          onClose={() => setShowNewCardPopup(false)}
-          onSave={handleNewCardSave}
+          <NewCardPopup
+          onClose={() => { setShowNewCardPopup(false) }}
+          onSave={addNewAccount}
         />
       )}
       {showStopPopup && selectedTransactionId && (

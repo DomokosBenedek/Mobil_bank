@@ -40,7 +40,6 @@ const Dashboard_Page: React.FC = () => {
     fetchRepeatableTransactions,
     stopRepeatableTransaction,
     deleteRepeatableTransaction,
-    refreshData,
   } = logicks();
 
   const [contextMenu, setContextMenu] = useState<{
@@ -104,19 +103,16 @@ const Dashboard_Page: React.FC = () => {
     setShowNewUserPopup(false);
   };
 
-  const handleDeleteAccount = async () => {
-    await deleteAccount(activeAccount?.id || "");
-    await refreshData(); // Adatok frissítése
+  const handleDeleteAccount = () => {
+    deleteAccount(activeAccount?.id || "");
     setShowDeleteAccountPopup(false);
   };
-
   const handleDisconnect = () => {
     disconnectUser(activeAccount?.id || "");
     setShowDeleteAccountPopup(false);
   };
 
-  const handleNewPaymentSave = async () => {
-    await refreshData(); // Adatok frissítése
+  const handleNewPaymentSave = () => {
     setShowNewPaymentPopup(false);
   };
 
@@ -126,7 +122,7 @@ const Dashboard_Page: React.FC = () => {
   };
 
   const handleNewCardSave = () => {
-    setShowNewCardPopup(false);
+    setShowNewCardPopup(true);
   };
 
   const getIconClass = (change: number) => {
@@ -134,95 +130,55 @@ const Dashboard_Page: React.FC = () => {
   };
 
   useEffect(() => {
-    const fetchPayments = async () => {
-      const paymentsData = await allpayment();
-      setPayments(paymentsData || []);
-    };
-    const fetchIncomesAndExpenses = async () => {
-      const incomesData = await fetchIncomes(activeAccount?.id || "");
-      const expensesData = await fetchExpenses(activeAccount?.id || "");
-      setIncomes(incomesData || []);
-      setExpenses(expensesData || []);
-    };
-    fetchPayments();
-    fetchIncomesAndExpenses();
-  }, [activeAccount]);
-
-  useEffect(() => {
-    const fetchRepeatableTransactionsData = async () => {
+    const fetchData = async () => {
       if (activeAccount?.id) {
-        const data = await fetchRepeatableTransactions(activeAccount.id);
-        setRepeatableTransactions(data || []);
+        const [paymentsData, incomesData, expensesData, repeatableTransactionsData] = await Promise.all([
+          allpayment(),
+          fetchIncomes(activeAccount.id),
+          fetchExpenses(activeAccount.id),
+          fetchRepeatableTransactions(activeAccount.id),
+        ]);
+        setPayments(paymentsData || []);
+        setIncomes(incomesData || []);
+        setExpenses(expensesData || []);
+        setRepeatableTransactions(repeatableTransactionsData || []);
       }
     };
-    fetchRepeatableTransactionsData();
-  }, [activeAccount]);
+    fetchData();
+  }, [activeAccount, payments, incomes, expenses]);
 
   useEffect(() => {
-    async function fetchCurrencyData(date: string, currency: string) {
-      const result = await fetchApiCurrency(date, currency);
-      setCurrencyData((prevData) => ({ ...prevData, [currency]: result }));
-      return result;
-    }
+    const fetchCurrencyAndExchangeRates = async () => {
+      const fetchCurrencyData = async (date: string, currency: string) => {
+        const result = await fetchApiCurrency(date, currency);
+        setCurrencyData((prevData) => ({ ...prevData, [currency]: result }));
+        return result;
+      };
 
-    async function fetchExchangeRates(currency: string, days: number) {
-      let rates: { rate: any; date: string }[] = [];
-      let date = new Date();
-      date.setDate(date.getDate() - days);
-      for (let i = 0; i < days; i++) {
-        date.setDate(date.getDate() + 1);
-        const dateString = date.toISOString().split("T")[0];
-        const data: any = await fetchCurrencyData(dateString, currency);
-        rates.push({ rate: data.changes.huf, date: dateString });
-      }
-      setExchangeRates((prevRates) => ({ ...prevRates, [currency]: rates }));
-    }
+      const fetchExchangeRates = async (currency: string, days: number) => {
+        let rates: { rate: any; date: string }[] = [];
+        let date = new Date();
+        date.setDate(date.getDate() - days);
+        for (let i = 0; i < days; i++) {
+          date.setDate(date.getDate() + 1);
+          const dateString = date.toISOString().split("T")[0];
+          const data: any = await fetchCurrencyData(dateString, currency);
+          rates.push({ rate: data.changes.huf, date: dateString });
+        }
+        setExchangeRates((prevRates) => ({ ...prevRates, [currency]: rates }));
+      };
 
-    currencys.forEach((currency) => {
-      fetchExchangeRates(currency, 30);
-    });
+      await Promise.all(currencys.map((currency) => fetchExchangeRates(currency, 30)));
+    };
+    fetchCurrencyAndExchangeRates();
   }, []);
 
   useEffect(() => {
     const sum =
-      user?.Accounts?.reduce((acc, account) => acc + (account.total || 0), 0) ||
-      0;
+      user?.Accounts?.reduce((acc, account) => acc + (account.total || 0), 0) || 0;
     setTotalSum(sum);
-  }, [user?.Accounts, activeAccount]);
+  }, [user?.Accounts]);
 
-  useEffect(() => {
-    const fetchPayments = async () => {
-      const paymentsData = await allpayment();
-      setPayments(paymentsData || []);
-    };
-
-    const fetchIncomesAndExpenses = async () => {
-      const incomesData = await fetchIncomes(activeAccount?.id || "");
-      const expensesData = await fetchExpenses(activeAccount?.id || "");
-      setIncomes(incomesData || []);
-      setExpenses(expensesData || []);
-    };
-
-    fetchPayments();
-    fetchIncomesAndExpenses();
-  }, [activeAccount]);
-
-  useEffect(() => {
-    const fetchPayments = async () => {
-      const paymentsData = await allpayment();
-      setPayments(paymentsData || []);
-    };
-  
-    const fetchIncomesAndExpenses = async () => {
-      const incomesData = await fetchIncomes(activeAccount?.id || "");
-      const expensesData = await fetchExpenses(activeAccount?.id || "");
-      setIncomes(incomesData || []);
-      setExpenses(expensesData || []);
-    };
-  
-    fetchPayments();
-    fetchIncomesAndExpenses();
-  }, [activeAccount]);
   const getCardClass = (change: number) => {
     return change >= 0 ? "positive" : "negative";
   };
@@ -242,7 +198,7 @@ const Dashboard_Page: React.FC = () => {
             <p className="Dashboard-Title">Számláid</p>
           </div>
           {/* Új kártya ikon */}
-          <img src={Card_newCard} alt="NewCard" onClick={addNewAccount} />
+          <img src={Card_newCard} alt="NewCard" onClick={handleNewCardSave} />
 
           {/* Kártyák listája */}
           <div className="card-list">
@@ -486,8 +442,8 @@ const Dashboard_Page: React.FC = () => {
         )}
         {showNewCardPopup && (
           <NewCardPopup
-            onClose={() => setShowNewCardPopup(false)}
-            onSave={handleNewCardSave}
+            onClose={() => { setShowNewCardPopup(false) }}
+            onSave={addNewAccount}
           />
         )}
         {showStopPopup && selectedTransactionId && (

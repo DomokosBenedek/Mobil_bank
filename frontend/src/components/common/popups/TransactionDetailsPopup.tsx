@@ -14,6 +14,9 @@ const TransactionDetailsPopup: React.FC<TransactionDetailsPopupProps> = ({ trans
 
   const handleDelete = () => {
     if (transaction) {
+      console.log("Deleting transaction:", transaction.id);
+      console.log("Transaction type:", transaction.type);
+      console.log("Transaction type enum:", PaymentType.Expense);
       const transactionType = transaction.type === PaymentType.Expense ? "expense" : "income";
       onDelete(transaction.id, transactionType);
     }
