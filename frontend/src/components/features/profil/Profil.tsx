@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { logicks } from "../../common/logic";
-import { useNavigate } from "react-router-dom";
 import "../../../design/profil_page_element/profile.scss";
 
 const Profil_Page: React.FC = () => {
@@ -8,11 +7,7 @@ const Profil_Page: React.FC = () => {
   const [firstName, setFirstName] = useState<string>("");
   const [lastName, setLastName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
 
-  const navigate = useNavigate();
-
-  // UseEffect to set initial values from user data
   useEffect(() => {
     if (user) {
       setFirstName(user.firstName?.toString() || "");
@@ -53,12 +48,6 @@ const Profil_Page: React.FC = () => {
               <label>Email</label>
               <p>{email}</p>
             </div>
-            <button
-              className="primary-button-profile"
-              onClick={() => navigate("/commingsoon")}
-            >
-              Jelszó módosítás
-            </button>
           </section>
 
           <section className="profile-section-szamlak">
