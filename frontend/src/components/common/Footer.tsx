@@ -4,11 +4,6 @@ import { placeholderIcon_text, Icon_mail, Icon_phone, Icon_location } from './im
 import '../../design/common/footer.scss';
 import { logicks } from './logic';
 
-const handleAlert = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
-    e.preventDefault();
-    alert('Kérjük, lépjen be a profil oldal megtekintéséhez.');
-};
-
 const Footer = () => {
     const { user } = logicks();
 
