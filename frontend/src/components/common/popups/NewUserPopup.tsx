@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { toast } from 'react-toastify'; // Importáljuk a toast-ot
+import { toast } from 'react-toastify'; 
 import "../../../design/popups/defoultPopup.scss";
 import "../../../design/popups/newUserPopup.scss";
 

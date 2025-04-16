@@ -77,8 +77,6 @@ export default function Register() {
         };
 
         try {
-            console.log("Regisztrációs adatok:", newUser);
-            console.log(JSON.stringify(newUser));
             const response = await fetch("http://localhost:3000/user", {
                 method: "POST",
                 headers: {

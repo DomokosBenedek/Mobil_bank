@@ -24,13 +24,11 @@ const ChangesCardSection: React.FC<ChangesCardSectionProps> = ({
   return (
     <div className="changes-cards-container">
       {currencys.map((currency) => {
-        // Ellenőrizzük, hogy van-e adat az adott valutához
         const todayRate = currencyData[currency]?.changes?.huf || 0;
         const yesterdayRate =
           exchangeRates[currency]?.[exchangeRates[currency].length - 2]?.rate ||
           0;
 
-        // A változás százalékának kiszámítása a getChangePercentage függvénnyel
         const changePercentage = getChangePercentage(todayRate, yesterdayRate);
 
         const cardClass = getCardClass(parseFloat(changePercentage));

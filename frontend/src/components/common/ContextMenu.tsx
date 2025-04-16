@@ -12,8 +12,6 @@ interface CardContextMenuProps {
 }
 
 const CardContextMenu: React.FC<CardContextMenuProps> = ({ x, y, onClose, onDelete, onAddPayment, onAddUser, onTransfer }) => {
-  console.log(`Az x cordinata: ${x}`);
-  console.log(`Az y cordinata: ${y}`);
   return (
     <div className="context-menu" style={{ top: y, left: x }} onMouseLeave={onClose}>
       <ul>

@@ -8,7 +8,7 @@ interface TransferPopupProps {
   onClose: () => void;
   onTransfer: (transferData: TransferProp) => void;
   activeAccountId: string;
-  userId: String; // Change String to string
+  userId: String;
 }
 
 const TransferPopup: React.FC<TransferPopupProps> = ({ onClose, onTransfer}) => {

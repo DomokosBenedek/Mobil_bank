@@ -6,7 +6,7 @@ import "../../../design/popups/deleteAccountPopup.scss";
 interface TransactionDetailsPopupProps {
   transaction: TransactionProp | null;
   onClose: () => void;
-  onDelete: (transactionId: string, transactionType: string) => void; // Új prop a törléshez
+  onDelete: (transactionId: string, transactionType: string) => void; 
 }
 
 const TransactionDetailsPopup: React.FC<TransactionDetailsPopupProps> = ({ transaction, onClose, onDelete }) => {
@@ -14,7 +14,6 @@ const TransactionDetailsPopup: React.FC<TransactionDetailsPopupProps> = ({ trans
 
   const handleDelete = () => {
     if (transaction) {
-      // Ellenőrizzük, hogy a tranzakció típusa "Expense" vagy "Income"
       const transactionType = transaction.type === PaymentType.Expense ? "expense" : "income";
       onDelete(transaction.id, transactionType);
     }

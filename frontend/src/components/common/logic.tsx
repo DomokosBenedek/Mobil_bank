@@ -36,10 +36,10 @@ export const logicks = () => {
     const loginTime = parseInt(localStorage.getItem("loginTime") || "0", 10);
     const currentTime = new Date().getTime();
     const timeElapsed = currentTime - loginTime;
-    const timeRemaining = 3600000 - timeElapsed; // 1 óra milliszekundumban
+    const timeRemaining = 3600000 - timeElapsed; 
 
     if (timeRemaining <= 0) {
-      logout(); // Ha lejárt az idő, kiléptetjük a felhasználót
+      logout(); 
     } else {
       setTimeLeft(timeRemaining);
     }
@@ -166,7 +166,7 @@ export const logicks = () => {
 
   //Allpayment
   const allpayment = async () => {
-        console.log('activeAccountId (kezdet): ' + activeAccount?.id);
+
         if (activeAccount) {
           let x: any[] = [];
           const expenses = await fetchExpenses(activeAccount.id);
@@ -217,7 +217,7 @@ export const logicks = () => {
 
 // Logout
 const logout = async () => {
-    navigate("/", { replace: true }); // Navigate to the home page first
+    navigate("/", { replace: true });
     setIsLoggedIn(false);
     setActiveAccount(null);
     setUser(null);
@@ -246,20 +246,17 @@ const logout = async () => {
       .then((userData) => {
         setUser(userData);
         setIsLoggedIn(true);
-        saveLoginTime(); // Login idő mentése
-        startCountdown(); // Visszaszámláló indítása
+        saveLoginTime(); 
+        startCountdown(); 
         localStorage.setItem("loggedInUser", JSON.stringify(userData));
         if (userData.access_token) {
             localStorage.setItem("Token", userData.access_token as string);
-            console.log("Token: " + userData.access_token);
         }
         if (userData.id) {
             localStorage.setItem("UserId", userData.id as string);
-            console.log("UserId: " + userData.id);
         }
         showToast("Sikeres bejelentkezés!");
         setLoginError(null); // Clear the error message on successful login
-        console.log("Login success");
     })
     .catch((error) => {
         console.error("Error:", error);
@@ -313,8 +310,6 @@ const logout = async () => {
       const newIncome = await response.json();
       setIncomes((prevIncomes) => [...prevIncomes, newIncome]);
       showToast("Sikeres jövedelem hozzáadás!");
-  
-      // Frissítsük az adatokat
       await refreshData();
     } catch (error) {
       setError((error as Error).message);
@@ -346,8 +341,6 @@ const logout = async () => {
       const newExpense = await response.json();
       setExpenses((prevExpenses) => [...prevExpenses, newExpense]);
       showToast("Sikeres kiadás hozzáadás!");
-  
-      // Frissítsük az adatokat
       await refreshData();
     } catch (error) {
       setError((error as Error).message);
@@ -408,8 +401,6 @@ const logout = async () => {
         throw new Error("Failed to delete transaction");
       }
       showToast("Tranzakció sikeresen törölve!");
-  
-      // Frissítsük az adatokat
       await refreshData();
     } catch (error) {
       console.error("Error deleting transaction:", error);
@@ -508,10 +499,9 @@ const logout = async () => {
         });
         if (!response.ok) throw new Error("Failed to stop repeatable transaction");
         showToast("Ismétlődő tranzakció leállítva!");
-        // Frissítsük az ismétlődő tranzakciók listáját
         if (activeAccount?.id) {
           const updatedTransactions = await fetchRepeatableTransactions(activeAccount.id);
-          setPayments(updatedTransactions); // Frissítsük az állapotot
+          setPayments(updatedTransactions); 
         }
       } catch (error) {
         console.error("Error stopping repeatable transaction:", error);
@@ -529,14 +519,10 @@ const logout = async () => {
         });
         if (!response.ok) throw new Error("Failed to delete repeatable transaction");
         showToast("Ismétlődő tranzakció törölve!");
-    
-        // Frissítsük az ismétlődő tranzakciók listáját
         if (activeAccount?.id) {
           const updatedTransactions = await fetchRepeatableTransactions(activeAccount.id);
-          setPayments(updatedTransactions); // Frissítsük az ismétlődő tranzakciókat
+          setPayments(updatedTransactions); 
         }
-    
-        // Számoljuk újra a payments adatokat
         if (activeAccount) {
           const updatedPayments = await allpayment();
           setPayments(updatedPayments || []);
@@ -595,7 +581,7 @@ const refreshData = async () => {
     if (storedUser) {
       setUser(JSON.parse(storedUser));
       setIsLoggedIn(true);
-      startCountdown(); // Visszaszámláló indítása, ha már be van jelentkezve
+      startCountdown(); 
     }
   }, []);
 
