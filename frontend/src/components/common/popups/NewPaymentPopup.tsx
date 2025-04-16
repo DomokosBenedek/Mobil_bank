@@ -55,7 +55,7 @@ const NewPaymentPopup: React.FC<NewPaymentPopupProps> = ({
   const handleSave = async () => {
     try {
       if (type === "Expense" && repeat && !repeatName) {
-        const formattedDate = new Date(repeatStart).toISOString().split("T")[0]; // Format as yyyy-mm-dd
+        const formattedDate = new Date(repeatStart).toISOString().split("T")[0];
         setRepeatName(`${formattedDate} Ismétlődés`);
       }
   
@@ -101,7 +101,6 @@ const NewPaymentPopup: React.FC<NewPaymentPopupProps> = ({
       fetchIncomes(activeAccount?.id || "");
       findone(activeAccount?.id || "");
       onSave();
-      window.location.reload();
     } catch (error) {
       toast.error("Hiba történt a mentés során!");
       console.error(error);

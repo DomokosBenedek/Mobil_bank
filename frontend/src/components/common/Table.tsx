@@ -3,8 +3,10 @@ import { Filter_darkblue, Icon_Negative, Icon_Positive } from "./img";
 import TransactionDetailsPopup from "./popups/TransactionDetailsPopup";
 import { TransactionProp } from "../Props/TransactionProp";
 import "../../design/common/table.scss";
+import { logicks } from "./logic";
 
 const Table: React.FC<any> = ({ payments }) => {
+  const { deleteTransaction } = logicks();
   const [selectedTransaction, setSelectedTransaction] =
     useState<TransactionProp | null>(null);
   const [filterCategory, setFilterCategory] = useState<string | null>(null);
@@ -96,23 +98,23 @@ const Table: React.FC<any> = ({ payments }) => {
         {showFilters && (
           <div className="filter-dropdown">
             <div>
-              <label>Type:</label>
+              <label>Tipus:</label>
               <select
                 onChange={(e) =>
                   setFilterType(e.target.value as "Income" | "Expense" | "All")
                 }
               >
-                <option value="All">All</option>
-                <option value="Income">Income</option>
-                <option value="Expense">Expense</option>
+                <option value="All">Mind</option>
+                <option value="Income">Bevétel</option>
+                <option value="Expense">Kiadás</option>
               </select>
             </div>
             <div>
-              <label>Category:</label>
+              <label>Kategoria:</label>
               <select
                 onChange={(e) => setFilterCategory(e.target.value || null)}
               >
-                <option value="">All</option>
+                <option value="">Mind</option>
                 {incomeCategories.concat(expenseCategories).map((category) => (
                   <option key={category} value={category}>
                     {category}
@@ -121,7 +123,7 @@ const Table: React.FC<any> = ({ payments }) => {
               </select>
             </div>
             <div>
-              <label>Date Range:</label>
+              <label>Dátum:</label>
               <input
                 type="date"
                 onChange={(e) =>
@@ -138,14 +140,14 @@ const Table: React.FC<any> = ({ payments }) => {
               -ig
             </div>
             <div>
-              <label>Sort By:</label>
+              <label>Szűrőy:</label>
               <select onChange={(e) => setSortOption(e.target.value)}>
-                <option value="date-desc">Date (Newest First)</option>
-                <option value="date-asc">Date (Oldest First)</option>
-                <option value="amount-desc">Amount (Highest First)</option>
-                <option value="amount-asc">Amount (Lowest First)</option>
-                <option value="description-asc">Description (A-Z)</option>
-                <option value="description-desc">Description (Z-A)</option>
+                <option value="date-desc">Dátum (Legújabb elöl)</option>
+                <option value="date-asc">Dátum (Legrégebbi elöl)</option>
+                <option value="amount-desc">Összeg (Legmagasabb elöl)</option>
+                <option value="amount-asc">Összeg (Legalacsonyabb elöl)</option>
+                <option value="description-asc">Leírás (A-Z)</option>
+                <option value="description-desc">Leírás (Z-A)</option>
               </select>
             </div>
           </div>
@@ -196,9 +198,13 @@ const Table: React.FC<any> = ({ payments }) => {
         </div>
         {selectedTransaction && (
           <TransactionDetailsPopup
-            transaction={selectedTransaction}
-            onClose={handleClosePopup}
-          />
+          transaction={selectedTransaction}
+          onClose={handleClosePopup}
+          onDelete={async (transactionId: string, transactionType: string) => {
+            await deleteTransaction(transactionId, transactionType); 
+            setSelectedTransaction(null);
+          }}
+        />
         )}
       </>
     );

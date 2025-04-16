@@ -36,16 +36,12 @@ const Dashboard_Page: React.FC = () => {
     allpayment,
     disconnectUser,
     transfer,
-    userToken,
     fetchApiCurrency,
     fetchRepeatableTransactions,
     stopRepeatableTransaction,
     deleteRepeatableTransaction,
+    refreshData,
   } = logicks();
-
-  console.log("userToken: ", userToken);
-  console.log("userId: ", user?.id);
-  console.log("accountId", activeAccount?.id);
 
   const [contextMenu, setContextMenu] = useState<{
     x: number;
@@ -108,16 +104,19 @@ const Dashboard_Page: React.FC = () => {
     setShowNewUserPopup(false);
   };
 
-  const handleDeleteAccount = () => {
-    deleteAccount(activeAccount?.id || "");
+  const handleDeleteAccount = async () => {
+    await deleteAccount(activeAccount?.id || "");
+    await refreshData(); // Adatok frissítése
     setShowDeleteAccountPopup(false);
   };
+
   const handleDisconnect = () => {
     disconnectUser(activeAccount?.id || "");
     setShowDeleteAccountPopup(false);
   };
 
-  const handleNewPaymentSave = () => {
+  const handleNewPaymentSave = async () => {
+    await refreshData(); // Adatok frissítése
     setShowNewPaymentPopup(false);
   };
 
@@ -180,7 +179,6 @@ const Dashboard_Page: React.FC = () => {
     }
 
     currencys.forEach((currency) => {
-      fetchCurrencyData("2025-02-24", currency);
       fetchExchangeRates(currency, 30);
     });
   }, []);
@@ -190,8 +188,41 @@ const Dashboard_Page: React.FC = () => {
       user?.Accounts?.reduce((acc, account) => acc + (account.total || 0), 0) ||
       0;
     setTotalSum(sum);
-  }, [user?.Accounts, activeAccount]); // Figyeljük a változásokat
+  }, [user?.Accounts, activeAccount]);
 
+  useEffect(() => {
+    const fetchPayments = async () => {
+      const paymentsData = await allpayment();
+      setPayments(paymentsData || []);
+    };
+
+    const fetchIncomesAndExpenses = async () => {
+      const incomesData = await fetchIncomes(activeAccount?.id || "");
+      const expensesData = await fetchExpenses(activeAccount?.id || "");
+      setIncomes(incomesData || []);
+      setExpenses(expensesData || []);
+    };
+
+    fetchPayments();
+    fetchIncomesAndExpenses();
+  }, [activeAccount]);
+
+  useEffect(() => {
+    const fetchPayments = async () => {
+      const paymentsData = await allpayment();
+      setPayments(paymentsData || []);
+    };
+  
+    const fetchIncomesAndExpenses = async () => {
+      const incomesData = await fetchIncomes(activeAccount?.id || "");
+      const expensesData = await fetchExpenses(activeAccount?.id || "");
+      setIncomes(incomesData || []);
+      setExpenses(expensesData || []);
+    };
+  
+    fetchPayments();
+    fetchIncomesAndExpenses();
+  }, [activeAccount]);
   const getCardClass = (change: number) => {
     return change >= 0 ? "positive" : "negative";
   };

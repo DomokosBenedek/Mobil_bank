@@ -1,4 +1,3 @@
-// filepath: c:\Users\bened\Git\Mobil_bank\frontend\src\components\features\profil\Card.tsx
 import React, { useState, useEffect } from "react";
 import {
   Card_newCard,
@@ -38,6 +37,7 @@ const Card_Page: React.FC = () => {
     fetchRepeatableTransactions,
     stopRepeatableTransaction,
     deleteRepeatableTransaction,
+    refreshData,
   } = logicks();
 
   const [contextMenu, setContextMenu] = useState<{
@@ -113,16 +113,19 @@ const [selectedTransactionId, setSelectedTransactionId] = useState<string | null
     setShowNewCardPopup(false);
   };
 
-  const handleDeleteAccount = () => {
-    deleteAccount(activeAccount?.id || "");
+  const handleDeleteAccount = async () => {
+    await deleteAccount(activeAccount?.id || "");
+    await refreshData(); // Adatok frissítése
     setShowDeleteAccountPopup(false);
   };
+
   const handleDisconnect = () => {
     disconnectUser(activeAccount?.id || "");
     setShowDeleteAccountPopup(false);
   };
 
-  const handleNewPaymentSave = () => {
+  const handleNewPaymentSave = async () => {
+    await refreshData(); 
     setShowNewPaymentPopup(false);
   };
 

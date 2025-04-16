@@ -6,10 +6,19 @@ import "../../../design/popups/deleteAccountPopup.scss";
 interface TransactionDetailsPopupProps {
   transaction: TransactionProp | null;
   onClose: () => void;
+  onDelete: (transactionId: string, transactionType: string) => void; // Új prop a törléshez
 }
 
-const TransactionDetailsPopup: React.FC<TransactionDetailsPopupProps> = ({ transaction, onClose }) => {
+const TransactionDetailsPopup: React.FC<TransactionDetailsPopupProps> = ({ transaction, onClose, onDelete }) => {
   if (!transaction) return null;
+
+  const handleDelete = () => {
+    if (transaction) {
+      // Ellenőrizzük, hogy a tranzakció típusa "Expense" vagy "Income"
+      const transactionType = transaction.type === PaymentType.Expense ? "expense" : "income";
+      onDelete(transaction.id, transactionType);
+    }
+  };
 
   return (
     <div className="popup-overlay">
@@ -22,9 +31,14 @@ const TransactionDetailsPopup: React.FC<TransactionDetailsPopupProps> = ({ trans
         <p><strong>Leírás:</strong> {transaction.description || 'Nincs megadva'}</p>
         <p><strong>Létrehozva:</strong> {new Date(transaction.createdAt).toLocaleString()}</p>
         <p><strong>Módosítva:</strong> {new Date(transaction.updatedAt).toLocaleString()}</p>
-        <button className="primary" onClick={onClose}>
-          Bezárás
-        </button>
+        <div className="buttons">
+          <button className="primary" onClick={onClose}>
+            Bezárás
+          </button>
+          <button className="secondary" onClick={handleDelete}>
+            Törlés
+          </button>
+        </div>
       </div>
     </div>
   );

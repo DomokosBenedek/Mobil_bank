@@ -289,65 +289,70 @@ const logout = async () => {
   };
   
   // Add income
-  const addIncome = async (accountId: string, amount: number, category: String, description: String,  repeatAmount: number, repeatMetric: String) => {
+  const addIncome = async (accountId: string, amount: number, category: String, description: String, repeatAmount: number, repeatMetric: String) => {
     try {
-        const response = await fetch(`http://localhost:3000/income`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "authorization": "Bearer " + userToken,
-            },
-            body: JSON.stringify({
-                total: amount,
-                category,
-                userId: userID,
-                bankAccountId: accountId,
-                description,
-                repeatAmount,
-                repeatMetric,
-                repeatStart: new Date(),
-                repeatEnd: new Date(),
-            }),
-        });
-        if (!response.ok) throw new Error("Failed to add income");
-        const newIncome = await response.json();
-        setIncomes((prevIncomes) => [...prevIncomes, newIncome]);
-        showToast("Sikeres jövedelem hozzáadás!");
-        return incomes;
+      const response = await fetch(`http://localhost:3000/income`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "authorization": "Bearer " + userToken,
+        },
+        body: JSON.stringify({
+          total: amount,
+          category,
+          userId: userID,
+          bankAccountId: accountId,
+          description,
+          repeatAmount,
+          repeatMetric,
+          repeatStart: new Date(),
+          repeatEnd: new Date(),
+        }),
+      });
+      if (!response.ok) throw new Error("Failed to add income");
+      const newIncome = await response.json();
+      setIncomes((prevIncomes) => [...prevIncomes, newIncome]);
+      showToast("Sikeres jövedelem hozzáadás!");
+  
+      // Frissítsük az adatokat
+      await refreshData();
     } catch (error) {
-        setError((error as Error).message);
+      setError((error as Error).message);
     }
-};
+  };
   
   // Add expense
-  const addExpense = async (accountId: string, amount: number, category: String, description: String,  repeatAmount: number, repeatMetric: String) => {
+  const addExpense = async (accountId: string, amount: number, category: String, description: String, repeatAmount: number, repeatMetric: String) => {
     try {
-        const response = await fetch(`http://localhost:3000/expense`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "authorization": "Bearer " + userToken,
-            },
-            body: JSON.stringify({
-                total: amount,
-                category,
-                userId: userID,
-                bankAccountId: accountId,
-                description,
-                repeatAmount,
-                repeatMetric,
-                repeatStart: new Date(),
-                repeatEnd: new Date(),
-            }),
-        });
-        if (!response.ok) throw new Error("Failed to add expense");
-        const newExpense = await response.json();
-        setExpenses((prevExpenses) => [...prevExpenses, newExpense]);
-        showToast("Sikeres kiadás hozzáadás!");
+      const response = await fetch(`http://localhost:3000/expense`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "authorization": "Bearer " + userToken,
+        },
+        body: JSON.stringify({
+          total: amount,
+          category,
+          userId: userID,
+          bankAccountId: accountId,
+          description,
+          repeatAmount,
+          repeatMetric,
+          repeatStart: new Date(),
+          repeatEnd: new Date(),
+        }),
+      });
+      if (!response.ok) throw new Error("Failed to add expense");
+      const newExpense = await response.json();
+      setExpenses((prevExpenses) => [...prevExpenses, newExpense]);
+      showToast("Sikeres kiadás hozzáadás!");
+  
+      // Frissítsük az adatokat
+      await refreshData();
     } catch (error) {
-        setError((error as Error).message);
+      setError((error as Error).message);
     }
-};
+  };
   
   // Add user to account
   const addUserToAccount = async (accountId: string, email: string) => {
@@ -390,321 +395,28 @@ const logout = async () => {
     }
   };
 
-  //Api Beolvasás
-  const fetchApiEur = async ( date: string) => {
+  const deleteTransaction = async (transactionId: string, type: string) => {
     try {
-      const response = await fetch(`https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@${date}/v1/currencies/eur.json`, {
-        method: "GET",
+      const response = await fetch(`http://localhost:3000/${type}/${transactionId}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          "authorization": "Bearer " + userToken,
+        },
       });
       if (!response.ok) {
-        return [];
+        throw new Error("Failed to delete transaction");
       }
-      const data = await response.json();
-      const EurData: Api = {
-        date: data.date,
-        currency: "eur",
-        changes: data.eur,
-      };
-      return EurData;
+      showToast("Tranzakció sikeresen törölve!");
+  
+      // Frissítsük az adatokat
+      await refreshData();
     } catch (error) {
+      console.error("Error deleting transaction:", error);
       setError((error as Error).message);
-      return [];
     }
-  }
+  };
 
-  const fetchApiUsd = async ( date: string) => {
-    try {
-      const response = await fetch(`https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@${date}/v1/currencies/usd.json`, {
-        method: "GET",
-      });
-      if (!response.ok) {
-        return [];
-      }
-      const data = await response.json();
-      const UsdData: Api = {
-        date: data.date,
-        currency: "usd",
-        changes: data.usd,
-      };
-      return UsdData;
-    } catch (error) {
-      setError((error as Error).message);
-      return [];
-    }
-  }
-
-  const fetchApiAud = async ( date: string) => {
-    try {
-      const response = await fetch(`https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@${date}/v1/currencies/aud.json`, {
-        method: "GET",
-      });
-      if (!response.ok) {
-        return [];
-      }
-      const data = await response.json();
-      const AudData: Api = {
-        date: data.date,
-        currency: "aud",
-        changes: data.usd,
-      };
-      return AudData;
-    } catch (error) {
-      setError((error as Error).message);
-      return [];
-    }
-  }
-
-  const fetchApiCad = async (date: string) => {
-    try {
-      const response = await fetch(`https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@${date}/v1/currencies/cad.json`, {
-        method: "GET",
-      });
-      if (!response.ok) {
-        return [];
-      }
-      const data = await response.json();
-      const CadData: Api = {
-        date: data.date,
-        currency: "cad",
-        changes: data.cad,
-      };
-      return CadData;
-    } catch (error) {
-      setError((error as Error).message);
-      return [];
-    }
-  };
-  
-  const fetchApiChf = async (date: string) => {
-    try {
-      const response = await fetch(`https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@${date}/v1/currencies/chf.json`, {
-        method: "GET",
-      });
-      if (!response.ok) {
-        return [];
-      }
-      const data = await response.json();
-      const ChfData: Api = {
-        date: data.date,
-        currency: "chf",
-        changes: data.chf,
-      };
-      return ChfData;
-    } catch (error) {
-      setError((error as Error).message);
-      return [];
-    }
-  };
-  
-  const fetchApiCzk = async (date: string) => {
-    try {
-      const response = await fetch(`https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@${date}/v1/currencies/czk.json`, {
-        method: "GET",
-      });
-      if (!response.ok) {
-        return [];
-      }
-      const data = await response.json();
-      const CzkData: Api = {
-        date: data.date,
-        currency: "czk",
-        changes: data.czk,
-      };
-      return CzkData;
-    } catch (error) {
-      setError((error as Error).message);
-      return [];
-    }
-  };
-  
-  const fetchApiGbp = async (date: string) => {
-    try {
-      const response = await fetch(`https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@${date}/v1/currencies/gbp.json`, {
-        method: "GET",
-      });
-      if (!response.ok) {
-        return [];
-      }
-      const data = await response.json();
-      const GbpData: Api = {
-        date: data.date,
-        currency: "gbp",
-        changes: data.gbp,
-      };
-      return GbpData;
-    } catch (error) {
-      setError((error as Error).message);
-      return [];
-    }
-  };
-  
-  const fetchApiHrk = async (date: string) => {
-    try {
-      const response = await fetch(`https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@${date}/v1/currencies/hrk.json`, {
-        method: "GET",
-      });
-      if (!response.ok) {
-        return [];
-      }
-      const data = await response.json();
-      const HrkData: Api = {
-        date: data.date,
-        currency: "hrk",
-        changes: data.hrk,
-      };
-      return HrkData;
-    } catch (error) {
-      setError((error as Error).message);
-      return [];
-    }
-  };
-  
-  const fetchApiJpy = async (date: string) => {
-    try {
-      const response = await fetch(`https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@${date}/v1/currencies/jpy.json`, {
-        method: "GET",
-      });
-      if (!response.ok) {
-        return [];
-      }
-      const data = await response.json();
-      const JpyData: Api = {
-        date: data.date,
-        currency: "jpy",
-        changes: data.jpy,
-      };
-      return JpyData;
-    } catch (error) {
-      setError((error as Error).message);
-      return [];
-    }
-  };
-  
-  const fetchApiNok = async (date: string) => {
-    try {
-      const response = await fetch(`https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@${date}/v1/currencies/nok.json`, {
-        method: "GET",
-      });
-      if (!response.ok) {
-        return [];
-      }
-      const data = await response.json();
-      const NokData: Api = {
-        date: data.date,
-        currency: "nok",
-        changes: data.nok,
-      };
-      return NokData;
-    } catch (error) {
-      setError((error as Error).message);
-      return [];
-    }
-  };
-  
-  const fetchApiPln = async (date: string) => {
-    try {
-      const response = await fetch(`https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@${date}/v1/currencies/pln.json`, {
-        method: "GET",
-      });
-      if (!response.ok) {
-        return [];
-      }
-      const data = await response.json();
-      const PlnData: Api = {
-        date: data.date,
-        currency: "pln",
-        changes: data.pln,
-      };
-      return PlnData;
-    } catch (error) {
-      setError((error as Error).message);
-      return [];
-    }
-  };
-  
-  const fetchApiRon = async (date: string) => {
-    try {
-      const response = await fetch(`https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@${date}/v1/currencies/ron.json`, {
-        method: "GET",
-      });
-      if (!response.ok) {
-        return [];
-      }
-      const data = await response.json();
-      const RonData: Api = {
-        date: data.date,
-        currency: "ron",
-        changes: data.ron,
-      };
-      return RonData;
-    } catch (error) {
-      setError((error as Error).message);
-      return [];
-    }
-  };
-  
-  const fetchApiRub = async (date: string) => {
-    try {
-      const response = await fetch(`https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@${date}/v1/currencies/rub.json`, {
-        method: "GET",
-      });
-      if (!response.ok) {
-        return [];
-      }
-      const data = await response.json();
-      const RubData: Api = {
-        date: data.date,
-        currency: "rub",
-        changes: data.rub,
-      };
-      return RubData;
-    } catch (error) {
-      setError((error as Error).message);
-      return [];
-    }
-  };
-  
-  const fetchApiSek = async (date: string) => {
-    try {
-      const response = await fetch(`https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@${date}/v1/currencies/sek.json`, {
-        method: "GET",
-      });
-      if (!response.ok) {
-        return [];
-      }
-      const data = await response.json();
-      const SekData: Api = {
-        date: data.date,
-        currency: "sek",
-        changes: data.sek,
-      };
-      return SekData;
-    } catch (error) {
-      setError((error as Error).message);
-      return [];
-    }
-  };
-  
-  const fetchApiUah = async (date: string) => {
-    try {
-      const response = await fetch(`https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@${date}/v1/currencies/uah.json`, {
-        method: "GET",
-      });
-      if (!response.ok) {
-        return [];
-      }
-      const data = await response.json();
-      const UahData: Api = {
-        date: data.date,
-        currency: "uah",
-        changes: data.uah,
-      };
-      return UahData;
-    } catch (error) {
-      setError((error as Error).message);
-      return [];
-    }
-  };
 
   const fetchApiCurrency = async (date: string, currency: string) => {
     try {
@@ -854,6 +566,16 @@ const logout = async () => {
     }
 };
 
+const refreshData = async () => {
+  if (activeAccount?.id) {
+    const updatedPayments = await allpayment();
+    setPayments(updatedPayments || []);
+    const incomesData = await fetchIncomes(activeAccount.id);
+    const expensesData = await fetchExpenses(activeAccount.id);
+    setIncomes(incomesData || []);
+    setExpenses(expensesData || []);
+  }
+};
 
   
   useEffect(() => {
@@ -905,30 +627,17 @@ const logout = async () => {
     isLoggedIn,
     Login,
     allpayment,
-    fetchApiEur,
-    fetchApiUsd,
-    fetchApiAud,
-    fetchApiCad,
-    fetchApiChf,
-    fetchApiCzk,
-    fetchApiGbp,
-    fetchApiHrk,
-    fetchApiJpy,
-    fetchApiNok,
-    fetchApiPln,
-    fetchApiRon,
-    fetchApiRub,
-    fetchApiSek,
-    fetchApiUah,
     transfer,
     userToken,
     loginError,
     setLoginError,
+    deleteTransaction,
     createRepeatableTransaction,
     fetchRepeatableTransactions,
     stopRepeatableTransaction,
     deleteRepeatableTransaction,
     fetchApiCurrency,
+    refreshData,
     activeUserAccounts,
     timeLeft,
   };

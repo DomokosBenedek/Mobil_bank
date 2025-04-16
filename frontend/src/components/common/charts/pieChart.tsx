@@ -1,6 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useMemo } from 'react';
 import Chart from 'chart.js/auto';
-import { logicks } from '../logic';
 
 interface PieChartProps {
   incomes: { total: number; createdAt: string }[];
@@ -8,35 +7,22 @@ interface PieChartProps {
 }
 
 const PieChart: React.FC<PieChartProps> = ({ incomes, expenses }) => {
-  const { activeAccount } = logicks();
-
   const chartRef = useRef<HTMLCanvasElement>(null);
   const chartInstanceRef = useRef<Chart | null>(null);
 
-  const [sumIncomes, setSumIncome] = useState<number>(0);
-  const [sumExpenses, setSumExpenses] = useState<number>(0);
+  const { sumIncomes, sumExpenses } = useMemo(() => {
+    const totalIncomes = (Array.isArray(incomes) ? incomes : []).reduce((sum, income) => sum + income.total, 0);
+    const totalExpenses = (Array.isArray(expenses) ? expenses : []).reduce((sum, expense) => sum + expense.total, 0);
+    return { sumIncomes: totalIncomes, sumExpenses: totalExpenses };
+  }, [incomes, expenses]);
 
   useEffect(() => {
-    if (incomes.length > 0) {
-      setSumIncome(incomes.reduce((sum, income) => sum + income.total, 0) || 0);
-    } else {
-      setSumIncome(0);
-    }
-    if (expenses.length > 0) {
-      setSumExpenses(expenses.reduce((sum, expense) => sum + expense.total, 0) || 0);
-    } else {
-      setSumExpenses(0);
-    }
-
     if (chartRef.current) {
       const ctx = chartRef.current.getContext('2d');
       if (ctx) {
-        // Destroy the previous chart instance if it exists
         if (chartInstanceRef.current) {
           chartInstanceRef.current.destroy();
         }
-
-        // Create a new chart instance
         chartInstanceRef.current = new Chart(ctx, {
           type: 'pie',
           data: {
@@ -63,7 +49,7 @@ const PieChart: React.FC<PieChartProps> = ({ incomes, expenses }) => {
         });
       }
     }
-  }, [incomes, expenses, activeAccount, sumIncomes, sumExpenses]);
+  }, [sumIncomes, sumExpenses]);
 
   if (!incomes?.length && !expenses?.length) {
     return <p>No data available</p>;

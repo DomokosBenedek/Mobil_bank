@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { toast } from 'react-toastify'; // Importáljuk a toast-ot
 import "../../../design/popups/defoultPopup.scss";
 import "../../../design/popups/newUserPopup.scss";
 
@@ -10,7 +11,16 @@ interface NewUserPopupProps {
 const NewUserPopup: React.FC<NewUserPopupProps> = ({ onClose, onSave }) => {
   const [email, setEmail] = useState<string>('');
 
-  const handleSave = () => {
+  const checkEmailExists = async (email: string): Promise<boolean> => {
+    return false;
+  };
+
+  const handleSave = async () => {
+    const emailExists = await checkEmailExists(email);
+    if (!emailExists) {
+      toast.error("A megadott email nem létezik!"); 
+      return;
+    }
     onSave(email);
     window.location.reload();
   };
